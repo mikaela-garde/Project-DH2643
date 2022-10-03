@@ -16,7 +16,7 @@ loaders.push({
 
 module.exports = {
     entry: {
-        app: './client/app.tsx'
+        app: './src/app.tsx'
     },
     module: {
         rules: loaders
@@ -26,6 +26,6 @@ module.exports = {
     },
     output: {
         filename: 'main.bundle.js',
-        path: path.join(path.resolve(), 'dist')
+        path: path.join(path.resolve(), '../dist')
     }
 }

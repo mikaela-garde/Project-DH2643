@@ -1,4 +1,4 @@
-import path from 'path';
+const path = require('path');
 
 const loaders = [];
 
@@ -8,12 +8,21 @@ loaders.push({
     use: 'babel-loader'
 })
 
-export default {
+loaders.push({
+    test: /\.(ts|tsx)$/,
+    use: "ts-loader",
+    exclude: /node_modules/
+})
+
+module.exports = {
     entry: {
-        app: './client/app.jsx'
+        app: './client/app.tsx'
     },
     module: {
         rules: loaders
+    },
+    resolve: {
+        extensions: ['.tsx', ".ts", ".js", ".jsx"],
     },
     output: {
         filename: 'main.bundle.js',

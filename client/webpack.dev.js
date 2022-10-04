@@ -7,7 +7,7 @@ module.exports = merge(common, {
     mode: 'development',
     devServer: {
         static: {
-            directory: path.join(path.resolve(), 'dist')
+            directory: path.join(path.resolve(), '../dist')
         },
         port: 3000
     }

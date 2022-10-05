@@ -9,6 +9,7 @@ module.exports = merge(common, {
         static: {
             directory: path.join(path.resolve(), '../dist')
         },
-        port: 3000
+        port: 3000,
+        http2: true,
     }
 })

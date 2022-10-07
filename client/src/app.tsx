@@ -2,7 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { getAPI } from './webAPI/webAPI';
 import TemplatePresenter from './Components/Template/TemplatePresenter';
+import LoginPresenter from './Components/Login/LoginPresenter';
 import Theme from "./Theme";
+import{ createGlobalStyle } from "styled-components";
 import {
     HashRouter,
     Routes,
@@ -26,22 +28,46 @@ const App = () => {
 
     return (
     <Theme> 
+        <GlobalStyle/>
         <HashRouter>
             <Routes>
 
                 <Route path="/dashboard" element={<DashboardPresenter />} />
                 <Route path="/template" element={<TemplatePresenter />} />
+                <div>
+                    <p>Experience Saversss</p><div>{`${fetchedData}`}</div>
+                </div> 
+
                 
+                <LoginPresenter></LoginPresenter>
+                <div>
+                    <TemplatePresenter></TemplatePresenter>
+                    <p>Experience Saversss</p><div>{`${fetchedData}`}</div>
+                </div>
             </Routes>
         </HashRouter>
-
-        <div>
-            <p>Experience Saversss</p><div>{`${fetchedData}`}</div>
-        </div> 
+        
+        
+       {/*<Router>
+            <Route path="/dashboard" element={<Dashboard />} />
+            <div>
+                <TemplatePresenter></TemplatePresenter>
+                <p>Experience Saversss</p><div>{`${fetchedData}`}</div>
+            </div> 
+    </Router>*/}
         
     </Theme>
     )
 }
+
+const GlobalStyle = createGlobalStyle `
+    body {
+    margin: 0;
+    padding: 0;
+    }
+`;
+
+
 
 ReactDOM.createRoot(document.getElementById('app')!).render(<App />);
 

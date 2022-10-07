@@ -1,13 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { getAPI } from './webAPI/webAPI';
-import TemplatePresenter from './Components//Template/TemplatePresenter';
+import TemplatePresenter from './Components/Template/TemplatePresenter';
 import Theme from "./Theme";
 import {
-    BrowserRouter as Router,
+    HashRouter,
+    Routes,
     Route,
+    BrowserRouter
   } from "react-router-dom";
-import Dashboard from "./Components/Template/Dashboard/DashboardPresenter";
+import DashboardPresenter from './Components/Dashboard/DashboardPresenter';
 
 
 const App = () => {
@@ -23,14 +25,19 @@ const App = () => {
     }, [])
 
     return (
-    <Theme>
-        <Router>
-            <Route path="/dashboard" element={<Dashboard />} />
-            <div>
-                <TemplatePresenter></TemplatePresenter>
-                <p>Experience Saversss</p><div>{`${fetchedData}`}</div>
-            </div> 
-        </Router>
+    <Theme> 
+        <HashRouter>
+            <Routes>
+
+                <Route path="/dashboard" element={<DashboardPresenter />} />
+                <Route path="/template" element={<TemplatePresenter />} />
+                
+            </Routes>
+        </HashRouter>
+
+        <div>
+            <p>Experience Saversss</p><div>{`${fetchedData}`}</div>
+        </div> 
         
     </Theme>
     )

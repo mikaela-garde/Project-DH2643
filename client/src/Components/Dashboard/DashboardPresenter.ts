@@ -1,11 +1,11 @@
 import React, {useState} from 'react';
-import TemplateView from "./DashboardView";
+import DashboardView from "./DashboardView";
 
-function TemplatePresenter (props) {
+function DashboardPresenter (props) {
     const [isShown, setIsShown] = useState(false);
     const [colorChange, setColorChange] = useState(false);
 
-    return React.createElement(TemplateView, {
+    return React.createElement(DashboardView, {
       onToggle: () =>  setIsShown(current => !current),
       onColorChange: () => setColorChange(current => !current),
       isShown: isShown,
@@ -14,4 +14,4 @@ function TemplatePresenter (props) {
 }
 
 
-export default TemplatePresenter;
+export default DashboardPresenter;

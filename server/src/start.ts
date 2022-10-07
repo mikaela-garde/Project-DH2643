@@ -5,7 +5,7 @@ import fs from 'fs';
 import cors from "cors";
 import { initializeApp } from 'firebase/app';
 import { getDatabase } from "firebase/database";
-import firebaseConfig from "../firebaseconfig";
+//import firebaseConfig from "../firebase-config.js";
 
 
 const app = express();
@@ -54,7 +54,7 @@ server.listen(port, () => {
     console.log(`Server is listening on port: ${port}`);
 });
 
-
+/*
 //Firebase saker
 const firebaseApp = initializeApp(firebaseConfig);
-const database = getDatabase(firebaseApp);
+const database = getDatabase(firebaseApp);*/

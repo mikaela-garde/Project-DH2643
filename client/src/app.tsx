@@ -5,6 +5,11 @@ import TemplatePresenter from './Components/Template/TemplatePresenter';
 import LoginPresenter from './Components/Login/LoginPresenter';
 import Theme from "./Theme";
 import{ createGlobalStyle } from "styled-components";
+import {
+    BrowserRouter as Router,
+    Route,
+  } from "react-router-dom";
+import Dashboard from "./Components/Template/Dashboard/DashboardPresenter";
 
 
 const App = () => {
@@ -27,6 +32,14 @@ const App = () => {
             <TemplatePresenter></TemplatePresenter>
             <p>Experience Saversss</p><div>{`${fetchedData}`}</div>
         </div>
+        <Router>
+            <Route path="/dashboard" element={<Dashboard />} />
+            <div>
+                <TemplatePresenter></TemplatePresenter>
+                <p>Experience Saversss</p><div>{`${fetchedData}`}</div>
+            </div> 
+        </Router>
+        
     </Theme>
     )
 }

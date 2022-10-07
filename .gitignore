@@ -1,3 +1,4 @@
 node_modules/
 cert/
 dist/main.bundle.js
+server/firebase-config.js

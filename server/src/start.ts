@@ -3,6 +3,10 @@ import path from "path";
 import https from "https";
 import fs from 'fs';
 import cors from "cors";
+import { initializeApp } from 'firebase/app';
+import { getDatabase } from "firebase/database";
+import firebaseConfig from "../firebaseconfig";
+
 
 const app = express();
 
@@ -49,3 +53,8 @@ const server = https.createServer(options, app);
 server.listen(port, () => {
     console.log(`Server is listening on port: ${port}`);
 });
+
+
+//Firebase saker
+const firebaseApp = initializeApp(firebaseConfig);
+const database = getDatabase(firebaseApp);

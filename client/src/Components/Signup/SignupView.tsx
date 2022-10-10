@@ -1,20 +1,28 @@
 import React from 'react';
-import {Link} from "react-router-dom";
 import styled from "styled-components";
-import LogotypeHolderImg from "../../Images/LogotypeHolder.png";
+import ProfileHolderImg from "../../Images/profile-holder-signup.svg";
 import BackgroundBlobLeftSVG from "../../Images/BackgroundBlobLoginLeft.svg";
 import BackgroundBlobRightSVG from "../../Images/BackgroundBlobLoginRight.svg";
+import BackButtonArrow from "../../Images/back-button-arrow.svg";
+import {Link} from "react-router-dom";
 
 import { PrimaryBtn, InputField, ContentContainerLogin, ImgContainerLogin } from '../../StyledComponents';
 
-const LoginView = () =>
+const Signup = () =>
             <ContentContainer>
-                <ImgContainer src={LogotypeHolderImg}></ImgContainer>
-                <EmailInput placeholder="Email"></EmailInput>
+                <ImgContainer src={ProfileHolderImg}></ImgContainer>
+                <InputFieldSignup placeholder="First name"></InputFieldSignup>
+                <InputFieldSignup placeholder="Last name"></InputFieldSignup>
+                <InputFieldSignup placeholder="Email"></InputFieldSignup>
                 <PasswordInput placeholder="Password" type="password"></PasswordInput>
-                <LoginButton>Login</LoginButton>
-                <NavLink to="/signup">Sign up {'>'}</NavLink>
-
+                <PasswordInput placeholder="Confirm password" type="password"></PasswordInput>
+                <ButtonContainer>
+                    <NavLink to="/login">
+                        <BackButton src={BackButtonArrow}></BackButton>
+                    </NavLink>
+                        <SignUpButton>Sign up</SignUpButton>
+                </ButtonContainer>
+                
                 <BackgroundBlobContainerLeft>
                     <BackgroundBlob src ={BackgroundBlobLeftSVG}></BackgroundBlob>
                 </BackgroundBlobContainerLeft>
@@ -28,12 +36,11 @@ const ContentContainer = styled.div`
     ${ContentContainerLogin}
 `;
 
-
 const ImgContainer = styled.img`
     ${ImgContainerLogin}
 `;
 
-const EmailInput = styled.input`
+const InputFieldSignup = styled.input`
     ${InputField};
 `;
 
@@ -41,23 +48,30 @@ const PasswordInput = styled.input`
     ${InputField};
 `;
 
-const LoginButton = styled.button`
-    ${PrimaryBtn}
-`;
-const NavLink = styled(Link)`
+const ButtonContainer = styled.div`
     display: flex;
-    color: ${props => props.theme.colors.primary};
-    font-family: ${props => props.theme.fonts.raleway};
-    font-weight: 600;
-    font-size: 1em;
-    letter-spacing: 2px;
-    text-decoration:none;
-    a {
-        align-self: center;
-        text-decoration:none;
-    }
+    flex-direction: row;
+    margin: 0px;
+    >*  {
+        margin: 10px;
+        };
 `;
 
+const SignUpButton = styled.button`
+    ${PrimaryBtn}
+    align-self: center;
+`;
+
+const BackButton = styled.img`
+    width: 70%;
+`;
+
+const NavLink = styled(Link)`
+    display: flex;
+    a {
+        align-self: center;
+    }
+`;
 
 const BackgroundBlobContainerLeft = styled.div`
     position: fixed;
@@ -78,4 +92,4 @@ const BackgroundBlob = styled.img`
     vertical-align: middle;
 `;
 
-export default LoginView;
+export default Signup;

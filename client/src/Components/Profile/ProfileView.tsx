@@ -5,13 +5,25 @@ import ProfileImg from ".//../../Images/sad_cat.jpeg";
 import TiktokIcon from "../../Images/tiktok.png";
 import InstagramIcon from "../../Images/instagram.png";
 import ExperienceImg from "../../Images/experienceHolder.jpeg";
+import BackButtonArrow from "../../Images/back-button-arrow.svg";
+import {Link} from "react-router-dom";
+
+import { Heading1 } from '../../StyledComponents';
+import { Heading2 } from '../../StyledComponents';
+import { Heading3 } from '../../StyledComponents';
+import { BodyText } from '../../StyledComponents';
+import { Subtitle } from '../../StyledComponents';
 
 const ProfileView = () =>
 
     <ContentContainer>
         <HeaderContainer>
-            <BackButton><img src={BackArrow}></img></BackButton>
-            <Title>Profile</Title>
+                <ButtonContainer>
+                    <NavLink to="/login">
+                        <BackButton src={BackButtonArrow}></BackButton>
+                    </NavLink>
+                </ButtonContainer>
+            <PageTitle>Profile</PageTitle>
         </HeaderContainer>
 
         <ProfileContainer>
@@ -38,68 +50,60 @@ const ProfileView = () =>
             <Text>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</Text>
         </ProfileContainer>
 
-        <Title2>Experiences</Title2>
-
-        <ExperienceGridContainer>
-            <ExperienceContainer>
-                <ExperienceImgContainer src={ExperienceImg}></ExperienceImgContainer>
-                <Title3>28th Bday Party</Title3>
-                <Subtitle>27 Apr 2007</Subtitle>
-            </ExperienceContainer>
-            <ExperienceContainer>
-                <ExperienceImgContainer src={ExperienceImg}></ExperienceImgContainer>
-                <Title3>28th Bday Party</Title3>
-                <Subtitle>27 Apr 2007</Subtitle>
-            </ExperienceContainer>
-            <ExperienceContainer>
-                <ExperienceImgContainer src={ExperienceImg}></ExperienceImgContainer>
-                <Title3>28th Bday Party</Title3>
-                <Subtitle>27 Apr 2007</Subtitle>
-            </ExperienceContainer>
-            <ExperienceContainer>
-                <ExperienceImgContainer src={ExperienceImg}></ExperienceImgContainer>
-                <Title3>28th Bday Party</Title3>
-                <Subtitle>27 Apr 2007</Subtitle>
-            </ExperienceContainer>
-            <ExperienceContainer>
-                <ExperienceImgContainer src={ExperienceImg}></ExperienceImgContainer>
-                <Title3>28th Bday Party</Title3>
-                <Subtitle>27 Apr 2007</Subtitle>
-            </ExperienceContainer>
-            <ExperienceContainer>
-                <ExperienceImgContainer src={ExperienceImg}></ExperienceImgContainer>
-                <Title3>28th Bday Party</Title3>
-                <Subtitle>27 Apr 2007</Subtitle>
-            </ExperienceContainer>
-        </ExperienceGridContainer>
-
-        
+        <ExperienceContainer>
+            <Title2>Experiences</Title2>
+            <ExperienceGridContainer>
+                <ExperienceButtonContainer to="/login">
+                    <SingleExperienceContainer>
+                        <ExperienceImgContainer src={ExperienceImg}></ExperienceImgContainer>
+                        <Title3>28th Bday Party</Title3>
+                        <SmallText>27 Apr 2007</SmallText>
+                    </SingleExperienceContainer>
+                </ExperienceButtonContainer>
+            <ExperienceButtonContainer to="/login">
+                <SingleExperienceContainer>
+                    <ExperienceImgContainer src={ExperienceImg}></ExperienceImgContainer>
+                    <Title3>28th Bday Party</Title3>
+                    <SmallText>27 Apr 2007</SmallText>
+                </SingleExperienceContainer>
+            </ExperienceButtonContainer>
+            <ExperienceButtonContainer to="/login">
+                <SingleExperienceContainer>
+                    <ExperienceImgContainer src={ExperienceImg}></ExperienceImgContainer>
+                    <Title3>28th Bday Party</Title3>
+                    <SmallText>27 Apr 2007</SmallText>
+                </SingleExperienceContainer>
+            </ExperienceButtonContainer>
+            </ExperienceGridContainer>
+         </ExperienceContainer>
     </ContentContainer>
 ;
 const ContentContainer = styled.div`
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    flex-wrap: wrap;
+    gap: 70px;
     margin: 10px 320px;
 `;
 
-const ExperienceImgContainer = styled.img`
-    height: 200px;
-    width: 200px;
-    object-fit: cover;
-    border-radius: 30px;
-`
-
-const ExperienceContainer = styled.div`
-    display: flex
-    flex-direction: column;
-
+const ButtonContainer = styled.div`
+    display: flex;
+    flex-direction: row;
+    margin: 0px;
+    >*  {
+        margin: 10px;
+        };
 `;
 
-const ExperienceGridContainer = styled.div`
+const BackButton = styled.img`
+    width: 70%;
+`;
+
+const NavLink = styled(Link)`
     display: flex;
-    flex-wrap: wrap;
-    gap: 50px;
+    a {
+        align-self: center;
+    }
 `;
 
 const ProfileContainer = styled.div`
@@ -112,7 +116,7 @@ const ProfileHeaderContainer = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    
+    flex-wrap: wrap;
 `;
 
 const SocialMediaContainer = styled.div`
@@ -128,26 +132,6 @@ const IconContainer = styled.img`
     margin-right: 10px;
 `;
 
-const Subtitle = styled.p`
-    font-size: 1em;
-    font-weight: 400;
-    color: ${props => props.theme.colors.primary};
-    font-family: ${props => props.theme.fonts.raleway}; 
-    background-color: solid;
-    margin-block-start:0em;
-    margin-bottom: auto;
-`;
-
-const Text = styled.p`
-    font-size: 1.5em;
-    font-weight: 300;
-    color: ${props => props.theme.colors.primary};
-    font-family: ${props => props.theme.fonts.raleway}; 
-    background-color: solid;
-    margin-block-start:0em;
-    margin-bottom: auto;
-`;
-
 const ImgTextContainer = styled.div`
     display: flex
     align-items: center;
@@ -155,25 +139,51 @@ const ImgTextContainer = styled.div`
     flex-direction: row;
 `;
 
-const Title3 = styled.h3`
-    font-size: 1.5em;
-    font-weight: 500;
-    color: ${props => props.theme.colors.primary};
-    font-family: ${props => props.theme.fonts.raleway}; 
-    background-color: solid;
-    margin: 5px 0px;
+const ExperienceImgContainer = styled.img`
+    height: 200px;
+    width: 200px;
+    object-fit: cover;
+    border-radius: 30px;
 `;
 
-const Title2 = styled.h2`
-    font-size: 2em;
-    font-weight: 500;
-    color: ${props => props.theme.colors.primary};
-    font-family: ${props => props.theme.fonts.raleway}; 
-    background-color: solid;
+const SingleExperienceContainer = styled.div`
+    display: flex
+    flex-direction: column;
+    justify-content; left;
+`;
+
+const ExperienceButtonContainer = styled(Link)`
+    display: flex;
+    text-decoration: 'none';
     height: fit-content;
-    margin: auto;
+    justify-content: center;
+    &:focus, &:visited, &:link, &:active {
+        text-decoration: none;
+    }
+    &:hover {
+        opacity: 50%;
+        transition: background-color 400ms ease-out 100ms;
+    }
 `;
 
+const ExperienceGridContainer = styled.div`
+    display: flex;
+    flex-flow: row wrap;
+    gap: 50px;
+    justify-conttent; space-between;
+
+    :after {
+        content: "";
+        flex: auto;
+      }
+`;
+
+const ExperienceContainer = styled.div`
+      display: flex; 
+      flex-direction: column;
+      justify-content: center;
+      gap: 30px;
+`;
 const ProfileImgContainer = styled.img`
     border-radius: 50%;
     height: 150px;
@@ -189,24 +199,31 @@ const HeaderContainer = styled.div`
     flex-direction: row;
 `;
 
-const Title = styled.h1`
-    font-size: 5em;
-    font-weight: 900;
-    color: ${props => props.theme.colors.primary};
-    font-family: ${props => props.theme.fonts.raleway}; 
-    background-color: solid;
+const PageTitle = styled.h1`
+    ${Heading1}
+`;
 
+const Title2 = styled.h2`
+    ${Heading2};
+    margin: auto;
 `;
-const BackButton = styled.button`
-    color: white;
-    background-color: solid;
-    background-color: ${props => props.theme.colors.primary};
-    border-color: ${props => props.theme.colors.primary};
-    border-radius: 150px;
-    height: 45px;
-    width: 45px;
-    border-style: solid;
-    margin-right: 20px;
+
+const Title3 = styled.h3`
+    ${Heading3};
+    margin: 5px 0px;
 `;
+
+const SmallText = styled.p`
+    ${Subtitle};
+    margin-block-start:0em;
+    margin-bottom: auto;
+`;
+
+const Text = styled.p`
+    ${BodyText};
+    margin-block-start:0em;
+    margin-bottom: auto;
+`;
+
 
 export default ProfileView;

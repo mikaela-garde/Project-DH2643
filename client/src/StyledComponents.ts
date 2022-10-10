@@ -1,5 +1,46 @@
 import { css } from 'styled-components';
 
+const Heading1 = css`
+    font-size: 5em;
+    font-weight: 900;
+    color: ${props => props.theme.colors.primary};
+    font-family: ${props => props.theme.fonts.raleway}; 
+    background-color: solid;
+`;
+
+const Heading2 = css`
+    font-size: 2.25em;
+    font-weight: 500;
+    color: ${props => props.theme.colors.primary};
+    font-family: ${props => props.theme.fonts.raleway}; 
+    background-color: solid;
+`;
+
+const Heading3 = css`
+    font-size: 1.5em;
+    font-weight: 500;
+    color: ${props => props.theme.colors.primary};
+    font-family: ${props => props.theme.fonts.raleway}; 
+    background-color: solid;
+
+`;
+
+const BodyText = css`
+    font-size: 1.5em;
+    font-weight: 300;
+    color: ${props => props.theme.colors.primary};
+    font-family: ${props => props.theme.fonts.raleway}; 
+    background-color: solid;
+`;
+
+const Subtitle = css`
+    font-size: 1em;
+    font-weight: 400;
+    color: ${props => props.theme.colors.primary};
+    font-family: ${props => props.theme.fonts.raleway}; 
+    background-color: solid;
+`;
+
 const PrimaryBtn = css`
     color: white;
     font-size: 1em;
@@ -27,7 +68,6 @@ const PrimaryBtn = css`
     }
 `;
 
-
 const InputField = css`
     font-size: 15px;
     border: solid;
@@ -54,4 +94,4 @@ const ImgContainerLogin = css`
     align-self: center;
 `;
 
-export {PrimaryBtn, InputField, ContentContainerLogin, ImgContainerLogin};
+export {Heading1, Heading2, Heading3, BodyText, Subtitle, PrimaryBtn, InputField, ContentContainerLogin, ImgContainerLogin};

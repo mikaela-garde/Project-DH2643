@@ -4,6 +4,7 @@ import LogotypeHolderImg from "../../Images/LogotypeHolder.png";
 import BackgroundBlobLeftSVG from "../../Images/BackgroundBlobLoginLeft.svg";
 import BackgroundBlobRightSVG from "../../Images/BackgroundBlobLoginRight.svg";
 
+
 import { PrimaryBtn } from '../../StyledComponents';
 
 const LoginView = () =>

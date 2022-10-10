@@ -4,13 +4,13 @@ import { getAPI } from './webAPI/webAPI';
 import TemplatePresenter from './Components/Template/TemplatePresenter';
 import LoginPresenter from './Components/Login/LoginPresenter';
 import ProfilePresenter from './Components/Profile/ProfilePresenter';
+import SignupPresenter from './Components/Signup/SignupPresenter';
 import Theme from "./Theme";
 import{ createGlobalStyle } from "styled-components";
 import {
     HashRouter,
     Routes,
     Route,
-    BrowserRouter
   } from "react-router-dom";
 import DashboardPresenter from './Components/Dashboard/DashboardPresenter';
 
@@ -32,10 +32,10 @@ const App = () => {
         <GlobalStyle/>
         <HashRouter>
             <Routes>
-
                 <Route path="/dashboard" element={<DashboardPresenter />} />
                 <Route path="/template" element={<TemplatePresenter />} />
                 <Route path="/login" element={<LoginPresenter />} />
+                <Route path="/signup" element={<SignupPresenter />} />
                 <Route path="/profile" element={<ProfilePresenter />} />
                 
             </Routes>
@@ -65,6 +65,13 @@ const GlobalStyle = createGlobalStyle `
     margin: 0;
     padding: 0;
     }
+
+    a:hover {
+        color: #EC7267;
+        transition: color 200ms;
+      }
+    
+      
 `;
 
 

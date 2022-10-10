@@ -13,6 +13,7 @@ const PrimaryBtn = css`
     width: 250px;
     cursor: pointer;
     border-style: solid;
+
     &:hover {
         background-color: transparent;
         color: ${props => props.theme.colors.primary};
@@ -28,10 +29,10 @@ const PrimaryBtn = css`
 
 
 const InputField = css`
-    font-size: 20px;
+    font-size: 15px;
     border: solid;
     border-color: ${props => props.theme.colors.primary};
-    padding: 13px;
+    padding: 12px;
     border-radius: 50px;
     padding-right: 9%;
 `;
@@ -49,9 +50,8 @@ const ContentContainerLogin = css`
 
 const ImgContainerLogin = css`
     display: flex;
-    width: 15%;
+    width: 12%;
     align-self: center;
 `;
-
 
 export {PrimaryBtn, InputField, ContentContainerLogin, ImgContainerLogin};

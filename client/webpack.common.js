@@ -1,5 +1,4 @@
 const path = require('path');
-
 const loaders = [];
 
 loaders.push({
@@ -8,6 +7,7 @@ loaders.push({
     use: 'babel-loader'
 })
 
+
 loaders.push({
     test: /\.(ts|tsx)$/,
     loader: "ts-loader",
@@ -15,6 +15,20 @@ loaders.push({
     options: {
         configFile: "tsconfig.client.json"
     }
+})
+
+loaders.push({
+    test: /\.css$/i,
+    use: ["css-loader"],
+    exclude: /node_modules/,
+})
+
+loaders.push({
+    test: /\.(png|jpe?g|gif|svg)$/i,
+        use: [
+          {
+            loader: 'file-loader',
+        }]
 })
 
 module.exports = {

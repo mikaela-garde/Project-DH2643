@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from "styled-components";
 
-const TemplateView= ({onToggle, onColorChange, isShown, colorChange}) =>
+const DashboardView= ({onToggle, onColorChange, isShown, colorChange}) =>
 
     <div>
         <button onClick={ () => onToggle() }>Show orange div</button>
@@ -38,4 +38,4 @@ const ContentContainerThemed = styled.div`
 `;
 
 
-export default TemplateView;
+export default DashboardView;

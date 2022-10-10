@@ -55,7 +55,7 @@ server.listen(port, () => {
     console.log(`Server is listening on port: ${port}`);
 });
 
-
+/*
 //Firebase saker
 const firebaseApp = initializeApp(firebaseConfig);
-const database = getDatabase(firebaseApp);
+const database = getDatabase(firebaseApp);*/

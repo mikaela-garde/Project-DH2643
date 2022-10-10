@@ -1,19 +1,18 @@
 import React from 'react';
 import styled from "styled-components";
 
-const TemplateView= ({onToggle, onColorChange, isShown, colorChange}) =>
+const TemplateView = ({onToggle, onColorChange, isShown, colorChange}) =>
 
     <div>
         <button onClick={ () => onToggle() }>Show orange div</button>
-        <button onClick={ () => onColorChange() }>Change Color of yellow div</button>
+        <button onClick={ () => onColorChange() }>Change Color of yellow div to red</button>
         
         <ContentContainer color={colorChange}></ContentContainer>
-        <ContentContainerColorInElement color="black"></ContentContainerColorInElement>
+        <ContentContainerColorInElement color="yellow"></ContentContainerColorInElement>
 
         {isShown && <ContentContainerThemed></ContentContainerThemed>}
     </div>
 ;
-
 
 const ContentContainer = styled.div`
     background-color: ${props => props.color ? "red": "yellow"}; 

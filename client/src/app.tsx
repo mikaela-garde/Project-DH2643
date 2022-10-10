@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom/client';
 import { getAPI } from './webAPI/webAPI';
 import TemplatePresenter from './Components/Template/TemplatePresenter';
 import LoginPresenter from './Components/Login/LoginPresenter';
+import ProfilePresenter from './Components/Profile/ProfilePresenter';
+import SignupPresenter from './Components/Signup/SignupPresenter';
 import Theme from "./Theme";
 import{ createGlobalStyle } from "styled-components";
 import {
@@ -12,7 +14,7 @@ import {
     BrowserRouter
   } from "react-router-dom";
 import DashboardPresenter from './Components/Dashboard/DashboardPresenter';
-
+import MenuView from "./Components/Menu/MenuView";
 
 const App = () => {
     const [fetchedData, setFetchedData] = React.useState("");
@@ -31,29 +33,20 @@ const App = () => {
         <GlobalStyle/>
         <HashRouter>
             <Routes>
-
+                <Route path="/login" element={<LoginPresenter />} />
+                <Route path="/signup" element={<SignupPresenter />} />
+            </Routes>
+            <div>
+            <MenuView/>
+            <Routes>
+                
                 <Route path="/dashboard" element={<DashboardPresenter />} />
                 <Route path="/template" element={<TemplatePresenter />} />
-                <Route path="/login" element={<LoginPresenter />} />
+                <Route path="/profile" element={<ProfilePresenter />} />
                 
             </Routes>
+            </div>
         </HashRouter>
-        
-        
-       {/*<Router>
-            <Route path="/dashboard" element={<Dashboard />} />
-            <div>
-                <TemplatePresenter></TemplatePresenter>
-                <p>Experience Saversss</p><div>{`${fetchedData}`}</div>
-            </div> 
-    </Router>
-    
-     <div>
-                    <p>Experience Saversss</p><div>{`${fetchedData}`}</div>
-                </div> 
-
-*/}
-        
     </Theme>
     )
 }

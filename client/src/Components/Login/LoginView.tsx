@@ -1,19 +1,26 @@
 import React from 'react';
+import {Link} from "react-router-dom";
 import styled from "styled-components";
 import LogotypeHolderImg from "../../Images/LogotypeHolder.png";
 import BackgroundBlobLeftSVG from "../../Images/BackgroundBlobLoginLeft.svg";
 import BackgroundBlobRightSVG from "../../Images/BackgroundBlobLoginRight.svg";
 
-import { PrimaryBtn } from '../../StyledComponents';
+import { PrimaryBtn, InputField, ContentContainerLogin, ImgContainerLogin, InputLabel, NavLink, InputFieldWrapper} from '../../StyledComponents';
 
 const LoginView = () =>
-
             <ContentContainer>
                 <ImgContainer src={LogotypeHolderImg}></ImgContainer>
-                <EmailInput placeholder="Email"></EmailInput>
-                <PasswordInput placeholder="Password"></PasswordInput>
+                <InputFieldLoginWrapper>
+                    <InputLabelLogin>Email</InputLabelLogin>
+                    <InputFieldLogin></InputFieldLogin>
+                </InputFieldLoginWrapper>
+                <InputFieldLoginWrapper>
+                    <InputLabelLogin>Password</InputLabelLogin>
+                    <InputFieldLogin type="password"></InputFieldLogin>
+                </InputFieldLoginWrapper>
                 <LoginButton>Login</LoginButton>
-                <SignUpButton>Sign-up {'>'}</SignUpButton>
+                <NavLinkSignup to="/signup">Sign up {'>'}</NavLinkSignup>
+
                 <BackgroundBlobContainerLeft>
                     <BackgroundBlob src ={BackgroundBlobLeftSVG}></BackgroundBlob>
                 </BackgroundBlobContainerLeft>
@@ -21,55 +28,34 @@ const LoginView = () =>
                     <BackgroundBlob src = {BackgroundBlobRightSVG}></BackgroundBlob>
                 </BackgroundBlobContainerRight>
             </ContentContainer>
-
 ;
 
 const ContentContainer = styled.div`
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    height: 100vh;
-    >*  {
-        margin: 15px;
-        };
+    ${ContentContainerLogin}
 `;
 
 
 const ImgContainer = styled.img`
-    display: flex;
-    width: 15%;
-    align-self: center;
+    ${ImgContainerLogin}
 `;
 
-const EmailInput = styled.input`
-    font-size: 20px;
-    border: solid;
-    border-color: ${props => props.theme.colors.primary};
-    padding: 13px;
-    border-radius: 50px;
-    padding-right: 80px;
+const InputFieldLoginWrapper = styled.div`
+    ${InputFieldWrapper}
 `;
 
-const PasswordInput = styled.input`
-font-size: 20px;
-border: solid;
-border-color: ${props => props.theme.colors.primary};
-padding: 13px;
-border-radius: 50px;
-padding-right: 80px;
+const InputFieldLogin = styled.input`
+    ${InputField};
+`;
+
+const InputLabelLogin = styled.label`
+    ${InputLabel}
 `;
 
 const LoginButton = styled.button`
-        ${PrimaryBtn}
+    ${PrimaryBtn}
 `;
-
-const SignUpButton = styled.a`
-    color: ${props => props.theme.colors.primary};
-    font-family: ${props => props.theme.fonts.raleway};
-    font-weight: 600;
-    font-size: 1em;
-    letter-spacing: 2px;
+const NavLinkSignup = styled(Link)`
+    ${NavLink}
 `;
 
 

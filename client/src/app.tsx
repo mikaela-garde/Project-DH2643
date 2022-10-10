@@ -11,6 +11,7 @@ import {
     HashRouter,
     Routes,
     Route,
+    BrowserRouter
   } from "react-router-dom";
 import DashboardPresenter from './Components/Dashboard/DashboardPresenter';
 import MenuView from "./Components/Menu/MenuView";
@@ -32,31 +33,20 @@ const App = () => {
         <GlobalStyle/>
         <HashRouter>
             <Routes>
-                <Route path="/dashboard" element={<DashboardPresenter />} />
-                <Route path="/template" element={<TemplatePresenter />} />
                 <Route path="/login" element={<LoginPresenter />} />
                 <Route path="/signup" element={<SignupPresenter />} />
+            </Routes>
+            <div>
+            <MenuView/>
+            <Routes>
+                
+                <Route path="/dashboard" element={<DashboardPresenter />} />
+                <Route path="/template" element={<TemplatePresenter />} />
                 <Route path="/profile" element={<ProfilePresenter />} />
                 
             </Routes>
-            
+            </div>
         </HashRouter>
-        
-        
-       {/*<Router>
-            <Route path="/dashboard" element={<Dashboard />} />
-            <div>
-                <TemplatePresenter></TemplatePresenter>
-                <p>Experience Saversss</p><div>{`${fetchedData}`}</div>
-            </div> 
-    </Router>
-    
-     <div>
-                    <p>Experience Saversss</p><div>{`${fetchedData}`}</div>
-                </div> 
-
-*/}
-        
     </Theme>
     )
 }
@@ -66,13 +56,6 @@ const GlobalStyle = createGlobalStyle `
     margin: 0;
     padding: 0;
     }
-
-    a:hover {
-        color: #EC7267;
-        transition: color 200ms;
-      }
-    
-      
 `;
 
 

@@ -25,4 +25,33 @@ const PrimaryBtn = css`
         transition: font-size 100ms ease-out;
     }
 `;
-export {PrimaryBtn};
+
+
+const InputField = css`
+    font-size: 20px;
+    border: solid;
+    border-color: ${props => props.theme.colors.primary};
+    padding: 13px;
+    border-radius: 50px;
+    padding-right: 9%;
+`;
+
+const ContentContainerLogin = css`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    height: 100vh;
+    >*  {
+        margin: 15px;
+        };
+`;
+
+const ImgContainerLogin = css`
+    display: flex;
+    width: 15%;
+    align-self: center;
+`;
+
+
+export {PrimaryBtn, InputField, ContentContainerLogin, ImgContainerLogin};

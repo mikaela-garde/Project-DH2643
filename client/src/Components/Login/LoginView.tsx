@@ -4,10 +4,9 @@ import LogotypeHolderImg from "../../Images/LogotypeHolder.png";
 import BackgroundBlobLeftSVG from "../../Images/BackgroundBlobLoginLeft.svg";
 import BackgroundBlobRightSVG from "../../Images/BackgroundBlobLoginRight.svg";
 
-import { PrimaryBtn } from '../../StyledComponents';
+import { PrimaryBtn, InputField, ContentContainerLogin, ImgContainerLogin } from '../../StyledComponents';
 
 const LoginView = () =>
-
             <ContentContainer>
                 <ImgContainer src={LogotypeHolderImg}></ImgContainer>
                 <EmailInput placeholder="Email"></EmailInput>
@@ -21,47 +20,27 @@ const LoginView = () =>
                     <BackgroundBlob src = {BackgroundBlobRightSVG}></BackgroundBlob>
                 </BackgroundBlobContainerRight>
             </ContentContainer>
-
 ;
 
 const ContentContainer = styled.div`
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    height: 100vh;
-    >*  {
-        margin: 15px;
-        };
+    ${ContentContainerLogin}
 `;
 
 
 const ImgContainer = styled.img`
-    display: flex;
-    width: 15%;
-    align-self: center;
+    ${ImgContainerLogin}
 `;
 
 const EmailInput = styled.input`
-    font-size: 20px;
-    border: solid;
-    border-color: ${props => props.theme.colors.primary};
-    padding: 13px;
-    border-radius: 50px;
-    padding-right: 80px;
+    ${InputField};
 `;
 
 const PasswordInput = styled.input`
-font-size: 20px;
-border: solid;
-border-color: ${props => props.theme.colors.primary};
-padding: 13px;
-border-radius: 50px;
-padding-right: 80px;
+    ${InputField};
 `;
 
 const LoginButton = styled.button`
-        ${PrimaryBtn}
+    ${PrimaryBtn}
 `;
 
 const SignUpButton = styled.a`

@@ -6,16 +6,32 @@ import BackgroundBlobRightSVG from "../../Images/BackgroundBlobLoginRight.svg";
 import BackButtonArrow from "../../Images/back-button-arrow.svg";
 import {Link} from "react-router-dom";
 
-import { PrimaryBtn, InputField, ContentContainerLogin, ImgContainerLogin } from '../../StyledComponents';
+import { PrimaryBtn, InputField, ContentContainerLogin, ImgContainerLogin, InputLabel, InputFieldWrapper } from '../../StyledComponents';
 
 const Signup = () =>
             <ContentContainer>
                 <ImgContainer src={ProfileHolderImg}></ImgContainer>
-                <InputFieldSignup placeholder="First name"></InputFieldSignup>
-                <InputFieldSignup placeholder="Last name"></InputFieldSignup>
-                <InputFieldSignup placeholder="Email"></InputFieldSignup>
-                <PasswordInput placeholder="Password" type="password"></PasswordInput>
-                <PasswordInput placeholder="Confirm password" type="password"></PasswordInput>
+                
+                <InputFieldSignupWrapper>
+                    <InputLabelSignup>First Name</InputLabelSignup>
+                    <InputFieldSignup></InputFieldSignup>
+                </InputFieldSignupWrapper>
+
+                <InputFieldSignupWrapper>
+                    <InputLabelSignup>Last name</InputLabelSignup>
+                    <InputFieldSignup></InputFieldSignup>
+                </InputFieldSignupWrapper>
+
+                <InputFieldSignupWrapper>
+                    <InputLabelSignup>Password</InputLabelSignup>
+                    <InputFieldSignup type ="password"></InputFieldSignup>
+                </InputFieldSignupWrapper>
+
+                <InputFieldSignupWrapper>
+                    <InputLabelSignup>Confirm Password</InputLabelSignup>
+                    <InputFieldSignup type ="password"></InputFieldSignup>
+                </InputFieldSignupWrapper>
+
                 <ButtonContainer>
                     <NavLink to="/login">
                         <BackButton src={BackButtonArrow}></BackButton>
@@ -40,12 +56,16 @@ const ImgContainer = styled.img`
     ${ImgContainerLogin}
 `;
 
+const InputFieldSignupWrapper = styled.div`
+    ${InputFieldWrapper};
+`;
+
 const InputFieldSignup = styled.input`
     ${InputField};
 `;
 
-const PasswordInput = styled.input`
-    ${InputField};
+const InputLabelSignup = styled.label`
+    ${InputLabel}
 `;
 
 const ButtonContainer = styled.div`
@@ -54,7 +74,7 @@ const ButtonContainer = styled.div`
     margin: 0px;
     >*  {
         margin: 10px;
-        };
+        };  
 `;
 
 const SignUpButton = styled.button`

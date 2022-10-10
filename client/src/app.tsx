@@ -32,25 +32,13 @@ const App = () => {
         <GlobalStyle/>
         <HashRouter>
             <Routes>
-<<<<<<< HEAD
-                <Route path="/login" element={<LoginPresenter />} />
-            </Routes>
-            <div>
-            <MenuView/>
-            <Routes>
-                
-                <Route path="/dashboard" element={<DashboardPresenter />} />
-                <Route path="/template" element={<TemplatePresenter />} />
-=======
                 <Route path="/dashboard" element={<DashboardPresenter />} />
                 <Route path="/template" element={<TemplatePresenter />} />
                 <Route path="/login" element={<LoginPresenter />} />
                 <Route path="/signup" element={<SignupPresenter />} />
->>>>>>> d682e31df139023a5b710695128ad6b308a5c772
                 <Route path="/profile" element={<ProfilePresenter />} />
                 
             </Routes>
-            </div>
             
         </HashRouter>
         

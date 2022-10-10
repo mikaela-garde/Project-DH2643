@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 import { getAPI } from './webAPI/webAPI';
 import TemplatePresenter from './Components/Template/TemplatePresenter';
 import LoginPresenter from './Components/Login/LoginPresenter';
+import ProfilePresenter from './Components/Profile/ProfilePresenter';
 import Theme from "./Theme";
 import{ createGlobalStyle } from "styled-components";
 import {
@@ -35,6 +36,7 @@ const App = () => {
                 <Route path="/dashboard" element={<DashboardPresenter />} />
                 <Route path="/template" element={<TemplatePresenter />} />
                 <Route path="/login" element={<LoginPresenter />} />
+                <Route path="/profile" element={<ProfilePresenter />} />
                 
             </Routes>
         </HashRouter>

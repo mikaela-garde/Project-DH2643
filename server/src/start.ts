@@ -5,7 +5,6 @@ import fs from 'fs';
 import cors from "cors";
 import { initializeApp } from 'firebase/app';
 import { getDatabase } from "firebase/database";
-import firebaseConfig from "../firebaseconfig";
 import firebaseConfig from "../firebase-config";
 
 

@@ -34,16 +34,8 @@ const App = () => {
 
                 <Route path="/dashboard" element={<DashboardPresenter />} />
                 <Route path="/template" element={<TemplatePresenter />} />
-                <div>
-                    <p>Experience Saversss</p><div>{`${fetchedData}`}</div>
-                </div> 
-
+                <Route path="/login" element={<LoginPresenter />} />
                 
-                <LoginPresenter></LoginPresenter>
-                <div>
-                    <TemplatePresenter></TemplatePresenter>
-                    <p>Experience Saversss</p><div>{`${fetchedData}`}</div>
-                </div>
             </Routes>
         </HashRouter>
         
@@ -54,7 +46,13 @@ const App = () => {
                 <TemplatePresenter></TemplatePresenter>
                 <p>Experience Saversss</p><div>{`${fetchedData}`}</div>
             </div> 
-    </Router>*/}
+    </Router>
+    
+     <div>
+                    <p>Experience Saversss</p><div>{`${fetchedData}`}</div>
+                </div> 
+
+*/}
         
     </Theme>
     )

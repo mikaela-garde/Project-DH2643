@@ -16,6 +16,8 @@ import {
 import DashboardPresenter from './Components/Dashboard/DashboardPresenter';
 import MenuView from "./Components/Menu/MenuView";
 
+import { Timeline } from "vis-timeline/esnext";
+
 const App = () => {
     const [fetchedData, setFetchedData] = React.useState("");
     

@@ -5,15 +5,21 @@ import LogotypeHolderImg from "../../Images/LogotypeHolder.png";
 import BackgroundBlobLeftSVG from "../../Images/BackgroundBlobLoginLeft.svg";
 import BackgroundBlobRightSVG from "../../Images/BackgroundBlobLoginRight.svg";
 
-import { PrimaryBtn, InputField, ContentContainerLogin, ImgContainerLogin } from '../../StyledComponents';
+import { PrimaryBtn, InputField, ContentContainerLogin, ImgContainerLogin, InputLabel, NavLink, InputFieldWrapper} from '../../StyledComponents';
 
 const LoginView = () =>
             <ContentContainer>
                 <ImgContainer src={LogotypeHolderImg}></ImgContainer>
-                <EmailInput placeholder="Email"></EmailInput>
-                <PasswordInput placeholder="Password" type="password"></PasswordInput>
+                <InputFieldLoginWrapper>
+                    <InputLabelLogin>Email</InputLabelLogin>
+                    <InputFieldLogin></InputFieldLogin>
+                </InputFieldLoginWrapper>
+                <InputFieldLoginWrapper>
+                    <InputLabelLogin>Password</InputLabelLogin>
+                    <InputFieldLogin type="password"></InputFieldLogin>
+                </InputFieldLoginWrapper>
                 <LoginButton>Login</LoginButton>
-                <NavLink to="/signup">Sign up {'>'}</NavLink>
+                <NavLinkSignup to="/signup">Sign up {'>'}</NavLinkSignup>
 
                 <BackgroundBlobContainerLeft>
                     <BackgroundBlob src ={BackgroundBlobLeftSVG}></BackgroundBlob>
@@ -33,29 +39,23 @@ const ImgContainer = styled.img`
     ${ImgContainerLogin}
 `;
 
-const EmailInput = styled.input`
+const InputFieldLoginWrapper = styled.div`
+    ${InputFieldWrapper}
+`;
+
+const InputFieldLogin = styled.input`
     ${InputField};
 `;
 
-const PasswordInput = styled.input`
-    ${InputField};
+const InputLabelLogin = styled.label`
+    ${InputLabel}
 `;
 
 const LoginButton = styled.button`
     ${PrimaryBtn}
 `;
-const NavLink = styled(Link)`
-    display: flex;
-    color: ${props => props.theme.colors.primary};
-    font-family: ${props => props.theme.fonts.raleway};
-    font-weight: 600;
-    font-size: 1em;
-    letter-spacing: 2px;
-    text-decoration:none;
-    a {
-        align-self: center;
-        text-decoration:none;
-    }
+const NavLinkSignup = styled(Link)`
+    ${NavLink}
 `;
 
 

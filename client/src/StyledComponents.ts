@@ -68,13 +68,31 @@ const PrimaryBtn = css`
     }
 `;
 
+
+const InputFieldWrapper = css`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+`;
+
 const InputField = css`
     font-size: 15px;
     border: solid;
     border-color: ${props => props.theme.colors.primary};
-    padding: 12px;
     border-radius: 50px;
-    padding-right: 9%;
+    padding: 12px 150px 12px 20px;
+`;
+
+const InputLabel = css`
+  color: ${props => props.theme.colors.primary};
+  font-family: ${props => props.theme.fonts.raleway}; 
+  position: absolute;
+  font-weight: 500;
+  background: #ffffff;
+  bottom: 35px;
+  left: 25px;
+  padding: 0px 8px 0px 8px;
 `;
 
 const ContentContainerLogin = css`
@@ -90,8 +108,22 @@ const ContentContainerLogin = css`
 
 const ImgContainerLogin = css`
     display: flex;
-    width: 12%;
+    width: 200px;
     align-self: center;
 `;
 
-export {Heading1, Heading2, Heading3, BodyText, Subtitle, PrimaryBtn, InputField, ContentContainerLogin, ImgContainerLogin};
+const NavLink = css`
+    display: flex;
+    color: ${props => props.theme.colors.primary};
+    font-family: ${props => props.theme.fonts.raleway};
+    font-weight: 600;
+    font-size: 1em;
+    letter-spacing: 2px;
+    text-decoration:none;
+    a {
+        align-self: center;
+        text-decoration:none;
+    }
+`;
+
+export {Heading1, Heading2, Heading3, BodyText, Subtitle, PrimaryBtn, InputField, ContentContainerLogin, ImgContainerLogin, InputLabel, NavLink, InputFieldWrapper};

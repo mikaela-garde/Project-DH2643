@@ -18,17 +18,22 @@ import {
 import DashboardPresenter from './Components/Dashboard/DashboardPresenter';
 import MenuView from "./Components/Menu/MenuView";
 import "react-datepicker/dist/react-datepicker.css"
+import { io } from "socket.io-client";
 
 const App = () => {
     const [fetchedData, setFetchedData] = React.useState("");
+    const socket = io("https://localhost:8081");
+    socket.on("hello", (arg) => {
+        console.log(arg);
+    });
 
     React.useEffect(() => {
 
-        getAPI().then(data => {
+        /*getAPI().then(data => {
             setFetchedData("data.someData");
         }).catch(e => {
             console.log(e)
-        });
+        });*/
     }, [])
 
     return (
@@ -62,8 +67,6 @@ const GlobalStyle = createGlobalStyle `
     padding: 0;
     }
 `;
-
-
 
 ReactDOM.createRoot(document.getElementById('app')!).render(<App />);
 

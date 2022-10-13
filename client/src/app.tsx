@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { getAPI } from './webAPI/webAPI';
+import { getAPI, postAPI } from './webAPI/webAPI';
 import TemplatePresenter from './Components/Template/TemplatePresenter';
 import LoginPresenter from './Components/Login/LoginPresenter';
 import ProfilePresenter from './Components/Profile/ProfilePresenter';
@@ -18,11 +18,11 @@ import MenuView from "./Components/Menu/MenuView";
 
 const App = () => {
     const [fetchedData, setFetchedData] = React.useState("");
-    
+
     React.useEffect(() => {
 
         getAPI().then(data => {
-            setFetchedData(data.someData);
+            setFetchedData("data.someData");
         }).catch(e => {
             console.log(e)
         });

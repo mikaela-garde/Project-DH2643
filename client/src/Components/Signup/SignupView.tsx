@@ -8,12 +8,12 @@ import {Link} from "react-router-dom";
 
 import { PrimaryBtn, InputField, ContentContainerLogin, ImgContainerLogin, InputLabel, InputFieldWrapper } from '../../StyledComponents';
 
-const Signup = () =>
+const CreateExp = () =>
             <ContentContainer>
                 <ImgContainer src={ProfileHolderImg}></ImgContainer>
                 
                 <InputFieldSignupWrapper>
-                    <InputLabelSignup>First Name</InputLabelSignup>
+                    <InputLabelSignup>First name</InputLabelSignup>
                     <InputFieldSignup></InputFieldSignup>
                 </InputFieldSignupWrapper>
 
@@ -28,7 +28,7 @@ const Signup = () =>
                 </InputFieldSignupWrapper>
 
                 <InputFieldSignupWrapper>
-                    <InputLabelSignup>Confirm Password</InputLabelSignup>
+                    <InputLabelSignup>Confirm password</InputLabelSignup>
                     <InputFieldSignup type ="password"></InputFieldSignup>
                 </InputFieldSignupWrapper>
 
@@ -59,6 +59,7 @@ const ImgContainer = styled.img`
 const InputFieldSignupWrapper = styled.div`
     ${InputFieldWrapper};
 `;
+
 
 const InputFieldSignup = styled.input`
     ${InputField};
@@ -112,4 +113,4 @@ const BackgroundBlob = styled.img`
     vertical-align: middle;
 `;
 
-export default Signup;
+export default CreateExp;

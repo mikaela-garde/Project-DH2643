@@ -17,6 +17,14 @@ router.route("/").get((req: express.Request, res: express.Response) => {
         res.status(200).send(data);
     });
 
+}).post((req: express.Request, res: express.Response) => {
+    
+    console.log("posting user");
+    const user: User = req.body;
+    
+    //Set in database
+    set(ref(db, 'users/' + user.id), user);
+    res.status(200).send(user);
 });
 
 //Get user data from id
@@ -30,19 +38,5 @@ router.route("/:userid").get((req: express.Request, res: express.Response) => {
         res.status(200).send(data);
     });
 
-}).post(authFirebase, (req: express.Request, res: express.Response) => {
-    
-    console.log("posting user");
-    const user: User = req.body;
-    
-    //Set in database
-    const user_ref = ref(db, 'users');
-    set(ref(db, 'users/' + user.id), {
-        id: user.id,
-        email: user.email,
-        first_name: user.first_name,
-        last_name: user.last_name
-    });
-    res.status(200).send({someData: "all good"})
 });
 export default router;

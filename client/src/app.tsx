@@ -20,11 +20,10 @@ import { io } from "socket.io-client";
 import Model from './UserModel';
 
 let UserModel = new Model({
-    id: 123,
+    id: "123",
     email: "test@gmail.com",
     first_name: "Joe",
     last_name: "Dad",
-    password: null,
     social_media: [],
     description: "Hi, I'm a test",
     profile_img: "This will be an img",
@@ -32,8 +31,7 @@ let UserModel = new Model({
     friend_requests: [],
     experiences: [1, 2, 3],
     notifications: [],
-    dark_mode: true,
-    token: "abc123"
+    dark_mode: true
 });
 
 
@@ -62,16 +60,16 @@ const App = () => {
                 <Route path="/signup" element={<SignupPresenter />} />
             </Routes>
             <div>
-            {//<MenuView}
-}              
-            <Routes>
+             
+                <Routes>
                 
-                <Route path="/dashboard" element={<DashboardPresenter />} />
-                <Route path="/profile" element={<ProfilePresenter />} />
-                <Route path="/upload" element={<UploadPresenter />} />
-                <Route path="/create-exp" element={<CreateExpPresenter />} />
-                
-            </Routes>
+                    <Route path="/dashboard" element={<DashboardPresenter />} />
+                    <Route path="/template" element={<TemplatePresenter />} />
+                    <Route path="/profile" element={<ProfilePresenter />} />
+                    <Route path="/upload" element={<UploadPresenter />} />
+                    <Route path="/create-exp" element={<CreateExpPresenter />} />
+                    
+                </Routes>
             </div>
         </HashRouter>
     </Theme>
@@ -79,7 +77,7 @@ const App = () => {
 }
 
 const GlobalStyle = createGlobalStyle `
-    body {
+    body *{
     margin: 0;
     padding: 0;
     }

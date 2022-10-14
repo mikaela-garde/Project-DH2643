@@ -47,7 +47,15 @@ router.get("/api/getsomedata", (req: express.Request, res: express.Response) => 
 
 
 const server = https.createServer(options, app);
-
+const io = require("socket.io")(server, {
+    cors: {
+        origin: "https://localhost:3000",
+        methods: ["GET", "POST"]
+    }
+});
+io.on('connection', (socket:any) => {
+    socket.emit("hello", "world");
+});
 server.listen(port, () => {
     console.log(`Server is listening on port: ${port}`);
 });

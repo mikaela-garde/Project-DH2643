@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { getAPI, postAPI } from './webAPI/webAPI';
 import TemplatePresenter from './Components/Template/TemplatePresenter';
 import LoginPresenter from './Components/Login/LoginPresenter';
 import ProfilePresenter from './Components/Profile/ProfilePresenter';
@@ -13,22 +12,43 @@ import {
     HashRouter,
     Routes,
     Route,
-    BrowserRouter
   } from "react-router-dom";
 import DashboardPresenter from './Components/Dashboard/DashboardPresenter';
-import MenuView from "./Components/Menu/MenuView";
 import "react-datepicker/dist/react-datepicker.css"
+import { io } from "socket.io-client";
+import Model from './UserModel';
+let UserModel = new Model({
+    id: 123,
+    email: "test@gmail.com",
+    first_name: "Joe",
+    last_name: "Dad",
+    password: null,
+    social_media: [],
+    description: "Hi, I'm a test",
+    profile_img: "This will be an img",
+    friends: [1, 2, 3],
+    friend_requests: [],
+    experiences: [1, 2, 3],
+    notifications: [],
+    dark_mode: true,
+    token: "abc123"
+});
+
 
 const App = () => {
     const [fetchedData, setFetchedData] = React.useState("");
+    const socket = io("https://localhost:8081");
+    socket.on("hello", (arg) => {
+        console.log(arg);
+    });
 
     React.useEffect(() => {
 
-        getAPI().then(data => {
+        /*getAPI().then(data => {
             setFetchedData("data.someData");
         }).catch(e => {
             console.log(e)
-        });
+        });*/
     }, [])
 
     return (
@@ -63,7 +83,6 @@ const GlobalStyle = createGlobalStyle `
     }
 `;
 
-
-
 ReactDOM.createRoot(document.getElementById('app')!).render(<App />);
 
+export {UserModel};

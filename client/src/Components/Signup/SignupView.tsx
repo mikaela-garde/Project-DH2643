@@ -9,7 +9,7 @@ import {Link} from "react-router-dom";
 
 import { PrimaryBtn, InputField, ContentContainerLogin, ImgContainerLogin, InputLabel, InputFieldWrapper} from '../../StyledComponents';
 
-const CreateExp = ({setFirstName, setLastName, setEmail, setPassword, onSignUp}) =>
+const SignupView = ({setFirstName, setLastName, setEmail, setPassword, onSignUp}) =>
             <ContentContainer>
                 <ImgContainer src={ProfileHolderImg}></ImgContainer>
                 
@@ -114,4 +114,4 @@ const BackgroundBlob = styled.img`
     vertical-align: middle;
 `;
 
-export default CreateExp;
+export default SignupView;

@@ -1,8 +1,13 @@
+<<<<<<< Updated upstream
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import firebaseConfig from '../../firebase-config';
+=======
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword} from "firebase/auth";
+import firebaseConfig from '../firebase-config';
+>>>>>>> Stashed changes
 import { initializeApp } from 'firebase/app';
 import {User} from "../types";
-import { postAPI } from "./webAPI";
+import { postAPI, getUserAPI} from "./webAPI";
 
 const firebaseApp = initializeApp(firebaseConfig);
 
@@ -38,6 +43,21 @@ const createAccountFirebase = (email, password, firstName, lastName) => {
     });
 }
 
+const signInFirebase = (email, password) => {
+  signInWithEmailAndPassword(auth, email, password)
+  .then((userCredential) => {
+    console.log("signup complete");
+    getUserAPI(userCredential.user.uid).then(( { data }: { data: User }) => {
+      console.log(data);
+      return data;
+    })
+  }).catch((error) => {
+    const errorCode = error.code;
+    const errorMessage = error.message;
+    console.log(error);
+  });
+}
 
 
-export { createAccountFirebase };
+
+export { createAccountFirebase, signInFirebase};

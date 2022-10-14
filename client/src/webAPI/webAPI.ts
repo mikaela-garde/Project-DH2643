@@ -1,8 +1,8 @@
 import axios from 'axios';
 
-export const getAPI = () => axios.get("https://localhost:8081/api/users/2", { 
+export const getUserAPI = (uid) => axios.get("https://localhost:8081/api/users/"+uid, { 
     withCredentials: true,
-}).then(( { data }: { data: { someData: string } }) => data);
+});
 
 
 export const postAPI = (user) => axios.post('https://localhost:8081/api/users/', user);

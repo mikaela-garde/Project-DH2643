@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import SignupView from "./SignupView";
 import {UserModel} from "../../app";
 
-function LoginPresenter (props) {
+function SignUpPresenter (props) {
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
     const [email, setEmail] = useState("");
@@ -17,4 +17,4 @@ function LoginPresenter (props) {
 }
 
 
-export default LoginPresenter;
+export default SignUpPresenter;

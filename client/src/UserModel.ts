@@ -1,5 +1,5 @@
 import {User, Social_Media, Friend_request, Notifications} from "./types";
-import {createAccountFirebase} from "./webAPI/firebaseAuth";
+import {createAccountFirebase, signInFirebase} from "./webAPI/firebaseAuth";
 
 class UserModel {
     /** Model containing information for the logged in user from firebase*/
@@ -58,6 +58,15 @@ class UserModel {
 
         createAccountFirebase(email, password, firstName, lastName);
         this.notifyObservers();
+    }
+
+    SignInFB(email, password) {
+        const user = signInFirebase(email, password);
+        console.log(user);
+    }
+
+    setUser(uid) {
+
     }
 
     setEmail(email: string) {

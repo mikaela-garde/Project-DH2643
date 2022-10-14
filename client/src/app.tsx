@@ -4,6 +4,8 @@ import TemplatePresenter from './Components/Template/TemplatePresenter';
 import LoginPresenter from './Components/Login/LoginPresenter';
 import ProfilePresenter from './Components/Profile/ProfilePresenter';
 import SignupPresenter from './Components/Signup/SignupPresenter';
+import UploadPresenter from './Components/Upload/UploadPresenter';
+
 import CreateExpPresenter from './Components/CreateExp/CreateExpPresenter';
 import Theme from "./Theme";
 import "react-datepicker/dist/react-datepicker.css";
@@ -58,16 +60,16 @@ const App = () => {
                 <Route path="/signup" element={<SignupPresenter />} />
             </Routes>
             <div>
-            {//<MenuView}
-}              
-            <Routes>
+             
+                <Routes>
                 
-                <Route path="/dashboard" element={<DashboardPresenter />} />
-                <Route path="/template" element={<TemplatePresenter />} />
-                <Route path="/profile" element={<ProfilePresenter />} />
-                <Route path="/create-exp" element={<CreateExpPresenter />} />
-                
-            </Routes>
+                    <Route path="/dashboard" element={<DashboardPresenter />} />
+                    <Route path="/template" element={<TemplatePresenter />} />
+                    <Route path="/profile" element={<ProfilePresenter />} />
+                    <Route path="/upload" element={<UploadPresenter />} />
+                    <Route path="/create-exp" element={<CreateExpPresenter />} />
+                    
+                </Routes>
             </div>
         </HashRouter>
     </Theme>
@@ -75,7 +77,7 @@ const App = () => {
 }
 
 const GlobalStyle = createGlobalStyle `
-    body {
+    body *{
     margin: 0;
     padding: 0;
     }

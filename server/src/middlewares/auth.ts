@@ -3,7 +3,6 @@ import express from "express";
 
 const auth = getAuth();
 
-
 const authFirebase = (req: express.Request, res: express.Response, next: express.NextFunction) => {
 
     createUserWithEmailAndPassword(auth, req.body.email, req.body.password)

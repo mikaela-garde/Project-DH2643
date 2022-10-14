@@ -19,7 +19,7 @@ const ProfileView = () =>
     <ContentContainer>
         <HeaderContainer>
                 <ButtonContainer>
-                    <NavLink to="/login">
+                    <NavLink to="/dashboard">
                         <BackButton src={BackButtonArrow}></BackButton>
                     </NavLink>
                 </ButtonContainer>

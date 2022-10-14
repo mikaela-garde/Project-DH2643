@@ -5,6 +5,8 @@ import TemplatePresenter from './Components/Template/TemplatePresenter';
 import LoginPresenter from './Components/Login/LoginPresenter';
 import ProfilePresenter from './Components/Profile/ProfilePresenter';
 import SignupPresenter from './Components/Signup/SignupPresenter';
+import UploadPresenter from './Components/Upload/UploadPresenter';
+
 import Theme from "./Theme";
 import{ createGlobalStyle } from "styled-components";
 import {
@@ -43,6 +45,7 @@ const App = () => {
                 <Route path="/dashboard" element={<DashboardPresenter />} />
                 <Route path="/template" element={<TemplatePresenter />} />
                 <Route path="/profile" element={<ProfilePresenter />} />
+                <Route path="/upload" element={<UploadPresenter />} />
                 
             </Routes>
             </div>

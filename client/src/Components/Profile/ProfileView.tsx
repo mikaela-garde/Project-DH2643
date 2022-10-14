@@ -3,7 +3,6 @@ import styled from "styled-components";
 import ProfileImg from ".//../../Images/sad_cat.jpeg";
 import TiktokIcon from "../../Images/tiktok.png";
 import InstagramIcon from "../../Images/instagram.png";
-import BackButtonArrow from "../../Images/back-button-arrow.svg";
 import {Link} from "react-router-dom";
 import HeaderPresenter from '../Header/HeaderPresenter';
 

@@ -21,9 +21,9 @@ export type User = {
     email: string,
     first_name: string,
     last_name: string,
-    password: string, //Bara när den kommer in från clienten
+    password: string | null, //Bara när den kommer in från clienten
     social_media: {
-        type: Social_Media, 
+        platform: Social_Media, 
         url: string}[],
     description: string | null,
     profile_img: string,
@@ -31,7 +31,8 @@ export type User = {
     friend_requests: Friend_request[],
     experiences: number[],
     notifications: Notifications[],
-    dark_mode: boolean
+    dark_mode: boolean,
+    token: string
 }
 
 export type Experience = {

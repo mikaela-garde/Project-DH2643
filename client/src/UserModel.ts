@@ -8,7 +8,7 @@ class UserModel {
     last_name: string;
     password: string; //Bara när den kommer in från clienten
     social_media: {
-        type: Social_Media,     
+        platform: Social_Media,     
         url: string}[];
     description: string | null;
     profile_img: string;
@@ -21,6 +21,7 @@ class UserModel {
     token: string;
 
     constructor(user: User/*id = "", token = "", displayName = "", img = null*/){
+
         this.id = user.id;
         this.email = user.email;
         this.first_name = user.first_name;
@@ -36,7 +37,6 @@ class UserModel {
         this.subscribers =[];
         this.token;
     }
-
     
     addObserver(obs){
         this.subscribers= this.subscribers.concat(obs);   
@@ -56,6 +56,11 @@ class UserModel {
 
     setToken(token) {
         this.token = token;
+        this.notifyObservers();
+    }
+
+    setEmail(email: string) {
+        this.email = email; // API call to server to set email in FB
         this.notifyObservers();
     }
 

@@ -33,6 +33,11 @@ const Menu = styled.button`
         cursor: pointer;
         border-style: solid;
 
+        position: fixed;
+        top: 20px;
+        right: 30px;
+       
+
 `;
 
 const IconsContainer = styled.div`  

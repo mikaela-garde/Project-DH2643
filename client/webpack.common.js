@@ -20,7 +20,6 @@ loaders.push({
 loaders.push({
     test: /\.css$/i,
     use: ["css-loader"],
-    exclude: /node_modules/,
 })
 
 loaders.push({
@@ -28,6 +27,14 @@ loaders.push({
         use: [
           {
             loader: 'file-loader',
+        }]
+})
+
+loaders.push({
+    test: /\.s[ac]ss$/i,
+        use: [
+          {
+            loader: "sass-loader",
         }]
 })
 
@@ -39,7 +46,7 @@ module.exports = {
         rules: loaders
     },
     resolve: {
-        extensions: ['.tsx', ".ts", ".js", ".jsx"],
+        extensions: ['.tsx', ".ts", ".js", ".jsx", ".css", ".scss"],
     },
     output: {
         filename: 'main.bundle.js',

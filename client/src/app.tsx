@@ -14,7 +14,6 @@ import {
     BrowserRouter
   } from "react-router-dom";
 import DashboardPresenter from './Components/Dashboard/DashboardPresenter';
-import MenuView from "./Components/Menu/MenuView";
 
 const App = () => {
     const [fetchedData, setFetchedData] = React.useState("");
@@ -37,14 +36,13 @@ const App = () => {
                 <Route path="/signup" element={<SignupPresenter />} />
             </Routes>
             <div>
-            <MenuView/>
-            <Routes>
                 
-                <Route path="/dashboard" element={<DashboardPresenter />} />
-                <Route path="/template" element={<TemplatePresenter />} />
-                <Route path="/profile" element={<ProfilePresenter />} />
-                
-            </Routes>
+                <Routes>
+                    <Route path="/dashboard" element={<DashboardPresenter />} />
+                    <Route path="/template" element={<TemplatePresenter />} />
+                    <Route path="/profile" element={<ProfilePresenter />} />
+                    
+                </Routes>
             </div>
         </HashRouter>
     </Theme>
@@ -52,7 +50,7 @@ const App = () => {
 }
 
 const GlobalStyle = createGlobalStyle `
-    body {
+    body *{
     margin: 0;
     padding: 0;
     }

@@ -1,8 +1,9 @@
-import {User, Social_Media, Friend_request, Notifications} from "./types"
+import {User, Social_Media, Friend_request, Notifications} from "./types";
+import {createAccountFirebase} from "./webAPI/firebaseAuth";
 
 class UserModel {
     /** Model containing information for the logged in user from firebase*/
-    id: number;
+    id: string;
     email: string;
     first_name: string;
     last_name: string;
@@ -18,7 +19,6 @@ class UserModel {
     notifications: Notifications[];
     dark_mode: boolean;
     subscribers: Array<any>;
-    token: string;
 
     constructor(user: User/*id = "", token = "", displayName = "", img = null*/){
 
@@ -35,7 +35,6 @@ class UserModel {
         this.notifications = user.notifications;
         this.dark_mode = user.dark_mode;
         this.subscribers =[];
-        this.token;
     }
     
     addObserver(obs){
@@ -54,8 +53,10 @@ class UserModel {
         })
     }
 
-    setToken(token) {
-        this.token = token;
+
+    createNewUserFB(firstName, lastName, email, password) {
+
+        createAccountFirebase(email, password, firstName, lastName);
         this.notifyObservers();
     }
 

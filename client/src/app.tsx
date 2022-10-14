@@ -18,11 +18,10 @@ import "react-datepicker/dist/react-datepicker.css"
 import { io } from "socket.io-client";
 import Model from './UserModel';
 let UserModel = new Model({
-    id: 123,
+    id: "123",
     email: "test@gmail.com",
     first_name: "Joe",
     last_name: "Dad",
-    password: null,
     social_media: [],
     description: "Hi, I'm a test",
     profile_img: "This will be an img",
@@ -30,8 +29,7 @@ let UserModel = new Model({
     friend_requests: [],
     experiences: [1, 2, 3],
     notifications: [],
-    dark_mode: true,
-    token: "abc123"
+    dark_mode: true
 });
 
 

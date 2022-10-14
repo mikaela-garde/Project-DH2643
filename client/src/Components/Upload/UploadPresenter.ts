@@ -7,13 +7,12 @@ function TemplatePresenter (props) {
   const [text, setText] = useState(""); 
   //isActive = Media blue, Text White
   const [isActive, setIsActive] = useState(true);
-  console.log("hello"+text);
+  console.log(text);
 
   return React.createElement(UploadView, {
       isActive: isActive, 
       setIsActive: setIsActive,
-      text: text,
-      setText: setText
+      setText: (input) => setText(input)
       }
     )
 }

@@ -5,7 +5,7 @@ import FilesDragAndDrop from '@yelysei/react-files-drag-and-drop';
 
 import { Heading1, Heading2, Heading3, BodyText, Subtitle, PrimaryBtn, InputField, InputFieldWrapper, InputLabel} from '../../StyledComponents';
 
-const UploadView = ({isActive, setIsActive, text, setText}) =>
+const UploadView = ({isActive, setIsActive, setText}) =>
 
     <ContentContainer>
         
@@ -20,25 +20,25 @@ const UploadView = ({isActive, setIsActive, text, setText}) =>
             {isActive && <FileUpload>
                 <img height="200px" src={addMediaIcon}></img>
                 <SmallText>filename</SmallText>
-               
                 <Title3>Drag & Drop files here</Title3>
                 <Text>Allowed file types: Photos, videos, recordings</Text>
             </FileUpload>}
             <TextInputWrapper>
-                <TextInput placeholder="Write text"></TextInput>
+                <TextInput placeholder="Write text" onChange={e => setText(e.target.value)}></TextInput>
             </TextInputWrapper>
         </UploadMedia>
 
-       <UploadButton onClick={setText(text)}>Publish content</UploadButton>
+       <UploadButton>Publish content</UploadButton>
                 
     </ContentContainer>
 ;
-
+/* Gör icon till knapp genom att sätta buttons background image till iconen*/ 
 const FileDrop = styled(FilesDragAndDrop)`
 display: 'flex',
 alignItems: 'center',
 justifyContent: 'center'
 `;
+
 
 const FileUpload = styled.div`
     display: flex;

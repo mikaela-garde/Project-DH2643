@@ -1,5 +1,5 @@
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
-import firebaseConfig from '../firebase-config';
+import firebaseConfig from '../../firebase-config';
 import { initializeApp } from 'firebase/app';
 import {User} from "../types";
 import { postAPI } from "./webAPI";

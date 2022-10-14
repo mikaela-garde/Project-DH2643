@@ -1,17 +1,19 @@
 import React from 'react';
 import styled from "styled-components";
 import addMediaIcon from "../../Images/addMedia.svg";
+import FilesDragAndDrop from '@yelysei/react-files-drag-and-drop';
 
 import { Heading1, Heading2, Heading3, BodyText, Subtitle, PrimaryBtn, InputField, InputFieldWrapper, InputLabel} from '../../StyledComponents';
 
-const UploadView = ({isActive, setIsActive}) =>
+const UploadView = ({isActive, setIsActive, text, setText}) =>
 
     <ContentContainer>
+        
        <PageTitle>Upload content</PageTitle>
 
        <UploadTypeButtonContainer>
-            <MediaButton color={isActive} onClick ={() => isActive ? setIsActive(isActive) : setIsActive(!isActive)}>Media</MediaButton>
-            <TextButton color={isActive} onClick ={() => isActive ? setIsActive(!isActive) : setIsActive(isActive)}>Text</TextButton>
+            <MediaButton colorBool={isActive} onClick={() => isActive ? setIsActive(isActive) : setIsActive(!isActive)}>Media</MediaButton>
+            <TextButton colorBool={isActive} onClick={() => isActive ? setIsActive(!isActive) : setIsActive(isActive)}>Text</TextButton>
         </UploadTypeButtonContainer>
 
         <UploadMedia>
@@ -27,12 +29,16 @@ const UploadView = ({isActive, setIsActive}) =>
             </TextInputWrapper>
         </UploadMedia>
 
-       <UploadButton>Publish content</UploadButton>
-   
+       <UploadButton onClick={setText(text)}>Publish content</UploadButton>
+                
     </ContentContainer>
 ;
 
-
+const FileDrop = styled(FilesDragAndDrop)`
+display: 'flex',
+alignItems: 'center',
+justifyContent: 'center'
+`;
 
 const FileUpload = styled.div`
     display: flex;
@@ -81,14 +87,14 @@ const UploadMedia = styled.div`
     gap: 50px;
 `;
 
-const MediaButton = styled.button`
-    color: ${props => props.color ? "white" : props.theme.colors.primary};
+const MediaButton = styled.button.attrs((props: ColorTagProps) => ({colorBool: props.colorBool}))`
+    color: ${props => props.colorBool ? "white" : props.theme.colors.primary};
     font-size: 1em;
     font-weight: 400;
     font-family: ${props => props.theme.fonts.raleway}; 
     background-color: solid;
-    background-color: ${props => props.color ? props.theme.colors.primary : "white"};
-    border-color: ${props => props.color ? props.theme.colors.primary : "white"};
+    background-color: ${props => props.colorBool ? props.theme.colors.primary : "white"};
+    border-color: ${props => props.colorBool ? props.theme.colors.primary : "white"};
     border-radius: 150px 0px 0px 150px;
     height: 45px;
     width: 250px;
@@ -97,14 +103,14 @@ const MediaButton = styled.button`
     onClick={ () => onToggle()
 `;
 
-const TextButton = styled.button`
-    color: ${props => props.color ? props.theme.colors.primary : "white"};
+const TextButton = styled.button.attrs((props: ColorTagProps) => ({colorBool: props.colorBool}))`
+    color: ${props => props.colorBool ? props.theme.colors.primary : "white"};
     font-size: 1em;
     font-weight: 400;
     font-family: ${props => props.theme.fonts.raleway}; 
     background-color: solid;
-    background-color: ${props => props.color ? "white" : props.theme.colors.primary};
-    border-color:  ${props => props.color ? "white" : props.theme.colors.primary};
+    background-color: ${props => props.colorBool ? "white" : props.theme.colors.primary};
+    border-color:  ${props => props.colorBool ? "white" : props.theme.colors.primary};
     height: 45px;
     width: 250px;
     border-radius: 0px 150px 150px 0px;
@@ -159,5 +165,9 @@ const Text = styled.p`
 type Props = {
     classname?: string,
     as?: string
+}
+
+interface ColorTagProps{
+    colorBool: boolean;
 }
 export default UploadView;

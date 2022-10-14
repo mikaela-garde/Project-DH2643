@@ -5,20 +5,20 @@ import LoginPresenter from './Components/Login/LoginPresenter';
 import ProfilePresenter from './Components/Profile/ProfilePresenter';
 import SignupPresenter from './Components/Signup/SignupPresenter';
 import UploadPresenter from './Components/Upload/UploadPresenter';
-
 import CreateExpPresenter from './Components/CreateExp/CreateExpPresenter';
+import DashboardPresenter from './Components/Dashboard/DashboardPresenter';
 import Theme from "./Theme";
 import "react-datepicker/dist/react-datepicker.css";
+import '@yelysei/react-files-drag-and-drop';
 import{ createGlobalStyle } from "styled-components";
 import {
     HashRouter,
     Routes,
     Route,
   } from "react-router-dom";
-import DashboardPresenter from './Components/Dashboard/DashboardPresenter';
-import "react-datepicker/dist/react-datepicker.css"
 import { io } from "socket.io-client";
 import Model from './UserModel';
+
 let UserModel = new Model({
     id: 123,
     email: "test@gmail.com",
@@ -39,10 +39,10 @@ let UserModel = new Model({
 
 const App = () => {
     const [fetchedData, setFetchedData] = React.useState("");
-    const socket = io("https://localhost:8081");
+    /*const socket = io("https://localhost:8081");
     socket.on("hello", (arg) => {
         console.log(arg);
-    });
+    });*/
 
     React.useEffect(() => {
 
@@ -67,7 +67,6 @@ const App = () => {
             <Routes>
                 
                 <Route path="/dashboard" element={<DashboardPresenter />} />
-                <Route path="/template" element={<TemplatePresenter />} />
                 <Route path="/profile" element={<ProfilePresenter />} />
                 <Route path="/upload" element={<UploadPresenter />} />
                 <Route path="/create-exp" element={<CreateExpPresenter />} />

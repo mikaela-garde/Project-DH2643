@@ -9,7 +9,7 @@ import {Link} from "react-router-dom";
 
 import { PrimaryBtn, InputField, ContentContainerLogin, ImgContainerLogin, InputLabel, InputFieldWrapper} from '../../StyledComponents';
 
-const SignupView = ({setFirstName, setLastName, setEmail, setPassword, onSignUp}) =>
+const SignupView = ({loginErrorMessage, setFirstName, setLastName, setEmail, setPassword, onSignUp}) =>
             <ContentContainer>
                 <ImgContainer src={ProfileHolderImg}></ImgContainer>
                 
@@ -32,7 +32,7 @@ const SignupView = ({setFirstName, setLastName, setEmail, setPassword, onSignUp}
                     <InputLabelSignup>Password</InputLabelSignup>
                     <InputFieldSignup type ="password" onChange={e => setPassword(e.target.value)}></InputFieldSignup>
                 </InputFieldSignupWrapper>
-
+                {loginErrorMessage};
                 <ButtonContainer>
                     <NavLink to="/login">
                         <BackButton src={BackButtonArrow}></BackButton>
@@ -112,6 +112,7 @@ const BackgroundBlobContainerRight = styled.div`
 `;
 const BackgroundBlob = styled.img`
     vertical-align: middle;
+    z-index: -1;
 `;
 
 export default SignupView;

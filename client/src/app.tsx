@@ -43,15 +43,6 @@ const App = () => {
         console.log(arg);
     });*/
 
-    React.useEffect(() => {
-
-        /*getAPI().then(data => {
-            setFetchedData("data.someData");
-        }).catch(e => {
-            console.log(e)
-        });*/
-    }, [])
-
     return (
     <Theme> 
         <GlobalStyle/>

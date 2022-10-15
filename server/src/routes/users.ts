@@ -2,7 +2,7 @@ import express from "express";
 import { reload } from "firebase/auth";
 import { get, set, ref } from "firebase/database";
 import db from '../../firebase';
-import  {authFirebase, createAccountFirebase} from "../middlewares/auth";
+import  {signInFirebase, createAccountFirebase} from "../middlewares/auth";
 import { User } from "../models/types";
 
 
@@ -18,11 +18,13 @@ router.route("/").get((req: express.Request, res: express.Response) => {
         res.status(200).send(data);
     });
 
-}).post(createAccountFirebase, (req: express.Request, res: express.Response) => {
+})
+
+router.route("/signup").post(createAccountFirebase, (req: express.Request, res: express.Response) => {
     
     console.log("posting user");
     const user: User = {
-        id: req.body.uid,
+        id: res.locals.user.uid,
         email: req.body.email,
         first_name: req.body.firstName,
         last_name: req.body.lastName,
@@ -38,7 +40,7 @@ router.route("/").get((req: express.Request, res: express.Response) => {
     
     //Set in database
     set(ref(db, 'users/' + user.id), user);
-    res.status(200).send(user);
+    res.status(200).send({userDB: user, userAuth: res.locals.user, success: true});
 });
 
 //Get user data from id
@@ -53,4 +55,13 @@ router.route("/:userid").get((req: express.Request, res: express.Response) => {
     });
 
 });
+
+//Get user data from id
+router.route("/login").post(signInFirebase, (req: express.Request, res: express.Response) => {
+    console.log("hejsan");
+    res.status(200).send({userAuth: res.locals.user, success: true});
+});
+
+
+
 export default router;

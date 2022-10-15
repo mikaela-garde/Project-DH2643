@@ -35,13 +35,6 @@ app.get("/", (req: express.Request, res: express.Response) => {
 app.use("/api/users", users);
 //uses users.ts
 
-router.get("/api/getsomedata", (req: express.Request, res: express.Response) => {
-    console.log("Im in the getstuff routexD");
-    setTimeout(() => {
-        res.status(200).send({someData: "all good"})
-    }, 1000)
-})
-
 
 //router.post() sensitive data t.ex auth
 

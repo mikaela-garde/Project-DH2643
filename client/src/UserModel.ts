@@ -1,5 +1,5 @@
 import {User, Social_Media, Friend_request, Notifications} from "./types";
-import {createAccountFirebase, signInFirebase} from "./webAPI/firebaseAuth";
+import {createAccountAPI, loginAPI} from "./webAPI/webAPI";
 
 class UserModel {
     /** Model containing information for the logged in user from firebase*/
@@ -19,6 +19,9 @@ class UserModel {
     notifications: Notifications[];
     dark_mode: boolean;
     subscribers: Array<any>;
+    signInErrorMsg: string;
+    signUpErrorMsg: string;
+    accessToken: string;
 
     constructor(user: User/*id = "", token = "", displayName = "", img = null*/){
 
@@ -35,6 +38,9 @@ class UserModel {
         this.notifications = user.notifications;
         this.dark_mode = user.dark_mode;
         this.subscribers =[];
+        this.signInErrorMsg = "";
+        this.signUpErrorMsg = "";
+        this.accessToken = "";
     }
     
     addObserver(obs){
@@ -55,18 +61,49 @@ class UserModel {
 
 
     createNewUserFB(firstName, lastName, email, password) {
-
-        createAccountFirebase(email, password, firstName, lastName);
+        createAccountAPI(firstName, lastName, email, password).then(( { data }: { data: any  }) => {
+            if (data.success) {
+                localStorage.setItem("refreshToken", data.userAuth.stsTokenManager.refreshToken);
+                console.log("Denna refresh token ligger nu i localstorage: " + localStorage.getItem("refreshToken"));
+                console.log("det blev inte error", data)
+                // subscribeToFirebase(): här ska vi nu subscriba till Firebase
+                // hur man använder refresh token för att få en ID token som vi sen kan använda för att skicka requests:
+                // https://firebase.google.com/docs/reference/rest/auth/#section-refresh-token
+            }
+            else {
+                // här ska vi visa felmeddelandet för användaren
+                this.signInErrorMsg = data.error;
+                this.notifyObservers();
+                console.log("det blev error", data);
+            }
+            });
         this.notifyObservers();
     }
 
     SignInFB(email, password) {
-        const user = signInFirebase(email, password);
-        console.log(user);
+        loginAPI(email, password).then(( { data }: { data: any  }) => {
+            if (data.success) {
+                localStorage.setItem("refreshToken", data.userAuth.stsTokenManager.refreshToken);
+                console.log("Denna refresh token ligger nu i localstorage: " + localStorage.getItem("refreshToken"));
+                console.log("det blev inte error", data)
+                this.accessToken = data.userAuth.stsTokenManager.accessToken;
+                // subscribeToFirebase(): här ska vi nu subscriba till Firebase
+                // hur man använder refresh token för att få en ID token som vi sen kan använda för att skicka requests:
+                // https://firebase.google.com/docs/reference/rest/auth/#section-refresh-token
+            }
+            else {
+                // här ska vi visa felmeddelandet för användaren
+                this.signInErrorMsg = data.error;
+                this.notifyObservers();
+                console.log("det blev error", data);
+            }
+            });
+        //let user = new Promise(signInFirebase(email, password));
+        //console.log(user);
     }
 
-    setUser(uid) {
-
+    listenToFB(uid) {
+        
     }
 
     setEmail(email: string) {
@@ -77,7 +114,6 @@ class UserModel {
     setUid(id) {
         this.id = id;
         this.notifyObservers();
-    
     }
 }
 export default UserModel;

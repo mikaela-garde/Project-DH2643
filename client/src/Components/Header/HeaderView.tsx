@@ -7,7 +7,7 @@ import FriendsSVG from "../../Images/friends.svg";
 import { Heading1 } from '../../StyledComponents';
 
 
-const HeaderView= ({NavTitle}) =>
+const HeaderView= ({NavTitle, ProfilePic}) =>
 
     <HeadingContainer>
 
@@ -18,6 +18,9 @@ const HeaderView= ({NavTitle}) =>
                 </IconContainer>
                 <IconContainer>
                     <Icon src ={FriendsSVG}></Icon>
+                </IconContainer>
+                <IconContainer>
+                    <Icon src ={ProfilePic}></Icon>
                 </IconContainer>
             </IconsContainer>
         </Menu>

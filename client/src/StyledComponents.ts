@@ -1,7 +1,7 @@
 import { css } from 'styled-components';
 
 const Heading1 = css`
-    font-size: 5em;
+    font-size: 4em;
     font-weight: 900;
     color: ${props => props.theme.colors.primary};
     font-family: ${props => props.theme.fonts.raleway}; 
@@ -89,7 +89,8 @@ const InputLabel = css`
   font-family: ${props => props.theme.fonts.raleway}; 
   position: absolute;
   font-weight: 500;
-  background: #ffffff;
+  background-color: #ffffff;
+  border-radius:20px;
   bottom: 35px;
   left: 25px;
   padding: 0px 8px 0px 8px;

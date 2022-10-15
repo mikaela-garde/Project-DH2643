@@ -3,17 +3,31 @@ import styled from "styled-components";
 import {Link} from "react-router-dom";
 import ExperienceImg from "../../Images/experienceHolder.jpeg";
 
-
-import { Heading1 } from '../../StyledComponents';
-import { Heading2 } from '../../StyledComponents';
 import { Heading3 } from '../../StyledComponents';
-import { BodyText } from '../../StyledComponents';
 import { Subtitle } from '../../StyledComponents';
 
-const GridView= ({}) =>
+const GridView= ({setExperience, ExpList}) =>
 
     <ExperienceContainer>
         <ExperienceGridContainer>
+        {console.log(ExpList)},
+            {ExpList.map(exp => (
+                <ExperienceButtonContainer key={exp} to="/login" onClick={() => setExperience(exp.title)}>
+                    <SingleExperienceContainer>
+                        <ExperienceImgContainer src={exp.img}></ExperienceImgContainer>
+                        <Title3>{exp.title}</Title3>
+                        <SmallText>{exp.date}</SmallText>
+                    </SingleExperienceContainer>
+                </ExperienceButtonContainer>))}
+
+            <ExperienceButtonContainer to="/login" onClick={() => setExperience()}>
+                <SingleExperienceContainer>
+                    <ExperienceImgContainer src={ExperienceImg}></ExperienceImgContainer>
+                    <Title3>28th Bday Party</Title3>
+                    <SmallText>27 Apr 2007</SmallText>
+                </SingleExperienceContainer>
+            </ExperienceButtonContainer>
+
             <ExperienceButtonContainer to="/login">
                 <SingleExperienceContainer>
                     <ExperienceImgContainer src={ExperienceImg}></ExperienceImgContainer>
@@ -21,6 +35,7 @@ const GridView= ({}) =>
                     <SmallText>27 Apr 2007</SmallText>
                 </SingleExperienceContainer>
             </ExperienceButtonContainer>
+
             <ExperienceButtonContainer to="/login">
                 <SingleExperienceContainer>
                     <ExperienceImgContainer src={ExperienceImg}></ExperienceImgContainer>
@@ -28,13 +43,7 @@ const GridView= ({}) =>
                     <SmallText>27 Apr 2007</SmallText>
                 </SingleExperienceContainer>
             </ExperienceButtonContainer>
-            <ExperienceButtonContainer to="/login">
-                <SingleExperienceContainer>
-                    <ExperienceImgContainer src={ExperienceImg}></ExperienceImgContainer>
-                    <Title3>28th Bday Party</Title3>
-                    <SmallText>27 Apr 2007</SmallText>
-                </SingleExperienceContainer>
-            </ExperienceButtonContainer>
+
         </ExperienceGridContainer>
     </ExperienceContainer>
         
@@ -87,17 +96,6 @@ const ExperienceContainer = styled.div`
       justify-content: center;
       gap: 30px;
       
-`;
-
-
-const PageTitle = styled.h1`
-    ${Heading1}
-`;
-
-const Title2 = styled.h2`
-    ${Heading2};
-    margin: auto;
-    padding-top: 10px;
 `;
 
 const Title3 = styled.h3`

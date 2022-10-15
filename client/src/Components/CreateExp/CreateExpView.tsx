@@ -64,9 +64,9 @@ const CreateExpView = ({startDate, onToggle }) =>
 ;
 
 const Container= styled.div`
-display: flex;
-flex-direction: column;
-justify-content: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 `;
 
 const ContentContainer = styled.div`

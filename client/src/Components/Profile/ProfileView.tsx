@@ -12,7 +12,7 @@ import { Heading2 } from '../../StyledComponents';
 import { Heading3 } from '../../StyledComponents';
 import { BodyText } from '../../StyledComponents';
 import { Subtitle } from '../../StyledComponents';
-import GridView from '../Grid/GridView';
+import GridPresenter from '../Grid/GridPresenter';
 
 const ProfileView = () =>
 
@@ -20,7 +20,7 @@ const ProfileView = () =>
         <HeaderPresenter NavTitle={"Profile"}/>
 
         <ProfileContainer>
-        <ProfileHeaderContainer>
+            <ProfileHeaderContainer>
                 <ImgTextContainer>
                     <ProfileImgContainer src={ProfileImg}></ProfileImgContainer>
                     <Title2>Jessie Liu</Title2>
@@ -42,35 +42,16 @@ const ProfileView = () =>
             <Title3>About me</Title3>
             <Text>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</Text>
         </ProfileContainer>
-        <GridView />
+        <GridPresenter />
     </ContentContainer>
 ;
 const ContentContainer = styled.div`
     display: flex;
     flex-direction: column;
-    flex-wrap: wrap;
+    align-content: center;
     gap: 70px;
-    margin: 10px 320px;
-`;
-
-const ButtonContainer = styled.div`
-    display: flex;
-    flex-direction: row;
-    margin: 0px;
-    >*  {
-        margin: 10px;
-        };
-`;
-
-const BackButton = styled.img`
-    width: 70%;
-`;
-
-const NavLink = styled(Link)`
-    display: flex;
-    a {
-        align-self: center;
-    }
+    margin-right: 10vw;
+    margin-left: 10vw;
 `;
 
 const ProfileContainer = styled.div`
@@ -82,7 +63,7 @@ const ProfileContainer = styled.div`
 const ProfileHeaderContainer = styled.div`
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-content: center;
     flex-wrap: wrap;
 `;
 

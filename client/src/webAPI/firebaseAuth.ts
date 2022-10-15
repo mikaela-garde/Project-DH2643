@@ -1,10 +1,5 @@
-<<<<<<< Updated upstream
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
-import firebaseConfig from '../../firebase-config';
-=======
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword} from "firebase/auth";
-import firebaseConfig from '../firebase-config';
->>>>>>> Stashed changes
+import firebaseConfig from '../../firebase-config';
 import { initializeApp } from 'firebase/app';
 import {User} from "../types";
 import { postAPI, getUserAPI} from "./webAPI";

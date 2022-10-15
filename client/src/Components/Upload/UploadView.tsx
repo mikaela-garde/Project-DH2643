@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from "styled-components";
 import addMediaIcon from "../../Images/addMedia.svg";
-import FilesDragAndDrop from '@yelysei/react-files-drag-and-drop';
 
 import { Heading1, Heading2, Heading3, BodyText, Subtitle, PrimaryBtn, InputField, InputFieldWrapper, InputLabel} from '../../StyledComponents';
 
@@ -33,11 +32,7 @@ const UploadView = ({isActive, setIsActive, setText}) =>
     </ContentContainer>
 ;
 /* Gör icon till knapp genom att sätta buttons background image till iconen*/ 
-const FileDrop = styled(FilesDragAndDrop)`
-display: 'flex',
-alignItems: 'center',
-justifyContent: 'center'
-`;
+
 
 
 const FileUpload = styled.div`

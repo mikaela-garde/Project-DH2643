@@ -17,11 +17,10 @@ enum Post_Type {
 }
 
 export type User = {
-    id: number,
+    id: string,
     email: string,
     first_name: string,
-    last_name: string,
-    password: string | null, //Bara när den kommer in från clienten
+    last_name: string, 
     social_media: {
         platform: Social_Media, 
         url: string}[],
@@ -31,8 +30,7 @@ export type User = {
     friend_requests: Friend_request[],
     experiences: number[],
     notifications: Notifications[],
-    dark_mode: boolean,
-    token: string
+    dark_mode: boolean
 }
 
 export type Experience = {

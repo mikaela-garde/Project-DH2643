@@ -6,37 +6,38 @@ import BackgroundBlobRightSVG from "../../Images/BackgroundBlobLoginRight.svg";
 import BackButtonArrow from "../../Images/back-button-arrow.svg";
 import {Link} from "react-router-dom";
 
-import { PrimaryBtn, InputField, ContentContainerLogin, ImgContainerLogin, InputLabel, InputFieldWrapper } from '../../StyledComponents';
 
-const CreateExp = () =>
+import { PrimaryBtn, InputField, ContentContainerLogin, ImgContainerLogin, InputLabel, InputFieldWrapper} from '../../StyledComponents';
+
+const SignupView = ({setFirstName, setLastName, setEmail, setPassword, onSignUp}) =>
             <ContentContainer>
                 <ImgContainer src={ProfileHolderImg}></ImgContainer>
                 
                 <InputFieldSignupWrapper>
                     <InputLabelSignup>First name</InputLabelSignup>
-                    <InputFieldSignup></InputFieldSignup>
+                    <InputFieldSignup onChange={e => setFirstName(e.target.value)}></InputFieldSignup>
                 </InputFieldSignupWrapper>
 
                 <InputFieldSignupWrapper>
                     <InputLabelSignup>Last name</InputLabelSignup>
-                    <InputFieldSignup></InputFieldSignup>
+                    <InputFieldSignup onChange={e => setLastName(e.target.value)}></InputFieldSignup>
+                </InputFieldSignupWrapper>
+
+                <InputFieldSignupWrapper>
+                    <InputLabelSignup>Email</InputLabelSignup>
+                    <InputFieldSignup onChange={e => setEmail(e.target.value)}></InputFieldSignup>
                 </InputFieldSignupWrapper>
 
                 <InputFieldSignupWrapper>
                     <InputLabelSignup>Password</InputLabelSignup>
-                    <InputFieldSignup type ="password"></InputFieldSignup>
-                </InputFieldSignupWrapper>
-
-                <InputFieldSignupWrapper>
-                    <InputLabelSignup>Confirm password</InputLabelSignup>
-                    <InputFieldSignup type ="password"></InputFieldSignup>
+                    <InputFieldSignup type ="password" onChange={e => setPassword(e.target.value)}></InputFieldSignup>
                 </InputFieldSignupWrapper>
 
                 <ButtonContainer>
                     <NavLink to="/login">
                         <BackButton src={BackButtonArrow}></BackButton>
                     </NavLink>
-                        <SignUpButton>Sign up</SignUpButton>
+                        <SignUpButton onClick={() => onSignUp()}>Sign up</SignUpButton>
                 </ButtonContainer>
                 
                 <BackgroundBlobContainerLeft>
@@ -113,4 +114,4 @@ const BackgroundBlob = styled.img`
     vertical-align: middle;
 `;
 
-export default CreateExp;
+export default SignupView;

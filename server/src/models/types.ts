@@ -17,11 +17,10 @@ enum Post_Type {
 }
 
 export type User = {
-    id: number,
+    id: string,
     email: string,
     first_name: string,
     last_name: string,
-    password: string, //Bara när den kommer in från clienten
     social_media: {
         type: Social_Media, 
         url: string}[],

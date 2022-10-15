@@ -1,7 +1,8 @@
 import express from "express";
+import { reload } from "firebase/auth";
 import { get, set, ref } from "firebase/database";
 import db from '../../firebase';
-import authFirebase from "../middlewares/auth";
+import  {authFirebase, createAccountFirebase} from "../middlewares/auth";
 import { User } from "../models/types";
 
 
@@ -17,10 +18,23 @@ router.route("/").get((req: express.Request, res: express.Response) => {
         res.status(200).send(data);
     });
 
-}).post((req: express.Request, res: express.Response) => {
+}).post(createAccountFirebase, (req: express.Request, res: express.Response) => {
     
     console.log("posting user");
-    const user: User = req.body;
+    const user: User = {
+        id: req.body.uid,
+        email: req.body.email,
+        first_name: req.body.firstName,
+        last_name: req.body.lastName,
+        social_media: [],
+        description: "",
+        profile_img: "",
+        friends: [],
+        friend_requests: [],
+        experiences: [],
+        notifications: [],
+        dark_mode: false
+    }
     
     //Set in database
     set(ref(db, 'users/' + user.id), user);

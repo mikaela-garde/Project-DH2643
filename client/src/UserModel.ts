@@ -120,7 +120,7 @@ class UserModel {
             this.experiences = data.experiences;
             this.notifications = data.notifications;
             this.dark_mode = data.dark_mode;
-            this.subscribers =data.subscribers;
+            this.notifyObservers();
             console.log("log från usermodel", this.subscribers);
         });
     }

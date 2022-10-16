@@ -1,18 +1,29 @@
 import React, {useState} from 'react';
 import UploadView from "./UploadView";
-import { ThemeContext } from 'styled-components';
 
 
 function TemplatePresenter (props) {
-  const [text, setText] = useState(""); 
   //isActive = Media blue, Text White
   const [isActive, setIsActive] = useState(true);
-  console.log(text);
+  
+  const [text, setText] = useState(""); 
+
+  const fileTypes = ["JPG", "PNG", "GIF"];
+
+  const [file, setFile] = useState(null);
+
+  const handleChange = (file) => {
+    setFile(file);
+  };
+
+
 
   return React.createElement(UploadView, {
       isActive: isActive, 
       setIsActive: setIsActive,
-      setText: (input) => setText(input)
+      setText: (input) => setText(input),
+      handleChange: handleChange,
+      fileTypes: fileTypes
       }
     )
 }

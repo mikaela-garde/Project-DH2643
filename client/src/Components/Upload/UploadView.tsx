@@ -1,14 +1,12 @@
 import React from 'react';
 import styled from "styled-components";
 import addMediaIcon from "../../Images/addMedia.svg";
-import FilesDragAndDrop from '@yelysei/react-files-drag-and-drop';
-
 import { Heading1, Heading2, Heading3, BodyText, Subtitle, PrimaryBtn, InputField, InputFieldWrapper, InputLabel} from '../../StyledComponents';
+import { FileUploader } from "react-drag-drop-files";
 
-const UploadView = ({isActive, setIsActive, setText}) =>
+const UploadView = ({isActive, setIsActive, setText, handleChange, fileTypes}) =>
 
     <ContentContainer>
-        
        <PageTitle>Upload content</PageTitle>
 
        <UploadTypeButtonContainer>
@@ -29,16 +27,25 @@ const UploadView = ({isActive, setIsActive, setText}) =>
         </UploadMedia>
 
        <UploadButton>Publish content</UploadButton>
-                
+        
+       { // @ts-expect-error 
+       <FileUploadCont children={<DivStyle><img height="200px" src={addMediaIcon}></img></DivStyle>} multiple={true} handleChange={handleChange} name="file" types={fileTypes}>
+        
+       </FileUploadCont>}
     </ContentContainer>
 ;
-/* Gör icon till knapp genom att sätta buttons background image till iconen*/ 
-const FileDrop = styled(FilesDragAndDrop)`
-display: 'flex',
-alignItems: 'center',
-justifyContent: 'center'
+
+const DivStyle = styled.div`
+    height: 200px;
+    border: dashed;
+    border-color: red;
 `;
 
+const FileUploadCont = styled(FileUploader)`
+    
+`;
+
+/* Gör icon till knapp genom att sätta buttons background image till iconen*/ 
 
 const FileUpload = styled.div`
     display: flex;

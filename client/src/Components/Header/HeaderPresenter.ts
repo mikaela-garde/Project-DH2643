@@ -3,10 +3,11 @@ import HeaderView from "./HeaderView";
 
 
 function HeaderPresenter ({NavTitle}) {
+    const profilePic = "" //Getta profilepic from databas
 
     return React.createElement(HeaderView,{
-        NavTitle: NavTitle
-
+        NavTitle: NavTitle,
+        ProfilePic : profilePic
         })
 }
 

@@ -7,9 +7,10 @@ import SignupPresenter from './Components/Signup/SignupPresenter';
 import UploadPresenter from './Components/Upload/UploadPresenter';
 import CreateExpPresenter from './Components/CreateExp/CreateExpPresenter';
 import DashboardPresenter from './Components/Dashboard/DashboardPresenter';
+import ExpBoardPresenter from './Components/ExpBoard/ExpBoardPresenter';
+
 import Theme from "./Theme";
 import "react-datepicker/dist/react-datepicker.css";
-import '@yelysei/react-files-drag-and-drop';
 import{ createGlobalStyle } from "styled-components";
 import {
     HashRouter,
@@ -42,15 +43,6 @@ const App = () => {
         console.log(arg);
     });*/
 
-    React.useEffect(() => {
-
-        /*getAPI().then(data => {
-            setFetchedData("data.someData");
-        }).catch(e => {
-            console.log(e)
-        });*/
-    }, [])
-
     return (
     <Theme> 
         <GlobalStyle/>
@@ -68,7 +60,8 @@ const App = () => {
                     <Route path="/profile" element={<ProfilePresenter />} />
                     <Route path="/upload" element={<UploadPresenter />} />
                     <Route path="/create-exp" element={<CreateExpPresenter />} />
-                    
+                    <Route path="/exp-board" element={<ExpBoardPresenter />} />
+
                 </Routes>
             </div>
         </HashRouter>

@@ -3,17 +3,21 @@ import styled from "styled-components";
 import ProfileHolderImg from "../../Images/profile-holder-signup.svg";
 import BackgroundBlobLeftSVG from "../../Images/BackgroundBlobLoginLeft.svg";
 import BackgroundBlobRightSVG from "../../Images/BackgroundBlobLoginRight.svg";
-import BackButtonArrow from "../../Images/back-button-arrow.svg";
 import {Link} from "react-router-dom";
 import DatePicker from "react-datepicker"
 import 'react-datepicker/dist/react-datepicker.css';
+import HeaderPresenter from '../Header/HeaderPresenter';
+
 
 
 import { PrimaryBtn, InputField, ContentContainerLogin, InputLabel, InputFieldWrapper } from '../../StyledComponents';
 
 const CreateExpView = ({startDate, onToggle }) =>
+
+        <Container>
             <ContentContainer>
-                    <DatePicker selected={startDate} onChange={onToggle} />
+                <HeaderPresenter NavTitle={"Dashboard"}/>
+                <DatePicker selected={startDate} onChange={onToggle} />
                 <ContentWrapper>
                     <Column>
                         <InputFieldExpWrapper>
@@ -55,7 +59,15 @@ const CreateExpView = ({startDate, onToggle }) =>
                     <BackgroundBlob src = {BackgroundBlobRightSVG}></BackgroundBlob>
                 </BackgroundBlobContainerRight>
             </ContentContainer>
+        </Container>
+            
 ;
+
+const Container= styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+`;
 
 const ContentContainer = styled.div`
     ${ContentContainerLogin}
@@ -127,6 +139,7 @@ const BackgroundBlobContainerLeft = styled.div`
     left: 0;
     margin: 0;
     width: 20%;
+    z-index: -1;
 `;
 
 const BackgroundBlobContainerRight = styled.div`
@@ -135,6 +148,7 @@ const BackgroundBlobContainerRight = styled.div`
     right: 100px;
     margin: 0;
     width: 20%;
+    z-index: -1;
 `;
 const BackgroundBlob = styled.img`
     vertical-align: middle;

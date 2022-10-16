@@ -1,13 +1,16 @@
 import React, {useState} from 'react';
 import SignupView from "./SignupView";
 import {UserModel} from "../../app";
+import useModelProp from "../../useModelProp";
 
-function LoginPresenter (props) {
+function SignUpPresenter (props) {
+    const loginErrorMessage = useModelProp(UserModel, "signUpErrorMsg");
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     return React.createElement(SignupView, {
+        loginErrorMessage: loginErrorMessage,
         setFirstName: (input) => setFirstName(input),
         setLastName: (input) => setLastName(input),
         setEmail: (input) => setEmail(input),
@@ -17,4 +20,4 @@ function LoginPresenter (props) {
 }
 
 
-export default LoginPresenter;
+export default SignUpPresenter;

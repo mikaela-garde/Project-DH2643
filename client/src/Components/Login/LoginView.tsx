@@ -7,18 +7,21 @@ import BackgroundBlobRightSVG from "../../Images/BackgroundBlobLoginRight.svg";
 
 import { PrimaryBtn, InputField, ContentContainerLogin, ImgContainerLogin, InputLabel, NavLink, InputFieldWrapper} from '../../StyledComponents';
 
-const LoginView = () =>
+const LoginView = ({loginErrorMessage, setEmail, setPassword, onSignIn}) =>
             <ContentContainer>
                 <ImgContainer src={LogotypeHolderImg}></ImgContainer>
+
                 <InputFieldLoginWrapper>
                     <InputLabelLogin>Email</InputLabelLogin>
-                    <InputFieldLogin></InputFieldLogin>
+                    <InputFieldLogin onChange={e => setEmail(e.target.value)}></InputFieldLogin>
                 </InputFieldLoginWrapper>
+                
                 <InputFieldLoginWrapper>
                     <InputLabelLogin>Password</InputLabelLogin>
-                    <InputFieldLogin type="password"></InputFieldLogin>
+                    <InputFieldLogin type="password" onChange={e => setPassword(e.target.value)}></InputFieldLogin>
                 </InputFieldLoginWrapper>
-                <LoginButton>Login</LoginButton>
+                {loginErrorMessage}
+                <LoginButton onClick={() => onSignIn()}>Login</LoginButton>
                 <NavLinkSignup to="/signup">Sign up {'>'}</NavLinkSignup>
 
                 <BackgroundBlobContainerLeft>

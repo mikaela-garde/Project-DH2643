@@ -40,6 +40,8 @@ const DivStyle = styled.div`
     border: dashed;
     border-color: red;
 `;
+/* Gör icon till knapp genom att sätta buttons background image till iconen*/ 
+
 
 const FileUploadCont = styled(FileUploader)`
     

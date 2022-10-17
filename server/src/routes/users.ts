@@ -57,7 +57,6 @@ router.route("/:userid").get((req: express.Request, res: express.Response) => {
 
 //Get user data from id
 router.route("/login").post(signInFirebase, (req: express.Request, res: express.Response) => {
-    console.log("hejsan");
     res.status(200).send({userAuth: res.locals.user, success: true});
 });
 

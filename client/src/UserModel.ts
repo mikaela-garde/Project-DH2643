@@ -121,7 +121,7 @@ class UserModel {
             this.notifications = data.notifications;
             this.dark_mode = data.dark_mode;
             this.notifyObservers();
-            console.log("log från usermodel", this.subscribers);
+            console.log("log från usermodel", data);
         });
     }
 

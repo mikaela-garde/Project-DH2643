@@ -5,7 +5,10 @@
         "outDir": "../dist",
         "allowSyntheticDefaultImports": true,
         "jsx":"react",
-        "moduleResolution": "node"
+        "moduleResolution": "node",
+        "include": ["src", "src/react-app-env.d.ts"]
     },
+    
     "exclude": ["node_modules"]
+    
 }

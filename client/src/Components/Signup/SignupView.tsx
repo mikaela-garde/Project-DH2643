@@ -5,13 +5,14 @@ import BackgroundBlobLeftSVG from "../../Images/BackgroundBlobLoginLeft.svg";
 import BackgroundBlobRightSVG from "../../Images/BackgroundBlobLoginRight.svg";
 import BackButtonArrow from "../../Images/back-button-arrow.svg";
 import {Link} from "react-router-dom";
+import CatImg from "../../Images/sad_cat.jpeg";
 
 
 import { PrimaryBtn, InputField, ContentContainerLogin, ImgContainerLogin, InputLabel, InputFieldWrapper} from '../../StyledComponents';
 
-const SignupView = ({loginErrorMessage, setFirstName, setLastName, setEmail, setPassword, onSignUp}) =>
+const SignupView = ({loginErrorMessage, setFirstName, setLastName, setEmail, setPassword, onSignUp, setImage}) =>
             <ContentContainer>
-                <ImgContainer src={ProfileHolderImg}></ImgContainer>
+                <ImgContainer src={ProfileHolderImg} onClick={e => setImage(CatImg)}></ImgContainer>
                 
                 <InputFieldSignupWrapper>
                     <InputLabelSignup>First name</InputLabelSignup>

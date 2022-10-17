@@ -14,7 +14,7 @@ import { Heading3 } from '../../StyledComponents';
 import { BodyText } from '../../StyledComponents';
 import { Subtitle } from '../../StyledComponents';
 
-const ProfileView = ({firstName, lastName}) =>
+const ProfileView = ({userProfileImg, userFirstName, userLastName, userSocialMedia, userDescription, userExperienceList}) =>
 
     <ContentContainer>
         <HeaderPresenter NavTitle={"Profile"}/>
@@ -22,25 +22,25 @@ const ProfileView = ({firstName, lastName}) =>
         <ProfileContainer>
             <ProfileHeaderContainer>
                 <ImgTextContainer>
-                    <ProfileImgContainer src={ProfileImg}></ProfileImgContainer>
-                    <Title2>{firstName} {lastName}</Title2>
+                    <ProfileImgContainer src={userProfileImg}></ProfileImgContainer>
+                    <Title2>{userFirstName} + {userLastName}</Title2>
                 </ImgTextContainer>
 
                 <SocialMediaContainer>
                     <Title3>Social media</Title3>
                     <ImgTextContainer>
                         <IconContainer src={TiktokIcon}></IconContainer>
-                        <Text>paprika23</Text>
+                        <Text>hej</Text>
                     </ImgTextContainer>
                     <ImgTextContainer>
                         <IconContainer src={InstagramIcon}></IconContainer>
-                        <Text>23paprika</Text>
+                        <Text>hej</Text>
                     </ImgTextContainer>
                 </SocialMediaContainer>
             </ProfileHeaderContainer>
             
             <Title3>About me</Title3>
-            <Text>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</Text>
+            <Text>{userDescription}</Text>
         </ProfileContainer>
         <GridPresenter />
     </ContentContainer>

@@ -8,7 +8,7 @@ const firebaseApp = initializeApp(firebaseConfig);
 
 const auth = getAuth();
 
-const createAccountFirebase = (email, password, firstName, lastName) => {
+const createAccountFirebase = (email, password, firstName, lastName, image) => {
 
     createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
@@ -20,7 +20,7 @@ const createAccountFirebase = (email, password, firstName, lastName) => {
         last_name: lastName,
         social_media: [],
         description: "",
-        profile_img: "",
+        profile_img: image,
         friends: [],
         friend_requests: [],
         experiences: [],

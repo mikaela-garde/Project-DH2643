@@ -29,7 +29,7 @@ router.route("/signup").post(createAccountFirebase, (req: express.Request, res: 
         last_name: req.body.lastName,
         social_media: [],
         description: "",
-        profile_img: "",
+        profile_img: req.body.profileImage,
         friends: [],
         friend_requests: [],
         experiences: [],

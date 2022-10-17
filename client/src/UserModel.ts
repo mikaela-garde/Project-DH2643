@@ -1,5 +1,5 @@
 import { socket } from "./app";
-import {User, Social_Media, Friend_request, Notifications} from "./types";
+import {User, Image, Social_Media, Friend_request, Notifications} from "./types";
 import {createAccountAPI, listenToUserAPI, loginAPI} from "./webAPI/webAPI";
 
 class UserModel {
@@ -13,7 +13,7 @@ class UserModel {
         platform: Social_Media,     
         url: string}[];
     description: string | null;
-    profile_img: string;
+    profile_img: Image;
     friends: number[]; //Ska man lägga in hela användaren här eller vara ett id
     friend_requests: Friend_request[];
     experiences: number[];
@@ -24,8 +24,9 @@ class UserModel {
     signUpErrorMsg: string;
     accessToken: string;
 
-    constructor(user: User/*id = "", token = "", displayName = "", img = null*/){
+    constructor(user: User /*id = "", token = "", displayName = "", img = null*/){
 
+        
         this.id = user.id;
         this.email = user.email;
         this.first_name = user.first_name;
@@ -61,9 +62,11 @@ class UserModel {
     }
 
 
-    createNewUserFB(firstName, lastName, email, password) {
-        createAccountAPI(firstName, lastName, email, password).then(( { data }: { data: any  }) => {
+    createNewUserFB(firstName, lastName, email, password, image) {
+        console.log(image);
+        createAccountAPI(firstName, lastName, email, password, image).then(( { data }: { data: any  }) => {
             if (data.success) {
+                console.log(image);
                 localStorage.setItem("refreshToken", data.userAuth.stsTokenManager.refreshToken);
                 console.log("Denna refresh token ligger nu i localstorage: " + localStorage.getItem("refreshToken"));
                 console.log("det blev inte error", data)
@@ -77,6 +80,7 @@ class UserModel {
                 this.signInErrorMsg = data.error;
                 this.notifyObservers();
                 console.log("det blev error", data);
+                console.log(image);
             }
             });
         this.notifyObservers();

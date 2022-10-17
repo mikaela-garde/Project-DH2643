@@ -8,7 +8,7 @@ import UploadPresenter from './Components/Upload/UploadPresenter';
 import CreateExpPresenter from './Components/CreateExp/CreateExpPresenter';
 import DashboardPresenter from './Components/Dashboard/DashboardPresenter';
 import ExpBoardPresenter from './Components/ExpBoard/ExpBoardPresenter';
-
+import EmptyProfileImage from "./Images/emptyProfileImg.svg";
 import Theme from "./Theme";
 import "react-datepicker/dist/react-datepicker.css";
 import{ createGlobalStyle } from "styled-components";
@@ -27,7 +27,7 @@ let UserModel = new Model({
     last_name: "Dad",
     social_media: [],
     description: "Hi, I'm a test",
-    profile_img: "This will be an img",
+    profile_img: EmptyProfileImage,
     friends: [1, 2, 3],
     friend_requests: [],
     experiences: [1, 2, 3],
@@ -53,7 +53,6 @@ const App = () => {
             <div>
              
                 <Routes>
-                
                     <Route path="/dashboard" element={<DashboardPresenter />} />
                     <Route path="/template" element={<TemplatePresenter />} />
                     <Route path="/profile" element={<ProfilePresenter />} />

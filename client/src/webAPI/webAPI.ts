@@ -6,11 +6,13 @@ export const getUserAPI = (uid) => axios.get("https://localhost:8081/api/users/"
 });
 
 
-export const createAccountAPI = (firstName, lastName, email, password) => axios.post("https://localhost:8081/api/users/signup", {
+export const createAccountAPI = (firstName, lastName, email, password, profileImage) => axios.post("https://localhost:8081/api/users/signup", {
+    
     firstName: firstName,
     lastName: lastName,
     email: email,
-    password: password
+    password: password,
+    profileImage: profileImage
 });
 
 export const loginAPI = (email, password) => axios.post("https://localhost:8081/api/users/login", {

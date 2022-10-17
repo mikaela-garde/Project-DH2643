@@ -57,5 +57,5 @@ io.on('connection', (socket:any) => {
         res.status(200).send("Listening to user");
 
     });
-    
+     
 });

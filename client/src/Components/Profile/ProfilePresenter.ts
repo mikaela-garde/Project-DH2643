@@ -6,7 +6,7 @@ import NoDataView from '../NoData/NoDataView';
 
 
 function ProfilePresenter (props) {
-  /*
+
     const userProfileImg= useModelProp(UserModel, "profile_img");
     const userFirstName = useModelProp(UserModel, "first_name");
     const userLastName = useModelProp(UserModel, "last_name");
@@ -14,19 +14,17 @@ function ProfilePresenter (props) {
     const userDescription = useModelProp(UserModel, "description");
     const userExperienceList = useModelProp(UserModel, "experiences");
 
-    const data = [userProfileImg, userFirstName, userLastName, userSocialMedia, userDescription, userExperienceList]
+    const data = [userProfileImg, userFirstName, userLastName]
     let dataRetrieved = data.some(dt => dt === undefined || dt.length === 0 || dt === null );
-*/
-    return NoDataView()
-    /*
-    dataRetrieved ? NoDataView() : React.createElement(ProfileView, 
+
+    return dataRetrieved ? NoDataView() : React.createElement(ProfileView, {
         userProfileImg, 
         userFirstName,
         userLastName,
         userSocialMedia,
         userDescription,
         userExperienceList
-        )*/
+    })
 }
 
 

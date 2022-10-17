@@ -16,6 +16,10 @@ enum Post_Type {
     Audio
 }
 
+export enum Image {
+    Image
+}
+
 export type User = {
     id: string,
     email: string,
@@ -25,7 +29,7 @@ export type User = {
         type: Social_Media, 
         url: string}[],
     description: string | null,
-    profile_img: string,
+    profile_img: Image,
     friends: number[], //Ska man lägga in hela användaren här eller vara ett id
     friend_requests: Friend_request[],
     experiences: number[],

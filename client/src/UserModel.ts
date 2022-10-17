@@ -1,6 +1,6 @@
 import { socket } from "./app";
 import {User, Social_Media, Friend_request, Notifications} from "./types";
-import {createAccountAPI, listenToUserAPI, loginAPI} from "./webAPI/webAPI";
+import {createAccountAPI, listenToUserAPI, loginAPI, getUidFromTokenAPI} from "./webAPI/webAPI";
 
 class UserModel {
     /** Model containing information for the logged in user from firebase*/
@@ -25,7 +25,6 @@ class UserModel {
     accessToken: string;
 
     constructor(user: User/*id = "", token = "", displayName = "", img = null*/){
-
         this.id = user.id;
         this.email = user.email;
         this.first_name = user.first_name;
@@ -103,6 +102,21 @@ class UserModel {
             });
         //let user = new Promise(signInFirebase(email, password));
         //console.log(user);
+    }
+
+//Get user data when a refresh token exists
+    getUserFromToken(token: any) {
+        getUidFromTokenAPI(token).then(( { data }: { data: any  }) => {
+            if (data.success) {
+                console.log("nu har vi accessat användaren fb", data);
+                this.listenToUserData(data.user.user_id);
+            } else {
+                this.signInErrorMsg = data.error;
+                this.notifyObservers();
+                console.log("det blev error", data);
+            }
+        });
+
     }
 
     listenToUserData(uid:string) {

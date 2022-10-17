@@ -39,6 +39,12 @@ const socket = io("https://localhost:8081");
 
 const App = () => {
     useEffect(() => {
+        if(localStorage.getItem("refreshToken")) {
+            UserModel.getUserFromToken(localStorage.getItem("refreshToken"));
+            console.log("Det finns en refresh token");
+        } else {
+            console.log("ingen refresh");
+        }
         const socket = io("https://localhost:8081");
         // Specify how to clean up after this effect:
         return function cleanup() {

@@ -2,7 +2,7 @@ import express from "express";
 import { reload } from "firebase/auth";
 import { get, set, ref } from "firebase/database";
 import {db} from '../../firebase';
-import  {signInFirebase, createAccountFirebase} from "../middlewares/auth";
+import  {signInFirebase, createAccountFirebase, checkAuth} from "../middlewares/auth";
 import { User } from "../models/types";
 
 
@@ -60,6 +60,10 @@ router.route("/login").post(signInFirebase, (req: express.Request, res: express.
     res.status(200).send({userAuth: res.locals.user, success: true});
 });
 
+//get uid from token
+router.route("/getuid").post(checkAuth, (req: express.Request, res: express.Response) => {
+    res.status(200).send({ user: res.locals.user, success: true});
+});
 
 
 export default router;

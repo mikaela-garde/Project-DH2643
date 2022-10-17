@@ -67,3 +67,4 @@ app.post("/api/listeners/user", (req: express.Request, res: express.Response) =>
     listenToUser(req.body.uid, (val:any) => {io.sockets.emit("user", val)});
     res.status(200).send("Listening to user");
 });
+

@@ -21,3 +21,7 @@ export const loginAPI = (email, password) => axios.post("https://localhost:8081/
 export const listenToUserAPI = (uid) => axios.post("https://localhost:8081/api/listeners/user", {
     uid: uid
 });
+
+export const getUidFromTokenAPI = (token) => axios.post("https://localhost:8081/api/users/getuid", {
+    token: token
+});

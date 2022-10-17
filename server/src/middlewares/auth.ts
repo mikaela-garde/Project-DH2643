@@ -1,6 +1,7 @@
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 import { User } from '../models/types';
 import express from "express";
+import fetch from 'node-fetch';
 
 const auth = getAuth();
 
@@ -9,6 +10,20 @@ const authFirebase = (req: express.Request, res: express.Response, next: express
     // Kolla på det finns en token
     // då next();
     //Annars Ska man returnera fel koden för att man inte har auth res.send.401 eller vad det blir
+}
+
+const checkAuth = (req: express.Request, res: express.Response, next: express.NextFunction) => {
+  console.log("kom in i checkAuth")
+  fetch('https://securetoken.googleapis.com/v1/token?key=AIzaSyBfZR7iec4_6_AbFzQliaLBq326x3FS91I', {
+    method: 'POST',
+    body: "grant_type=refresh_token&refresh_token=" + req.body.token,
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+    }).then((res:any) => res.json())
+    .then((json:any) => {
+      res.locals.user = json;
+      next();
+    })
+    .catch((error:any) => console.log(error));
 }
 
 const createAccountFirebase = (req: express.Request, res: express.Response, next: express.NextFunction) => {  
@@ -40,4 +55,4 @@ const signInFirebase = (req: express.Request, res: express.Response, next: expre
   });
 }
 
-export { authFirebase, createAccountFirebase, signInFirebase};
+export { authFirebase, createAccountFirebase, signInFirebase, checkAuth};

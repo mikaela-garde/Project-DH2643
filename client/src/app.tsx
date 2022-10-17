@@ -39,15 +39,8 @@ const socket = io("https://localhost:8081");
 
 const App = () => {
     const [fetchedData, setFetchedData] = React.useState("");
-<<<<<<< Updated upstream
 
-    socket.on("user", (arg) => {
-=======
     const socket = io("https://localhost:8081");
-    socket.on("hello", (arg) => {
->>>>>>> Stashed changes
-        console.log(arg);
-    });
 
     return (
     <Theme> 

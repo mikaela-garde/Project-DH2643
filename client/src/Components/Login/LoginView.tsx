@@ -61,13 +61,11 @@ const NavLinkSignup = styled(Link)`
     ${NavLink}
 `;
 
-
 const BackgroundBlobContainerLeft = styled.div`
     position: fixed;
     bottom: -100px;
     left: 0;
     margin: 0;
-    width: 20%;
     z-index:-1;
 `;
 
@@ -81,7 +79,6 @@ const BackgroundBlobContainerRight = styled.div`
 `;
 const BackgroundBlob = styled.img`
     vertical-align: middle;
-    z-index: -1;
 `;
 
 export default LoginView;

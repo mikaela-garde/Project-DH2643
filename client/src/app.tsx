@@ -8,7 +8,7 @@ import UploadPresenter from './Components/Upload/UploadPresenter';
 import CreateExpPresenter from './Components/CreateExp/CreateExpPresenter';
 import DashboardPresenter from './Components/Dashboard/DashboardPresenter';
 import ExpBoardPresenter from './Components/ExpBoard/ExpBoardPresenter';
-import EmptyProfileImage from "./Images/emptyProfileImg.svg";
+import EmptyProfileImage from "./Images/EmptyProfileImg.svg";
 import Theme from "./Theme";
 import "react-datepicker/dist/react-datepicker.css";
 import{ createGlobalStyle } from "styled-components";

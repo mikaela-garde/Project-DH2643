@@ -17,3 +17,7 @@ export const loginAPI = (email, password) => axios.post("https://localhost:8081/
     email: email,
     password: password
 });
+
+export const listenToUserAPI = (uid) => axios.post("https://localhost:8081/api/listeners/user", {
+    uid: uid
+});

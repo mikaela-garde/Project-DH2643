@@ -1,5 +1,6 @@
+import { socket } from "./app";
 import {User, Social_Media, Friend_request, Notifications} from "./types";
-import {createAccountAPI, loginAPI} from "./webAPI/webAPI";
+import {createAccountAPI, listenToUserAPI, loginAPI} from "./webAPI/webAPI";
 
 class UserModel {
     /** Model containing information for the logged in user from firebase*/
@@ -66,6 +67,7 @@ class UserModel {
                 localStorage.setItem("refreshToken", data.userAuth.stsTokenManager.refreshToken);
                 console.log("Denna refresh token ligger nu i localstorage: " + localStorage.getItem("refreshToken"));
                 console.log("det blev inte error", data)
+                this.listenToUserData(data.userAuth.uid);
                 // subscribeToFirebase(): här ska vi nu subscriba till Firebase
                 // hur man använder refresh token för att få en ID token som vi sen kan använda för att skicka requests:
                 // https://firebase.google.com/docs/reference/rest/auth/#section-refresh-token
@@ -87,6 +89,7 @@ class UserModel {
                 console.log("Denna refresh token ligger nu i localstorage: " + localStorage.getItem("refreshToken"));
                 console.log("det blev inte error", data)
                 this.accessToken = data.userAuth.stsTokenManager.accessToken;
+                this.listenToUserData(data.userAuth.uid);
                 // subscribeToFirebase(): här ska vi nu subscriba till Firebase
                 // hur man använder refresh token för att få en ID token som vi sen kan använda för att skicka requests:
                 // https://firebase.google.com/docs/reference/rest/auth/#section-refresh-token
@@ -102,8 +105,24 @@ class UserModel {
         //console.log(user);
     }
 
-    listenToFB(uid) {
-        
+    listenToUserData(uid:string) {
+        listenToUserAPI(uid);
+        socket.on("user", (data) => {
+            this.id = data.id;
+            this.email = data.email;
+            this.first_name = data.first_name;
+            this.last_name = data.last_name;
+            this.social_media = data.social_media;
+            this.description = data.description;
+            this.profile_img = data.profile_img;
+            this.friends = data.friends; //Ska man lägga in hela användaren här eller vara ett id
+            this.friend_requests = data.friend_requests;
+            this.experiences = data.experiences;
+            this.notifications = data.notifications;
+            this.dark_mode = data.dark_mode;
+            this.notifyObservers();
+            console.log("log från usermodel", this.subscribers);
+        });
     }
 
     setEmail(email: string) {

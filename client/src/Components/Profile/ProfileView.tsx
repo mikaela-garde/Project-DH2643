@@ -14,7 +14,7 @@ import { Heading3 } from '../../StyledComponents';
 import { BodyText } from '../../StyledComponents';
 import { Subtitle } from '../../StyledComponents';
 
-const ProfileView = () =>
+const ProfileView = ({firstName, lastName}) =>
 
     <ContentContainer>
         <HeaderPresenter NavTitle={"Profile"}/>
@@ -23,7 +23,7 @@ const ProfileView = () =>
             <ProfileHeaderContainer>
                 <ImgTextContainer>
                     <ProfileImgContainer src={ProfileImg}></ProfileImgContainer>
-                    <Title2>Jessie Liu</Title2>
+                    <Title2>{firstName} {lastName}</Title2>
                 </ImgTextContainer>
 
                 <SocialMediaContainer>

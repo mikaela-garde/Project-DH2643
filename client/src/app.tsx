@@ -35,13 +35,12 @@ let UserModel = new Model({
     dark_mode: true
 });
 
+const socket = io("https://localhost:8081");
 
 const App = () => {
     const [fetchedData, setFetchedData] = React.useState("");
-    /*const socket = io("https://localhost:8081");
-    socket.on("hello", (arg) => {
-        console.log(arg);
-    });*/
+
+    const socket = io("https://localhost:8081");
 
     return (
     <Theme> 
@@ -78,4 +77,4 @@ const GlobalStyle = createGlobalStyle `
 
 ReactDOM.createRoot(document.getElementById('app')!).render(<App />);
 
-export {UserModel};
+export {UserModel, socket};

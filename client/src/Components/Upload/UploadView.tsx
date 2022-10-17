@@ -4,7 +4,7 @@ import addMediaIcon from "../../Images/addMedia.svg";
 import { Heading1, Heading2, Heading3, BodyText, Subtitle, PrimaryBtn, InputField, InputFieldWrapper, InputLabel} from '../../StyledComponents';
 import { FileUploader } from "react-drag-drop-files";
 
-const UploadView = ({isActive, setIsActive, setText, handleChange, fileTypes}) =>
+const UploadView = ({isActive, setIsActive, setText, handleFileChange, fileTypes, fileName, fileError}) =>
 
     <ContentContainer>
        <PageTitle>Upload content</PageTitle>
@@ -15,52 +15,36 @@ const UploadView = ({isActive, setIsActive, setText, handleChange, fileTypes}) =
         </UploadTypeButtonContainer>
 
         <UploadMedia>
-            {isActive && <FileUpload>
+            { // @ts-expect-error 
+            isActive && <FileUploader children={<FileUploadContainer>
                 <img height="200px" src={addMediaIcon}></img>
-                <SmallText>filename</SmallText>
+                {fileError ? <SmallText errorColor={true}>{fileError}</SmallText> : <SmallText errorColor={false}>{fileName}</SmallText>}
                 <Title3>Drag & Drop files here</Title3>
                 <Text>Allowed file types: Photos, videos, recordings</Text>
-            </FileUpload>}
+            </FileUploadContainer>} hoverTitle=" " handleChange={handleFileChange} multiple={false} name="file" types={fileTypes} onTypeError={handleFileChange}>
+            </FileUploader> }
             <TextInputWrapper>
                 <TextInput placeholder="Write text" onChange={e => setText(e.target.value)}></TextInput>
             </TextInputWrapper>
         </UploadMedia>
 
        <UploadButton>Publish content</UploadButton>
-        
-       { // @ts-expect-error 
-       <FileUploadCont children={<DivStyle><img height="200px" src={addMediaIcon}></img></DivStyle>} multiple={true} handleChange={handleChange} name="file" types={fileTypes}>
-        
-       </FileUploadCont>}
+    
     </ContentContainer>
 ;
 
-const DivStyle = styled.div`
-    height: 200px;
-    border: dashed;
-    border-color: red;
-`;
-/* Gör icon till knapp genom att sätta buttons background image till iconen*/ 
 
+/* Old version
+{isActive && <FileUpload>
+                <img height="200px" src={addMediaIcon}></img>
+                <SmallText>filename</SmallText>
+                <Title3>Drag & Drop files here</Title3>
+                <Text>Allowed file types: Photos, videos, recordings</Text>
+            </FileUpload>}
+            */ 
 
-const FileUploadCont = styled(FileUploader)`
-    
-`;
-
-/* Gör icon till knapp genom att sätta buttons background image till iconen*/ 
-
-const FileUpload = styled.div`
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    border-color: white;
-    border-style: dashed;
-    border-radius: 50px;
-    width: 40%;
-    padding: 5%;
-    gap: 40px;
-`;
+/* Padding: 50px
+    372px x 500 */
 
 const ContentContainer = styled.div`
     display: flex;
@@ -73,7 +57,7 @@ const ContentContainer = styled.div`
 `;
 const TextInput = styled.textarea`
     ${InputField};
-    height:100%;
+    height: 500px;
     width: 100%;
     resize: none;
     box-sizing: border-box;
@@ -88,6 +72,22 @@ const TextInputWrapper = styled.div`
     height:100%;
 `;
 
+const FileUploadContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-color: white;
+    border-style: dashed;
+    border-radius: 50px;
+    width: 375px;
+    height: 400px;
+    padding: 50px;
+    gap: 40px;
+    :hover {
+        cursor: pointer;
+    }
+`;
 const UploadMedia = styled.div`
     display: flex;
     justify-content: center;
@@ -156,11 +156,11 @@ const Title3 = styled.h3`
     text-align: center;
 `;
 
-const SmallText = styled.p`
+const SmallText = styled.p.attrs((props: errorColorTag) => ({errorColor: props.errorColor}))`
     ${Subtitle};
     margin-block-start:0em;
     margin-bottom: auto;
-    color: white;
+    color: ${props => props.errorColor ? "red" : "white"}
 `;
 
 const Text = styled.p`
@@ -176,7 +176,11 @@ type Props = {
     as?: string
 }
 
-interface ColorTagProps{
+interface ColorTagProps {
     colorBool: boolean;
+}
+
+interface errorColorTag {
+    errorColor: boolean;
 }
 export default UploadView;

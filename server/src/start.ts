@@ -4,6 +4,8 @@ import https from "https";
 import fs from 'fs';
 import cors from "cors";
 import users from './routes/users';
+import { db, listenToUser } from "../firebase";
+import { onValue, ref } from "firebase/database";
 
 const app = express();
 
@@ -31,15 +33,16 @@ app.get("/", (req: express.Request, res: express.Response) => {
     res.status(200).send(htmlFile);
 });
 
-
 app.use("/api/users", users);
 //uses users.ts
 
 
-//router.post() sensitive data t.ex auth
-
-
 const server = https.createServer(options, app);
+
+server.listen(port, () => {
+    console.log(`Server is listening on port: ${port}`);
+})
+
 const io = require("socket.io")(server, {
     cors: {
         origin: "https://localhost:3000",
@@ -47,8 +50,12 @@ const io = require("socket.io")(server, {
     }
 });
 io.on('connection', (socket:any) => {
-    socket.emit("hello", "world");
-});
-server.listen(port, () => {
-    console.log(`Server is listening on port: ${port}`);
+    console.log("den är connectad");
+    
+    app.post("/api/listeners/user", (req: express.Request, res: express.Response) => {
+        listenToUser(req.body.uid, (val:any) => {socket.emit("user", val)});
+        res.status(200).send("Listening to user");
+
+    });
+    
 });

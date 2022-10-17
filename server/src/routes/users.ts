@@ -1,7 +1,7 @@
 import express from "express";
 import { reload } from "firebase/auth";
 import { get, set, ref } from "firebase/database";
-import db from '../../firebase';
+import {db} from '../../firebase';
 import  {signInFirebase, createAccountFirebase} from "../middlewares/auth";
 import { User } from "../models/types";
 
@@ -10,7 +10,6 @@ const router = express.Router();
 
 //Get all users
 router.route("/").get((req: express.Request, res: express.Response) => {
-    
     //Get users from database
     const user_ref = ref(db, 'users');
     get(user_ref).then((snapshot) => {
@@ -39,7 +38,7 @@ router.route("/signup").post(createAccountFirebase, (req: express.Request, res: 
     }
     
     //Set in database
-    set(ref(db, 'users/' + user.id), user);
+    set(ref(db, 'users/' + user.id), user); //Lägga till .then och sen skicka
     res.status(200).send({userDB: user, userAuth: res.locals.user, success: true});
 });
 

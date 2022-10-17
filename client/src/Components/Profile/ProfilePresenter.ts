@@ -2,8 +2,6 @@ import React, {useState} from 'react';
 import useModelProp from '../../useModelProp';
 import {UserModel} from '../../app';
 import ProfileView from "./ProfileView";
-import useModelProp from "../../useModelProp"
-import UserModel from "../../UserModel";
 import NoDataView from '../NoData/NoDataView';
 
 

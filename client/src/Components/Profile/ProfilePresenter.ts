@@ -1,23 +1,33 @@
 import React, {useState} from 'react';
 import ProfileView from "./ProfileView";
-
-function TemplatePresenter (props) {
-    const userProfilePic = 0;
-    const userName = 0;
-    const userSocialMedia = 0;
-    const userAbout = 0;
-    const userExperienceList = 0;
+import useModelProp from "../../useModelProp"
+import UserModel from "../../UserModel";
+import NoDataView from '../NoData/NoDataView';
 
 
+function ProfilePresenter (props) {
+  /*
+    const userProfileImg= useModelProp(UserModel, "profile_img");
+    const userFirstName = useModelProp(UserModel, "first_name");
+    const userLastName = useModelProp(UserModel, "last_name");
+    const userSocialMedia = useModelProp(UserModel, "social_media");
+    const userDescription = useModelProp(UserModel, "description");
+    const userExperienceList = useModelProp(UserModel, "experiences");
 
-    return React.createElement(ProfileView, 
-        userProfilePic, 
-        userName,
+    const data = [userProfileImg, userFirstName, userLastName, userSocialMedia, userDescription, userExperienceList]
+    let dataRetrieved = data.some(dt => dt === undefined || dt.length === 0 || dt === null );
+*/
+    return NoDataView()
+    /*
+    dataRetrieved ? NoDataView() : React.createElement(ProfileView, 
+        userProfileImg, 
+        userFirstName,
+        userLastName,
         userSocialMedia,
-        userAbout,
+        userDescription,
         userExperienceList
-        )
+        )*/
 }
 
 
-export default TemplatePresenter;
+export default ProfilePresenter;

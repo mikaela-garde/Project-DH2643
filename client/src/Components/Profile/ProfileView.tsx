@@ -5,6 +5,7 @@ import TiktokIcon from "../../Images/tiktok.png";
 import InstagramIcon from "../../Images/instagram.png";
 import {Link} from "react-router-dom";
 import HeaderPresenter from '../Header/HeaderPresenter';
+import GridPresenter from '../Grid/GridPresenter';
 
 
 import { Heading1 } from '../../StyledComponents';
@@ -12,7 +13,6 @@ import { Heading2 } from '../../StyledComponents';
 import { Heading3 } from '../../StyledComponents';
 import { BodyText } from '../../StyledComponents';
 import { Subtitle } from '../../StyledComponents';
-import GridPresenter from '../Grid/GridPresenter';
 
 const ProfileView = () =>
 

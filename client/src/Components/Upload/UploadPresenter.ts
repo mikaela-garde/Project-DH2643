@@ -1,29 +1,38 @@
 import React, {useState} from 'react';
 import UploadView from "./UploadView";
 
-
 function TemplatePresenter (props) {
   //isActive = Media blue, Text White
   const [isActive, setIsActive] = useState(true);
   
   const [text, setText] = useState(""); 
 
-  const fileTypes = ["JPG", "PNG", "GIF"];
+  const fileTypes = ["JPG", "PNG", "HEIC", "MP3", "MP4", "MOV"];
 
-  const [file, setFile] = useState(null);
+  const [file, setFile] = useState("");
 
-  const handleChange = (file) => {
-    setFile(file);
+  const [fileName, setFileName] = useState("");
+
+  const [fileError, setFileError] = useState("");
+
+  const handleFileChange = (file) => {
+    if(typeof file == "string") {
+      setFileError(file);
+    } else {
+      setFile(file);
+      setFileName(file.name);
+      setFileError("");
+    }
   };
-
-
 
   return React.createElement(UploadView, {
       isActive: isActive, 
       setIsActive: setIsActive,
       setText: (input) => setText(input),
-      handleChange: handleChange,
-      fileTypes: fileTypes
+      handleFileChange: handleFileChange,
+      fileTypes: fileTypes,
+      fileName: fileName,
+      fileError: fileError
       }
     )
 }

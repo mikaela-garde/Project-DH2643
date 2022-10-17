@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import ReactDOM from 'react-dom/client';
 import TemplatePresenter from './Components/Template/TemplatePresenter';
 import LoginPresenter from './Components/Login/LoginPresenter';
@@ -38,9 +38,19 @@ let UserModel = new Model({
 const socket = io("https://localhost:8081");
 
 const App = () => {
-    const [fetchedData, setFetchedData] = React.useState("");
-
-    const socket = io("https://localhost:8081");
+    useEffect(() => {
+        if(localStorage.getItem("refreshToken")) {
+            UserModel.getUserFromToken(localStorage.getItem("refreshToken"));
+            console.log("Det finns en refresh token");
+        } else {
+            console.log("ingen refresh");
+        }
+        const socket = io("https://localhost:8081");
+        // Specify how to clean up after this effect:
+        return function cleanup() {
+            socket.disconnect()
+        }
+    });
 
     return (
     <Theme> 

@@ -49,13 +49,22 @@ const io = require("socket.io")(server, {
         methods: ["GET", "POST"]
     }
 });
+
 io.on('connection', (socket:any) => {
     console.log("den är connectad");
+    // Lite kod som man kan använda för att eventuellt unsubscriba till FB
+    /*
+    const unsubscribe:any = [];
     
-    app.post("/api/listeners/user", (req: express.Request, res: express.Response) => {
-        listenToUser(req.body.uid, (val:any) => {socket.emit("user", val)});
-        res.status(200).send("Listening to user");
-
-    });
-     
+    socket.on("disconnect", (reason: any) => {
+        unsubscribe.forEach((callback:any) => callback());
+        console.log(reason);
+      });
+    */
 });
+
+app.post("/api/listeners/user", (req: express.Request, res: express.Response) => {
+    listenToUser(req.body.uid, (val:any) => {io.sockets.emit("user", val)});
+    res.status(200).send("Listening to user");
+});
+

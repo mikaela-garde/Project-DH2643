@@ -1,6 +1,6 @@
 import { socket } from "./app";
 import {User, Image, Social_Media, Friend_request, Notifications} from "./types";
-import {createAccountAPI, listenToUserAPI, loginAPI} from "./webAPI/webAPI";
+import {createAccountAPI, listenToUserAPI, loginAPI, getUidFromTokenAPI} from "./webAPI/webAPI";
 
 class UserModel {
     /** Model containing information for the logged in user from firebase*/
@@ -66,7 +66,6 @@ class UserModel {
         console.log(image);
         createAccountAPI(firstName, lastName, email, password, image).then(( { data }: { data: any  }) => {
             if (data.success) {
-                console.log(image);
                 localStorage.setItem("refreshToken", data.userAuth.stsTokenManager.refreshToken);
                 console.log("Denna refresh token ligger nu i localstorage: " + localStorage.getItem("refreshToken"));
                 console.log("det blev inte error", data)
@@ -80,7 +79,6 @@ class UserModel {
                 this.signInErrorMsg = data.error;
                 this.notifyObservers();
                 console.log("det blev error", data);
-                console.log(image);
             }
             });
         this.notifyObservers();
@@ -109,6 +107,21 @@ class UserModel {
         //console.log(user);
     }
 
+//Get user data when a refresh token exists
+    getUserFromToken(token: any) {
+        getUidFromTokenAPI(token).then(( { data }: { data: any  }) => {
+            if (data.success) {
+                console.log("nu har vi accessat användaren fb", data);
+                this.listenToUserData(data.user.user_id);
+            } else {
+                this.signInErrorMsg = data.error;
+                this.notifyObservers();
+                console.log("det blev error", data);
+            }
+        });
+
+    }
+
     listenToUserData(uid:string) {
         listenToUserAPI(uid);
         socket.on("user", (data) => {
@@ -125,7 +138,7 @@ class UserModel {
             this.notifications = data.notifications;
             this.dark_mode = data.dark_mode;
             this.notifyObservers();
-            console.log("log från usermodel", this.subscribers);
+            console.log("log från usermodel", data);
         });
     }
 

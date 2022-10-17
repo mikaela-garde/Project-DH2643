@@ -92,6 +92,7 @@ const ProfileImgContainer = styled.img`
     height: 150px;
     width: 150px;
     margin-right: 20px;
+
 `;
 
 

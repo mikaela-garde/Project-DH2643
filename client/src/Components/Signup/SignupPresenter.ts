@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import SignupView from "./SignupView";
 import {UserModel} from "../../app";
 import useModelProp from "../../useModelProp";
-import EmptyProfileImage from "../../Images/emptyProfileImg.png"
+import EmptyProfileImage from "../../Images/EmptyProfileImg.svg"
 import CatImg from "../../Images/sad_cat.jpeg";
 
 function SignUpPresenter (props) {

@@ -5,7 +5,6 @@ import firebaseConfig from './firebase-config';
 const firebaseApp = initializeApp(firebaseConfig);
 const db:Database = getDatabase(firebaseApp);
 
-
 const listenToUser = (uid:string, callback:any) => {
     const unsubscribe = onValue(ref(db, 'users/' + uid), (snapshot) => {
       callback(snapshot.val());
@@ -13,6 +12,7 @@ const listenToUser = (uid:string, callback:any) => {
   
   return unsubscribe;
 }
+
 
 
 export {db, listenToUser};

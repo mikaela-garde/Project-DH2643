@@ -10,7 +10,7 @@ const GridView= ({setExperience, ExpList}) =>
 
     <ExperienceContainer>
         <ExperienceGridContainer>
-        {console.log(ExpList)},
+        {console.log(ExpList)}
             {ExpList.map(exp => (
                 <ExperienceButtonContainer key={exp} to="/login" onClick={() => setExperience(exp.title)}>
                     <SingleExperienceContainer>

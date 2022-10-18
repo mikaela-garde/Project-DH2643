@@ -7,7 +7,7 @@ import FriendsSVG from "../../Images/friends.svg";
 import { Heading1 } from '../../StyledComponents';
 
 
-const HeaderView= ({NavTitle, ProfilePic, onLogout}) =>
+const HeaderView= ({NavTitle, ProfilePic, onLogout, backButtonVis}) =>
 
     <HeadingContainer>
 
@@ -29,9 +29,9 @@ const HeaderView= ({NavTitle, ProfilePic, onLogout}) =>
         </Menu>
 
         <NavContainer>
-            <NavLink to="/login">
+            {backButtonVis && <NavLink to="/">
                 <BackButton src={BackButtonArrow}></BackButton>
-            </NavLink>
+            </NavLink>}
             <PageTitle>{NavTitle}</PageTitle> 
         </NavContainer>
 

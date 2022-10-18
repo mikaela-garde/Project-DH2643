@@ -16,7 +16,7 @@ const CreateExpView = ({startDate, onToggle }) =>
 
         <Container>
             <ContentContainer>
-                <HeaderPresenter NavTitle={"Dashboard"}/>
+                <HeaderPresenter NavTitle={"Create Experience"}/>
                 <DatePicker selected={startDate} onChange={onToggle} />
                 <ContentWrapper>
                     <Column>

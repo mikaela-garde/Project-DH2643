@@ -1,13 +1,15 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import SignupView from "./SignupView";
 import {UserModel} from "../../app";
 import useModelProp from "../../useModelProp";
 import EmptyProfileImage from "../../Images/EmptyProfileImg.svg"
 import CatImg from "../../Images/sad_cat.jpeg";
+import { useNavigate } from "react-router-dom";
 
 function SignUpPresenter (props) {
-
+    const navigate = useNavigate();
     const loginErrorMessage = useModelProp(UserModel, "signUpErrorMsg");
+    const loggedIn = useModelProp(UserModel, "isLoggedIn");
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
     const [email, setEmail] = useState("");
@@ -21,8 +23,10 @@ function SignUpPresenter (props) {
         setEmail: (input) => setEmail(input),
         setPassword: (input) => setPassword(input),
         setImage: (input) => setImage(input),
-        onSignUp: () => UserModel.createNewUserFB(firstName, lastName, email, password, image)
-    });
+        onSignUp: () => {
+            UserModel.createNewUserFB(firstName, lastName, email, password, image)
+        }
+    })
 }
 
 

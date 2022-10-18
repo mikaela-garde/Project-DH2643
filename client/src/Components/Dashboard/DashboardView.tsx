@@ -11,7 +11,6 @@ const DashboardView= ({}) =>
         <HeaderPresenter NavTitle={"Dashboard"}/>
         <GridPresenter/>
         <CreateExpButton>Create Experience</CreateExpButton>
-
         <BackgroundBlobContainerLeft>
             <BackgroundBlob src ={BackgroundBlobLeftSVG}></BackgroundBlob>
         </BackgroundBlobContainerLeft>

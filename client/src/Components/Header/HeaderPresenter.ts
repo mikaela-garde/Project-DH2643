@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import { UserModel } from '../../app';
 import HeaderView from "./HeaderView";
 
 
@@ -7,7 +8,10 @@ function HeaderPresenter ({NavTitle}) {
 
     return React.createElement(HeaderView,{
         NavTitle: NavTitle,
-        ProfilePic : profilePic
+        ProfilePic : profilePic,
+        onLogout: () => {
+            UserModel.logoutUser();
+        } 
         })
 }
 

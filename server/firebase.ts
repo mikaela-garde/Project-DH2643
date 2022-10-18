@@ -7,7 +7,6 @@ const firebaseApp = initializeApp(firebaseConfig);
 const db:Database = getDatabase(firebaseApp);
 const storage = getStorage(firebaseApp);
 
-
 const listenToUser = (uid:string, callback:any) => {
     const unsubscribe = onValue(ref_db(db, 'users/' + uid), (snapshot) => {
       callback(snapshot.val());
@@ -22,5 +21,6 @@ const store = (file:any) => {
     console.log('Uploaded a blob or file!');
   });
 }
+
 
 export {db, listenToUser};

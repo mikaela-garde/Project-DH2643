@@ -61,7 +61,6 @@ class UserModel {
         })
     }
 
-
     createNewUserFB(firstName, lastName, email, password, image) {
         console.log(image);
         createAccountAPI(firstName, lastName, email, password, image).then(( { data }: { data: any  }) => {
@@ -70,7 +69,6 @@ class UserModel {
                 console.log("Denna refresh token ligger nu i localstorage: " + localStorage.getItem("refreshToken"));
                 console.log("det blev inte error", data)
                 this.listenToUserData(data.userAuth.uid);
-                this.setUid(data.userAuth.uid);
                 this.setIsLoggedIn(true);
                 // subscribeToFirebase(): här ska vi nu subscriba till Firebase
                 // hur man använder refresh token för att få en ID token som vi sen kan använda för att skicka requests:
@@ -94,7 +92,6 @@ class UserModel {
                 console.log("det blev inte error", data)
                 this.accessToken = data.userAuth.stsTokenManager.accessToken;
                 this.listenToUserData(data.userAuth.uid);
-                this.setUid(data.userAuth.uid);
                 this.setIsLoggedIn(true);
                 // subscribeToFirebase(): här ska vi nu subscriba till Firebase
                 // hur man använder refresh token för att få en ID token som vi sen kan använda för att skicka requests:
@@ -123,6 +120,9 @@ class UserModel {
                 this.notifyObservers();
                 console.log("det blev error", data);
             }
+        }).catch(error => {
+            console.log(error);
+            this.setIsLoggedIn(false);
         });
     }
 

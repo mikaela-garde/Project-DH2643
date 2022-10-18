@@ -21,6 +21,7 @@ import {
 import { io } from "socket.io-client";
 import Model from './UserModel';
 import useModelProp from './useModelProp';
+import NoDataView from './Components/NoData/NoDataView';
 
 let UserModel = new Model();
 
@@ -34,6 +35,7 @@ const App = () => {
             console.log("Det finns en refresh token");
         } else {
             console.log("ingen refreshToken");
+            UserModel.setIsLoggedIn(false);
         }
         const socket = io("https://localhost:8081");
         // Specify how to clean up after this effect:
@@ -47,13 +49,13 @@ const App = () => {
         <GlobalStyle/>
         <HashRouter>
             <Routes>
-                <Route path="/" element={loggedIn ? <DashboardPresenter/>: <LoginPresenter />} />
-                <Route path="/signup" element={loggedIn ? <Navigate to="/"/>: <SignupPresenter />} />
-                <Route path="/template" element={loggedIn ? <TemplatePresenter />: <Navigate to="/"/>} />
-                <Route path="/profile" element={loggedIn ? <ProfilePresenter />: <Navigate to="/"/> } />
-                <Route path="/upload" element={loggedIn ? <UploadPresenter />: <Navigate to="/"/> } />
-                <Route path="/create-exp" element={loggedIn ? <CreateExpPresenter />: <Navigate to="/"/> } />
-                <Route path="/exp-board" element={loggedIn ? <ExpBoardPresenter />: <Navigate to="/"/> } />
+                <Route path="/" element={loggedIn == undefined ? <NoDataView />: loggedIn ? <DashboardPresenter />: <LoginPresenter />} />
+                <Route path="/signup" element={loggedIn == undefined ? <NoDataView />:loggedIn ? <Navigate to="/"/>: <SignupPresenter />} />
+                <Route path="/template" element={loggedIn == undefined ? <NoDataView />:loggedIn ? <TemplatePresenter />: <Navigate to="/"/>} />
+                <Route path="/profile" element={loggedIn == undefined ? <NoDataView />:loggedIn ? <ProfilePresenter />: <Navigate to="/"/> } />
+                <Route path="/upload" element={loggedIn == undefined ? <NoDataView />:loggedIn ? <UploadPresenter />: <Navigate to="/"/> } />
+                <Route path="/create-exp" element={loggedIn == undefined ? <NoDataView />:loggedIn ? <CreateExpPresenter />: <Navigate to="/"/> } />
+                <Route path="/exp-board" element={loggedIn == undefined ? <NoDataView />:loggedIn ? <ExpBoardPresenter />: <Navigate to="/"/> } />
             </Routes>
         </HashRouter>
     </Theme>

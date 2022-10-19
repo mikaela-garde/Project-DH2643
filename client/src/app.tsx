@@ -19,6 +19,8 @@ import {
   } from "react-router-dom";
 import { io } from "socket.io-client";
 import Model from './UserModel';
+import ExperienceModel from "./ExperienceModel";
+import { Experience_Template } from './types';
 
 let UserModel = new Model({
     id: "123",
@@ -34,6 +36,7 @@ let UserModel = new Model({
     notifications: [],
     dark_mode: true
 });
+let experienceModel = new ExperienceModel();
 
 const socket = io("https://localhost:8081");
 
@@ -86,4 +89,4 @@ const GlobalStyle = createGlobalStyle `
 
 ReactDOM.createRoot(document.getElementById('app')!).render(<App />);
 
-export {UserModel, socket};
+export {UserModel, experienceModel, socket};

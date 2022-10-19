@@ -1,6 +1,6 @@
 import express from "express";
 import { reload } from "firebase/auth";
-import { get, set, ref } from "firebase/database";
+import { get, set, ref, orderByKey, query, orderByChild, equalTo, onValue } from "firebase/database";
 import {db} from '../../firebase';
 import  {signInFirebase, createAccountFirebase, checkAuth} from "../middlewares/auth";
 import { User } from "../models/types";
@@ -43,16 +43,19 @@ router.route("/signup").post(createAccountFirebase, (req: express.Request, res: 
 });
 
 //Get user data from id
-router.route("/:userid").get((req: express.Request, res: express.Response) => {
-    
-    //Get specified user from database
-    console.log("i ensam user");
-    const user_ref = ref(db, 'users/' + req.params.userid);
-    get(user_ref).then((snapshot) => {
-        const data:any = snapshot.val();
-        res.status(200).send(data);
+router.route("/email").post((req: express.Request, res: express.Response) => {
+    //Get user from email
+    const key_ref = query(ref(db, 'users'), orderByChild('email'));
+    const email_ref = query(key_ref, equalTo(req.body.email));
+    onValue(email_ref, (snapshot) => {
+        if(snapshot.val() != null){
+            const data:any = snapshot.val();
+            res.status(200).send(data);
+        } else {
+            res.status(404).send();
+        }
+        
     });
-
 });
 
 //Get user data from id

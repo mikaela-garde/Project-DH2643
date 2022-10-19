@@ -3,14 +3,18 @@ import styled from "styled-components";
 import { PrimaryBtn } from '../../StyledComponents';
 import GridPresenter from '../Grid/GridPresenter';
 import HeaderPresenter from '../Header/HeaderPresenter';
+import UploadPresenter from '../Upload/UploadPresenter';
 import BackgroundBlobLeftSVG from "../../Images/BackgroundBlobDashboardLeft.svg";
 import BackgroundBlobRightSVG from "../../Images/BackgroundBlobDashboardRight.svg";
 
-const ExpBoardView= ({ExpName}) =>
-    <DashboardContainer>
+const ExpBoardView= ({ExpName, showAddContent, isShown, blur, brightness}) =>
+    <ContentContainer>
+        {isShown && <UploadPresenter showAdd={showAddContent}></UploadPresenter>}
+        <DashboardContainer blur={blur} brightness={brightness}>
         <HeaderPresenter NavTitle={ExpName}/>
         <GridPresenter/>
-        <CreateExpButton>Create Experience</CreateExpButton>
+        <AddContentBtn onClick={() => showAddContent()}>Add content</AddContentBtn>
+
 
         <BackgroundBlobContainerLeft>
             <BackgroundBlob src ={BackgroundBlobLeftSVG}></BackgroundBlob>
@@ -20,23 +24,30 @@ const ExpBoardView= ({ExpName}) =>
             <BackgroundBlob src = {BackgroundBlobRightSVG}></BackgroundBlob>
         </BackgroundBlobContainerRight>
 
-    </DashboardContainer>
+        </DashboardContainer>
+    </ContentContainer>
        
 ;
 
-const CreateExpButton = styled.button`
+const AddContentBtn = styled.button`
     ${PrimaryBtn}
-    position: fixed;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
+    align-self: center;
+    margin-top: auto;
+    margin-bottom: 30px;
 
 `;
 
-const DashboardContainer = styled.div`
+const DashboardContainer = styled.div<Props>`
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    height: 100vh;
+    z-index: -1;
+    filter: ${props => props.brightness ? "brightness(50%)": "brightness(100%)"};
+    filter: ${props => props.blur ? "blur(1.5em);" : "blur(0);"};
+    
+`
+
+const ContentContainer = styled.div`
 `
 
 const Toolbar = styled.div`
@@ -48,14 +59,14 @@ const BackgroundBlobContainerLeft = styled.div`
     position: fixed;
     left: 50%;
     transform: translateX(-50%);
-    bottom: -50px;
+    bottom: 0px;
     z-index:-1;
 `;
 
 const BackgroundBlobContainerRight = styled.div`
     position: fixed;
     top: 0px;
-    right: -100px;
+    right: 0px;
     z-index: -1;
 
     @media (max-width: 768px) {
@@ -66,5 +77,10 @@ const BackgroundBlobContainerRight = styled.div`
 const BackgroundBlob = styled.img`
     vertical-align: middle;
 `;
+
+type Props = {
+    brightness?: string,
+    blur?: string
+}
 
 export default ExpBoardView;

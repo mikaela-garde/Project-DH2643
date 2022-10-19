@@ -53,7 +53,6 @@ const App = () => {
                 <Route path="/signup" element={loggedIn == undefined ? <NoDataView />:loggedIn ? <Navigate to="/"/>: <SignupPresenter />} />
                 <Route path="/template" element={loggedIn == undefined ? <NoDataView />:loggedIn ? <TemplatePresenter />: <Navigate to="/"/>} />
                 <Route path="/profile" element={loggedIn == undefined ? <NoDataView />:loggedIn ? <ProfilePresenter />: <Navigate to="/"/> } />
-                <Route path="/upload" element={loggedIn == undefined ? <NoDataView />:loggedIn ? <UploadPresenter />: <Navigate to="/"/> } />
                 <Route path="/create-exp" element={loggedIn == undefined ? <NoDataView />:loggedIn ? <CreateExpPresenter />: <Navigate to="/"/> } />
                 <Route path="/exp-board" element={loggedIn == undefined ? <NoDataView />:loggedIn ? <ExpBoardPresenter />: <Navigate to="/"/> } />
             </Routes>

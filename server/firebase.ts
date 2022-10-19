@@ -15,7 +15,7 @@ const listenToUser = (uid:string, callback:any) => {
   return unsubscribe;
 }
 
-const store = (file: any) => {
+const store = (file:any) => {
   const ref = ref_storage(storage, 'profileImages');
   uploadBytes(ref, file).then((snapshot) => {
     console.log('Uploaded a blob or file!');

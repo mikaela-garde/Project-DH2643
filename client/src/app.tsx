@@ -1,5 +1,6 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import ReactDOM from 'react-dom/client';
+import {Navigate} from 'react-router-dom'; 
 import TemplatePresenter from './Components/Template/TemplatePresenter';
 import LoginPresenter from './Components/Login/LoginPresenter';
 import ProfilePresenter from './Components/Profile/ProfilePresenter';
@@ -8,7 +9,7 @@ import UploadPresenter from './Components/Upload/UploadPresenter';
 import CreateExpPresenter from './Components/CreateExp/CreateExpPresenter';
 import DashboardPresenter from './Components/Dashboard/DashboardPresenter';
 import ExpBoardPresenter from './Components/ExpBoard/ExpBoardPresenter';
-import EmptyProfileImage from "./Images/EmptyProfileImg.svg";
+//import EmptyProfileImage from "./Images/EmptyProfileImg.svg";
 import Theme from "./Theme";
 import "react-datepicker/dist/react-datepicker.css";
 import{ createGlobalStyle } from "styled-components";
@@ -19,34 +20,25 @@ import {
   } from "react-router-dom";
 import { io } from "socket.io-client";
 import Model from './UserModel';
+import useModelProp from './useModelProp';
+import NoDataView from './Components/NoData/NoDataView';
 import ExperienceModel from "./ExperienceModel";
 import { Experience_Template } from './types';
 
-let UserModel = new Model({
-    id: "123",
-    email: "test@gmail.com",
-    first_name: "Joe",
-    last_name: "Dad",
-    social_media: [],
-    description: "Hi, I'm a test",
-    profile_img: EmptyProfileImage,
-    friends: [1, 2, 3],
-    friend_requests: [],
-    experiences: [1, 2, 3],
-    notifications: [],
-    dark_mode: true
-});
+let UserModel = new Model();
 let experienceModel = new ExperienceModel();
 
 const socket = io("https://localhost:8081");
 
 const App = () => {
+    const loggedIn = useModelProp(UserModel, "isLoggedIn");
     useEffect(() => {
         if(localStorage.getItem("refreshToken")) {
             UserModel.getUserFromToken(localStorage.getItem("refreshToken"));
             console.log("Det finns en refresh token");
         } else {
-            console.log("ingen refresh");
+            console.log("ingen refreshToken");
+            UserModel.setIsLoggedIn(false);
         }
         const socket = io("https://localhost:8081");
         // Specify how to clean up after this effect:
@@ -60,21 +52,13 @@ const App = () => {
         <GlobalStyle/>
         <HashRouter>
             <Routes>
-                <Route path="/login" element={<LoginPresenter />} />
-                <Route path="/signup" element={<SignupPresenter />} />
+                <Route path="/" element={loggedIn == undefined ? <NoDataView />: loggedIn ? <DashboardPresenter />: <LoginPresenter />} />
+                <Route path="/signup" element={loggedIn == undefined ? <NoDataView />:loggedIn ? <Navigate to="/"/>: <SignupPresenter />} />
+                <Route path="/template" element={loggedIn == undefined ? <NoDataView />:loggedIn ? <TemplatePresenter />: <Navigate to="/"/>} />
+                <Route path="/profile" element={loggedIn == undefined ? <NoDataView />:loggedIn ? <ProfilePresenter />: <Navigate to="/"/> } />
+                <Route path="/create-exp" element={loggedIn == undefined ? <NoDataView />:loggedIn ? <CreateExpPresenter />: <Navigate to="/"/> } />
+                <Route path="/exp-board" element={loggedIn == undefined ? <NoDataView />:loggedIn ? <ExpBoardPresenter />: <Navigate to="/"/> } />
             </Routes>
-            <div>
-             
-                <Routes>
-                    <Route path="/dashboard" element={<DashboardPresenter />} />
-                    <Route path="/template" element={<TemplatePresenter />} />
-                    <Route path="/profile" element={<ProfilePresenter />} />
-                    <Route path="/upload" element={<UploadPresenter />} />
-                    <Route path="/create-exp" element={<CreateExpPresenter />} />
-                    <Route path="/exp-board" element={<ExpBoardPresenter />} />
-
-                </Routes>
-            </div>
         </HashRouter>
     </Theme>
     )

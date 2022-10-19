@@ -7,7 +7,7 @@ import FriendsSVG from "../../Images/friends.svg";
 import { Heading1 } from '../../StyledComponents';
 
 
-const HeaderView= ({NavTitle, ProfilePic}) =>
+const HeaderView= ({NavTitle, ProfilePic, onLogout, backButtonVis}) =>
 
     <HeadingContainer>
 
@@ -22,13 +22,16 @@ const HeaderView= ({NavTitle, ProfilePic}) =>
                 <IconContainer>
                     <Icon src ={ProfilePic}></Icon>
                 </IconContainer>
+                <IconContainer>
+                    <button onClick={() => onLogout()}>Logout</button>
+                </IconContainer>
             </IconsContainer>
         </Menu>
 
         <NavContainer>
-            <NavLink to="/login">
+            {backButtonVis && <NavLink to="/">
                 <BackButton src={BackButtonArrow}></BackButton>
-            </NavLink>
+            </NavLink>}
             <PageTitle>{NavTitle}</PageTitle> 
         </NavContainer>
 
@@ -78,7 +81,7 @@ const PageTitle = styled.h1`
 `;
 
 /////////////////////////////// MENU /////////////////////////////////
-const Menu = styled.button`
+const Menu = styled.div`
         color: white;
         font-size: 1em;
         font-weight: 400;

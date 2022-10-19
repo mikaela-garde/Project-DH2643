@@ -23,26 +23,26 @@ class UserModel {
     signInErrorMsg: string;
     signUpErrorMsg: string;
     accessToken: string;
+    isLoggedIn: boolean;
 
-    constructor(user: User /*id = "", token = "", displayName = "", img = null*/){
-
-        
-        this.id = user.id;
-        this.email = user.email;
-        this.first_name = user.first_name;
-        this.last_name = user.last_name;
-        this.social_media = user.social_media;
-        this.description = user.description;
-        this.profile_img = user.profile_img;
-        this.friends = user.friends; //Ska man lägga in hela användaren här eller vara ett id
-        this.friend_requests = user.friend_requests;
-        this.experiences = user.experiences;
-        this.notifications = user.notifications;
-        this.dark_mode = user.dark_mode;
+    constructor(){       
+        this.id;
+        this.email;
+        this.first_name;
+        this.last_name;
+        this.social_media;
+        this.description;
+        this.profile_img;
+        this.friends; //Ska man lägga in hela användaren här eller vara ett id
+        this.friend_requests;
+        this.experiences;
+        this.notifications;
+        this.dark_mode;
         this.subscribers =[];
-        this.signInErrorMsg = "";
-        this.signUpErrorMsg = "";
-        this.accessToken = "";
+        this.signInErrorMsg;
+        this.signUpErrorMsg;
+        this.accessToken;
+        this.isLoggedIn;
     }
     
     addObserver(obs){
@@ -61,7 +61,6 @@ class UserModel {
         })
     }
 
-
     createNewUserFB(firstName, lastName, email, password, image) {
         console.log(image);
         createAccountAPI(firstName, lastName, email, password, image).then(( { data }: { data: any  }) => {
@@ -70,6 +69,7 @@ class UserModel {
                 console.log("Denna refresh token ligger nu i localstorage: " + localStorage.getItem("refreshToken"));
                 console.log("det blev inte error", data)
                 this.listenToUserData(data.userAuth.uid);
+                this.setIsLoggedIn(true);
                 // subscribeToFirebase(): här ska vi nu subscriba till Firebase
                 // hur man använder refresh token för att få en ID token som vi sen kan använda för att skicka requests:
                 // https://firebase.google.com/docs/reference/rest/auth/#section-refresh-token
@@ -92,6 +92,7 @@ class UserModel {
                 console.log("det blev inte error", data)
                 this.accessToken = data.userAuth.stsTokenManager.accessToken;
                 this.listenToUserData(data.userAuth.uid);
+                this.setIsLoggedIn(true);
                 // subscribeToFirebase(): här ska vi nu subscriba till Firebase
                 // hur man använder refresh token för att få en ID token som vi sen kan använda för att skicka requests:
                 // https://firebase.google.com/docs/reference/rest/auth/#section-refresh-token
@@ -101,8 +102,7 @@ class UserModel {
                 this.signInErrorMsg = data.error;
                 this.notifyObservers();
                 console.log("det blev error", data);
-            }
-            });
+            }});
         //let user = new Promise(signInFirebase(email, password));
         //console.log(user);
     }
@@ -113,13 +113,17 @@ class UserModel {
             if (data.success) {
                 console.log("nu har vi accessat användaren fb", data);
                 this.listenToUserData(data.user.user_id);
+                this.setUid(data.user.user_id);
+                this.setIsLoggedIn(true);
             } else {
                 this.signInErrorMsg = data.error;
                 this.notifyObservers();
                 console.log("det blev error", data);
             }
+        }).catch(error => {
+            console.log(error);
+            this.setIsLoggedIn(false);
         });
-
     }
 
     listenToUserData(uid:string) {
@@ -150,6 +154,16 @@ class UserModel {
     setUid(id) {
         this.id = id;
         this.notifyObservers();
+    }
+
+    setIsLoggedIn(boolean) {
+        this.isLoggedIn = boolean;
+        this.notifyObservers();
+    }
+
+    logoutUser() {
+        localStorage.removeItem("refreshToken");
+        window.location.reload();
     }
 }
 export default UserModel;

@@ -6,12 +6,13 @@ import HeaderPresenter from '../Header/HeaderPresenter';
 import BackgroundBlobLeftSVG from "../../Images/BackgroundBlobDashboardLeft.svg";
 import BackgroundBlobRightSVG from "../../Images/BackgroundBlobDashboardRight.svg";
 
-const DashboardView= ({}) =>
+const DashboardView= ({toCreateExp}) =>
     <DashboardContainer>
         <HeaderPresenter NavTitle={"Dashboard"}/>
-        <GridPresenter/>
-        <CreateExpButton>Create Experience</CreateExpButton>
-
+        <GridPresenterContainer>
+            <GridPresenter/>
+        </GridPresenterContainer>
+        <CreateExpButton onClick={() => toCreateExp()}>Create Experience</CreateExpButton>
         <BackgroundBlobContainerLeft>
             <BackgroundBlob src ={BackgroundBlobLeftSVG}></BackgroundBlob>
         </BackgroundBlobContainerLeft>
@@ -26,17 +27,19 @@ const DashboardView= ({}) =>
 
 const CreateExpButton = styled.button`
     ${PrimaryBtn}
-    position: fixed;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
+    align-self: center;
+    margin-top: auto;
+    margin-bottom: 30px;
+`;
 
+const GridPresenterContainer = styled.div`
+    margin: 40px;
 `;
 
 const DashboardContainer = styled.div`
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    height: 100vh;
 `
 
 const BackgroundBlobContainerLeft = styled.div`

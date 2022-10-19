@@ -14,6 +14,7 @@ const CreateExpView = ({startDate, onToggle, setName, setInvite, onInvite, parti
         <Container>
             <ContentContainer>
                 <HeaderPresenter NavTitle={"Create Experience"}/>
+                <DatePicker selected={startDate} onChange={onToggle} />
                 <ContentWrapper>
                     <Column>
                         <InputFieldExpWrapper>

@@ -5,7 +5,7 @@ import LogotypeHolderImg from "../../Images/LogotypeHolder.png";
 import BackgroundBlobLeftSVG from "../../Images/BackgroundBlobLoginLeft.svg";
 import BackgroundBlobRightSVG from "../../Images/BackgroundBlobLoginRight.svg";
 
-import { PrimaryBtn, InputField, ContentContainerLogin, ImgContainerLogin, InputLabel, NavLink, InputFieldWrapper} from '../../StyledComponents';
+import { PrimaryBtn, InputField, ContentContainerAll, ImgContainerLogin, InputLabel, NavLink, InputFieldWrapper} from '../../StyledComponents';
 
 const LoginView = ({loginErrorMessage, setEmail, setPassword, onSignIn}) =>
             <ContentContainer>
@@ -20,6 +20,7 @@ const LoginView = ({loginErrorMessage, setEmail, setPassword, onSignIn}) =>
                     <InputLabelLogin>Password</InputLabelLogin>
                     <InputFieldLogin type="password" onChange={e => setPassword(e.target.value)}></InputFieldLogin>
                 </InputFieldLoginWrapper>
+
                 {loginErrorMessage}
                 <LoginButton onClick={() => onSignIn()}>Login</LoginButton>
                 <NavLinkSignup to="/signup">Sign up {'>'}</NavLinkSignup>
@@ -34,9 +35,11 @@ const LoginView = ({loginErrorMessage, setEmail, setPassword, onSignIn}) =>
 ;
 
 const ContentContainer = styled.div`
-    ${ContentContainerLogin}
+    ${ContentContainerAll};
+    >*  {
+        margin: 15px;
+        };
 `;
-
 
 const ImgContainer = styled.img`
     ${ImgContainerLogin}
@@ -59,6 +62,7 @@ const LoginButton = styled.button`
 `;
 const NavLinkSignup = styled(Link)`
     ${NavLink}
+    z-index: 2;
 `;
 
 const BackgroundBlobContainerLeft = styled.div`
@@ -66,7 +70,7 @@ const BackgroundBlobContainerLeft = styled.div`
     bottom: -100px;
     left: 0;
     margin: 0;
-    z-index:-1;
+    z-index: 1;
 `;
 
 const BackgroundBlobContainerRight = styled.div`
@@ -75,7 +79,7 @@ const BackgroundBlobContainerRight = styled.div`
     right: 100px;
     margin: 0;
     width: 20%;
-    z-index: -1;
+    z-index: 1;
 `;
 const BackgroundBlob = styled.img`
     vertical-align: middle;

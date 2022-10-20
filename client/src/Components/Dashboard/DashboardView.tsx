@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from "styled-components";
-import { PrimaryBtn } from '../../StyledComponents';
+import { PrimaryBtn, ContentContainerAll } from '../../StyledComponents';
 import GridPresenter from '../Grid/GridPresenter';
 import HeaderPresenter from '../Header/HeaderPresenter';
 import BackgroundBlobLeftSVG from "../../Images/BackgroundBlobDashboardLeft.svg";
@@ -30,13 +30,12 @@ const CreateExpButton = styled.button`
     bottom: 20px;
     left: 50%;
     transform: translateX(-50%);
-
 `;
 
 const DashboardContainer = styled.div`
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+    ${ContentContainerAll};
+    justify-content: flex-start;
+    overflow: auto;
 `
 
 const BackgroundBlobContainerLeft = styled.div`
@@ -44,14 +43,14 @@ const BackgroundBlobContainerLeft = styled.div`
     left: 50%;
     transform: translateX(-50%);
     bottom: -50px;
-    z-index:-1;
+    z-index: 1;
 `;
 
 const BackgroundBlobContainerRight = styled.div`
     position: fixed;
     top: 0px;
     right: -100px;
-    z-index: -1;
+    z-index: 1;
 
     @media (max-width: 768px) {
         top: -100px;

@@ -8,17 +8,16 @@ import UploadPresenter from './Components/Upload/UploadPresenter';
 import CreateExpPresenter from './Components/CreateExp/CreateExpPresenter';
 import DashboardPresenter from './Components/Dashboard/DashboardPresenter';
 import ExpBoardPresenter from './Components/ExpBoard/ExpBoardPresenter';
-import EmptyProfileImage from "./Images/EmptyProfileImg.svg";
-import Theme from "./Theme";
+import EmptyProfileImage from "./Images/NewEmptyProfileImg.svg";
+//import Theme from "./Theme";
+import { lightTheme, darkTheme } from './Theme';
+import {ThemeProvider} from "styled-components";
 import "react-datepicker/dist/react-datepicker.css";
 import{ createGlobalStyle } from "styled-components";
-import {
-    HashRouter,
-    Routes,
-    Route,
-  } from "react-router-dom";
+import { HashRouter, Routes, Route } from "react-router-dom";
 import { io } from "socket.io-client";
 import Model from './UserModel';
+import useModelProp from './useModelProp';
 
 let UserModel = new Model({
     id: "123",
@@ -32,12 +31,22 @@ let UserModel = new Model({
     friend_requests: [],
     experiences: [1, 2, 3],
     notifications: [],
-    dark_mode: true
+    dark_mode: false
 });
 
 const socket = io("https://localhost:8081");
 
+const GlobalStyle = createGlobalStyle `
+    body * {
+        margin: 0;
+        padding: 0;
+    }
+`;
+
 const App = () => {
+    const darkMode = useModelProp(UserModel, "dark_mode");
+    console.log("Det här är i app: "+darkMode)
+
     useEffect(() => {
         if(localStorage.getItem("refreshToken")) {
             UserModel.getUserFromToken(localStorage.getItem("refreshToken"));
@@ -53,7 +62,7 @@ const App = () => {
     });
 
     return (
-    <Theme> 
+    <ThemeProvider theme={darkMode ? darkTheme : lightTheme}> 
         <GlobalStyle/>
         <HashRouter>
             <Routes>
@@ -73,16 +82,9 @@ const App = () => {
                 </Routes>
             </div>
         </HashRouter>
-    </Theme>
+    </ThemeProvider>
     )
 }
-
-const GlobalStyle = createGlobalStyle `
-    body *{
-    margin: 0;
-    padding: 0;
-    }
-`;
 
 ReactDOM.createRoot(document.getElementById('app')!).render(<App />);
 

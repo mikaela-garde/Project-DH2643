@@ -151,5 +151,10 @@ class UserModel {
         this.id = id;
         this.notifyObservers();
     }
+
+    setDarkMode(dark_mode) {
+        this.dark_mode = dark_mode;
+        this.notifyObservers();
+    }
 }
 export default UserModel;

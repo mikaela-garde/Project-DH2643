@@ -44,6 +44,38 @@ const GridView= ({setExperience, ExpList}) =>
                 </SingleExperienceContainer>
             </ExperienceButtonContainer>
 
+            <ExperienceButtonContainer to="/login">
+                <SingleExperienceContainer>
+                    <ExperienceImgContainer src={ExperienceImg}></ExperienceImgContainer>
+                    <Title3>28th Bday Party</Title3>
+                    <SmallText>27 Apr 2007</SmallText>
+                </SingleExperienceContainer>
+            </ExperienceButtonContainer>
+
+            <ExperienceButtonContainer to="/login">
+                <SingleExperienceContainer>
+                    <ExperienceImgContainer src={ExperienceImg}></ExperienceImgContainer>
+                    <Title3>28th Bday Party</Title3>
+                    <SmallText>27 Apr 2007</SmallText>
+                </SingleExperienceContainer>
+            </ExperienceButtonContainer>
+
+            <ExperienceButtonContainer to="/login">
+                <SingleExperienceContainer>
+                    <ExperienceImgContainer src={ExperienceImg}></ExperienceImgContainer>
+                    <Title3>28th Bday Party</Title3>
+                    <SmallText>27 Apr 2007</SmallText>
+                </SingleExperienceContainer>
+            </ExperienceButtonContainer>
+
+            <ExperienceButtonContainer to="/login">
+                <SingleExperienceContainer>
+                    <ExperienceImgContainer src={ExperienceImg}></ExperienceImgContainer>
+                    <Title3>28th Bday Party</Title3>
+                    <SmallText>27 Apr 2007</SmallText>
+                </SingleExperienceContainer>
+            </ExperienceButtonContainer>
+
         </ExperienceGridContainer>
     </ExperienceContainer>
         
@@ -88,6 +120,7 @@ const ExperienceGridContainer = styled.div`
         content: "";
         flex: auto;
       }
+    z-index: 2;
 `;
 
 const ExperienceContainer = styled.div`

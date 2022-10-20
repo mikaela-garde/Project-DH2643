@@ -4,10 +4,12 @@ import BackButtonArrow from "../../Images/back-button-arrow.svg";
 import {Link} from "react-router-dom";
 import BoardSVG from "../../Images/board.svg";
 import FriendsSVG from "../../Images/friends.svg";
+import darkModeIcon from "../../Images/moon.svg";
 import { Heading1 } from '../../StyledComponents';
+import SVG from "react-inlinesvg";
+import Switch from "react-switch";
 
-
-const HeaderView= ({NavTitle, ProfilePic}) =>
+const HeaderView= ({NavTitle, ProfilePic, darkMode, setDarkMode, handleModeChange}) =>
 
     <HeadingContainer>
 
@@ -21,6 +23,10 @@ const HeaderView= ({NavTitle, ProfilePic}) =>
                 </IconContainer>
                 <IconContainer>
                     <Icon src ={ProfilePic}></Icon>
+                </IconContainer>
+                <IconContainer>
+                    <Icon src={darkModeIcon}></Icon>
+                    <Switch checked={darkMode} onChange={handleModeChange} uncheckedIcon={false} checkedIcon={false} offColor="#635F8B" onColor="#1F1E61" activeBoxShadow="null"/>
                 </IconContainer>
             </IconsContainer>
         </Menu>
@@ -41,7 +47,7 @@ const HeadingContainer = styled.div`
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    @media (max-width: 768px) {
+    @media (max-width: 1000px) {
         flex-direction: column;
         height:200px;
         gap: 40px;
@@ -54,17 +60,19 @@ const NavContainer = styled.div`
     flex-direction: row;
     justify-items: center;
     @media (max-width: 1000px) {
-        position: absolute;
-        left: 20px;
-    }
-    @media (max-width: 768px) {
         position: static;
-        
     }
+    z-index: 2;
 `;
 
-const BackButton = styled.img`
+const BackButton = styled(SVG)`
     height: 50px;
+    & circle {
+        fill: ${props => props.theme.colors.primary};
+    }
+    & path{
+        fill: ${props => props.theme.colors.contrast};
+    }
 `;
 
 const NavLink = styled(Link)`
@@ -79,8 +87,8 @@ const PageTitle = styled.h1`
 
 /////////////////////////////// MENU /////////////////////////////////
 const Menu = styled.button`
-        color: white;
-        font-size: 1em;
+        color: ${props => props.theme.colors.contrast};
+        font-size: ${props => props.theme.fontSizes.xsmall};;
         font-weight: 400;
         font-family: ${props => props.theme.fonts.raleway}; 
         background-color: solid;
@@ -92,12 +100,12 @@ const Menu = styled.button`
         cursor: pointer;
         border-style: solid;
        
-        @media (min-width: 768px) {
+        @media (min-width: 1000px) {
             position: absolute;
             right: 20px;
             width: 250px;
             }
-       
+       z-index: 2;
 `;
 
 const IconsContainer = styled.div`  
@@ -109,9 +117,12 @@ const IconsContainer = styled.div`
     }
 `;
 
-const Icon = styled.img`
+const Icon = styled(SVG)`
     vertical-align: middle;
     height: 30px;
+    & path{
+        fill: ${props => props.theme.colors.contrast};
+    }
 `;
 
 const IconContainer = styled.div`

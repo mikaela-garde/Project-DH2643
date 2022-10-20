@@ -4,6 +4,7 @@ import addMediaIcon from "../../Images/addMedia.svg";
 import { Heading1, Heading3, BodyText, Subtitle, PrimaryBtn, InputField, InputFieldWrapper, InputLabel, ContentContainerAll} from '../../StyledComponents';
 import { FileUploader } from "react-drag-drop-files";
 import BackButtonArrow from "../../Images/back-button-arrow.svg";
+import SVG from "react-inlinesvg";
 
 const UploadView = ({isActive, setIsActive, setText, handleFileChange, fileTypes, fileName, fileError, showAdd}) =>
 
@@ -82,15 +83,20 @@ const TextInputWrapper = styled.div`
     height:100%;
 `;
 
-const BackButton = styled.img`
+const BackButton = styled(SVG)`
     height: 50px;
     align-self: center;
     margin-right: 20px;
+    & circle {
+        fill: ${props => props.theme.colors.primary};
+    }
+    & path{
+        fill: ${props => props.theme.colors.contrast};
+    }
     :hover {
         cursor: pointer;
     }
 `;
-
 const FileUploadContainer = styled.div`
     display: flex;
     flex-direction: column;

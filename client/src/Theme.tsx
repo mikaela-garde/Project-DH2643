@@ -14,9 +14,10 @@ const lightTheme = {
       raleway: "Raleway"
     },
     fontSizes: {
-      small: "1em",
-      medium: "2em",
-      large: "3em"
+      xsmall: "1em",
+      small: "1.5em",
+      medium: "2.25em",
+      large: "4em"
     }
   }
 

@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "firebase-admin": "^11.2.0",
     "react-drag-drop-files": "^2.3.7"
   }
 }

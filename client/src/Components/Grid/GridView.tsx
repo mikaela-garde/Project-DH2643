@@ -10,9 +10,9 @@ const GridView= ({setExperience, ExpList}) =>
 
     <ExperienceContainer>
         <ExperienceGridContainer>
-        {console.log(ExpList)},
+        {console.log(ExpList)}
             {ExpList.map(exp => (
-                <ExperienceButtonContainer key={exp} to="/login" onClick={() => setExperience(exp.title)}>
+                <ExperienceButtonContainer key={exp} to="/exp-board" onClick={() => setExperience(exp.title)}>
                     <SingleExperienceContainer>
                         <ExperienceImgContainer src={exp.img}></ExperienceImgContainer>
                         <Title3>{exp.title}</Title3>
@@ -20,7 +20,7 @@ const GridView= ({setExperience, ExpList}) =>
                     </SingleExperienceContainer>
                 </ExperienceButtonContainer>))}
 
-            <ExperienceButtonContainer to="/login" onClick={() => setExperience()}>
+            <ExperienceButtonContainer to="/exp-board" onClick={() => setExperience()}>
                 <SingleExperienceContainer>
                     <ExperienceImgContainer src={ExperienceImg}></ExperienceImgContainer>
                     <Title3>28th Bday Party</Title3>
@@ -28,7 +28,7 @@ const GridView= ({setExperience, ExpList}) =>
                 </SingleExperienceContainer>
             </ExperienceButtonContainer>
 
-            <ExperienceButtonContainer to="/login">
+            <ExperienceButtonContainer to="/exp-board">
                 <SingleExperienceContainer>
                     <ExperienceImgContainer src={ExperienceImg}></ExperienceImgContainer>
                     <Title3>28th Bday Party</Title3>
@@ -36,7 +36,7 @@ const GridView= ({setExperience, ExpList}) =>
                 </SingleExperienceContainer>
             </ExperienceButtonContainer>
 
-            <ExperienceButtonContainer to="/login">
+            <ExperienceButtonContainer to="/exp-board">
                 <SingleExperienceContainer>
                     <ExperienceImgContainer src={ExperienceImg}></ExperienceImgContainer>
                     <Title3>28th Bday Party</Title3>

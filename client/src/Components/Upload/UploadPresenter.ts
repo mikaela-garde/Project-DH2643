@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import UploadView from "./UploadView";
 
-function TemplatePresenter (props) {
+function TemplatePresenter ({showAdd}) {
   //isActive = Media blue, Text White
   const [isActive, setIsActive] = useState(true);
   
@@ -32,7 +32,8 @@ function TemplatePresenter (props) {
       handleFileChange: handleFileChange,
       fileTypes: fileTypes,
       fileName: fileName,
-      fileError: fileError
+      fileError: fileError,
+      showAdd: showAdd
       }
     )
 }

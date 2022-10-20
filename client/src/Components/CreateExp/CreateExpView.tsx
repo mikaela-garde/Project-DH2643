@@ -7,43 +7,48 @@ import {Link} from "react-router-dom";
 import DatePicker from "react-datepicker"
 import 'react-datepicker/dist/react-datepicker.css';
 import HeaderPresenter from '../Header/HeaderPresenter';
-
-
-
 import { PrimaryBtn, InputField, ContentContainerLogin, InputLabel, InputFieldWrapper } from '../../StyledComponents';
 
-const CreateExpView = ({startDate, onToggle }) =>
+const CreateExpView = ({startDate, onToggle, setName, setInvite, onInvite, participants }) =>
 
         <Container>
             <ContentContainer>
-                <HeaderPresenter NavTitle={"Dashboard"}/>
+                <HeaderPresenter NavTitle={"Create Experience"}/>
                 <DatePicker selected={startDate} onChange={onToggle} />
                 <ContentWrapper>
                     <Column>
                         <InputFieldExpWrapper>
-                            <InputLabelExp left="35px">Experience name</InputLabelExp>
-                            <InputFieldExp paddingRight="150px"></InputFieldExp>
+                            <InputLabelExp left="">Experience name</InputLabelExp>
+                            <InputFieldExp paddingRight="150px" onChange={e => setName(e.target.value)}></InputFieldExp>
                         </InputFieldExpWrapper>
-
 
                         <FromToWrapper>
                             <InputFieldExpWrapper>
-                                <InputLabelExp left="">From</InputLabelExp>
-                                <InputFieldExp paddingRight="0px" width="150px"></InputFieldExp>
+                                <InputLabelExp left="">Start</InputLabelExp>
+                                <MyDatePicker selected={startDate} onChange={onToggle} dateFormat="Pp" paddingRight="0px" width="300px" fixedHeight showTimeSelect />
                             </InputFieldExpWrapper>
 
                             <InputFieldExpWrapper>
-                                <InputLabelExp left="">To</InputLabelExp>
-                                <InputFieldExp paddingRight="0px" width="150px"></InputFieldExp>
+                                <InputLabelExp left="">End</InputLabelExp>
+                                <MyDatePicker selected={startDate} onChange={onToggle} dateFormat="Pp" paddingRight="0px" width="300px" fixedHeight showTimeSelect/>
                             </InputFieldExpWrapper>
                         </FromToWrapper>
                     </Column> 
 
                     <Column>
                         <InputFieldExpWrapper>
-                            <InputLabelExp left="">First name</InputLabelExp>
-                            <InputFieldExp paddingRight="150px"></InputFieldExp>
+                            <InputLabelExp left="">Invite Friends</InputLabelExp>
+                            <InputFieldExp paddingRight="150px" onChange={e => setInvite(e.target.value)}></InputFieldExp>
+                            <EnterInviteButton onClick={() => onInvite()}>Invite</EnterInviteButton>
                         </InputFieldExpWrapper>
+                        <ParticipantsContainer>
+                            {console.log(participants.length)}
+                            {participants.forEach(participant => {
+                                <ParicipantCard>
+                                <p>{participant.first_name} {participant.last_name}</p>
+                            </ParicipantCard>
+                            })}
+                        </ParticipantsContainer>
                     </Column>
                 </ContentWrapper>
                 <ButtonContainer>
@@ -106,9 +111,29 @@ const InputFieldExp = styled.input<propsField>`
     width: ${props => props.width}; 
 `;
 
+const MyDatePicker = styled(DatePicker)`
+    ${InputField};
+    padding: 12px 150px 12px 20px;
+    padding-right: ${props => props.paddingRight}; 
+    width: ${props => props.width};
+`;
+
 const InputLabelExp = styled.label<propsLabel>`
     ${InputLabel}
     left: ${props => props.left}; 
+`;
+const EnterInviteButton = styled.button`
+    ${PrimaryBtn}
+    align-self: center;
+`;
+
+const ParticipantsContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+`;
+
+const ParicipantCard = styled.div`
+
 `;
 
 const ButtonContainer = styled.div`

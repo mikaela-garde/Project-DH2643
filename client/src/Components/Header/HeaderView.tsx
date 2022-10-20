@@ -9,7 +9,7 @@ import { Heading1 } from '../../StyledComponents';
 import SVG from "react-inlinesvg";
 import Switch from "react-switch";
 
-const HeaderView= ({NavTitle, ProfilePic, darkMode, setDarkMode, handleModeChange}) =>
+const HeaderView= ({NavTitle, ProfilePic, darkMode, setDarkMode, handleModeChange, onLogout, backButtonVis}) =>
 
     <HeadingContainer>
 
@@ -27,14 +27,15 @@ const HeaderView= ({NavTitle, ProfilePic, darkMode, setDarkMode, handleModeChang
                 <IconContainer>
                     <Icon src={darkModeIcon}></Icon>
                     <Switch checked={darkMode} onChange={handleModeChange} uncheckedIcon={false} checkedIcon={false} offColor="#635F8B" onColor="#1F1E61" activeBoxShadow="null"/>
+                    <button onClick={() => onLogout()}>Logout</button>
                 </IconContainer>
             </IconsContainer>
         </Menu>
 
         <NavContainer>
-            <NavLink to="/login">
+            {backButtonVis && <NavLink to="/">
                 <BackButton src={BackButtonArrow}></BackButton>
-            </NavLink>
+            </NavLink>}
             <PageTitle>{NavTitle}</PageTitle> 
         </NavContainer>
 
@@ -86,9 +87,9 @@ const PageTitle = styled.h1`
 `;
 
 /////////////////////////////// MENU /////////////////////////////////
-const Menu = styled.button`
+const Menu = styled.div`
         color: ${props => props.theme.colors.contrast};
-        font-size: ${props => props.theme.fontSizes.xsmall};;
+        font-size: ${props => props.theme.fontSizes.xsmall};
         font-weight: 400;
         font-family: ${props => props.theme.fonts.raleway}; 
         background-color: solid;

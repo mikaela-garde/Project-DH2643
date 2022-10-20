@@ -3,12 +3,12 @@ import styled from "styled-components"
 import LoadingIconSVG from "../../Images/loading.svg"
 import { ContentContainerAll } from '../../StyledComponents';
 
-const NoDataView = () => 
+const NoDataView = () => {
 
-    <LoadingIconContainer>
+    return (<LoadingIconContainer>
         <LoadingIcon src={LoadingIconSVG} alt ="Loading gif" /> 
-    </LoadingIconContainer>
-
+    </LoadingIconContainer>)
+}
 ;
 
 const LoadingIconContainer = styled.div`

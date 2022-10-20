@@ -5,6 +5,9 @@ export const getUserAPI = (uid) => axios.get("https://localhost:8081/api/users/"
     withCredentials: true,
 });
 
+export const getUserFromEmailAPI = (email) => axios.post("https://localhost:8081/api/users/email", { 
+    email: email
+});
 
 export const createAccountAPI = (firstName, lastName, email, password, profileImage) => axios.post("https://localhost:8081/api/users/signup", {
     

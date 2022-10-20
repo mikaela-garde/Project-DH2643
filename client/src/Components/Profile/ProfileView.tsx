@@ -18,7 +18,7 @@ const ProfileView = ({userProfileImg, userFirstName, userLastName, userSocialMed
             <ProfileHeaderContainer>
                 <ImgTextContainer>
                     <ProfileImgContainer src={userProfileImg}></ProfileImgContainer>
-                    <Title2>{userFirstName} + {userLastName}</Title2>
+                    <Title2>{userFirstName} {userLastName}</Title2>
                 </ImgTextContainer>
 
                 <SocialMediaContainer>

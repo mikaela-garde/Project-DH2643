@@ -3,11 +3,16 @@ import styled from "styled-components";
 import addMediaIcon from "../../Images/addMedia.svg";
 import { Heading1, Heading3, BodyText, Subtitle, PrimaryBtn, InputField, InputFieldWrapper, InputLabel, ContentContainerAll} from '../../StyledComponents';
 import { FileUploader } from "react-drag-drop-files";
+import BackButtonArrow from "../../Images/back-button-arrow.svg";
 
-const UploadView = ({isActive, setIsActive, setText, handleFileChange, fileTypes, fileName, fileError}) =>
+const UploadView = ({isActive, setIsActive, setText, handleFileChange, fileTypes, fileName, fileError, showAdd}) =>
 
     <ContentContainer>
-       <PageTitle>Upload content</PageTitle>
+        <TitleBackBtnContainer>
+            <BackButton onClick={showAdd} src={BackButtonArrow}></BackButton>
+            <PageTitle>Upload content</PageTitle>
+       </TitleBackBtnContainer>
+       
 
        <UploadTypeButtonContainer>
             <MediaButton colorBool={isActive} onClick={() => isActive ? setIsActive(isActive) : setIsActive(!isActive)}>Media</MediaButton>
@@ -24,12 +29,11 @@ const UploadView = ({isActive, setIsActive, setText, handleFileChange, fileTypes
             </FileUploadContainer>} hoverTitle=" " handleChange={handleFileChange} multiple={false} name="file" types={fileTypes} onTypeError={handleFileChange}>
             </FileUploader> }
             <TextInputWrapper>
-                <TextInput placeholder="Write text" onChange={e => setText(e.target.value)}></TextInput>
+                <TextInput placeholder="Write caption" onChange={e => setText(e.target.value)}></TextInput>
             </TextInputWrapper>
         </UploadMedia>
 
        <UploadButton>Publish content</UploadButton>
-    
     </ContentContainer>
 ;
 
@@ -50,7 +54,17 @@ const ContentContainer = styled.div`
     ${ContentContainerAll};
     background-color: rgba(0, 0, 0, 0.5);
     gap: 40px;
+    width: 100vw;
+    position: fixed;
+    z-index: 1;
 `;
+
+const TitleBackBtnContainer = styled.div`
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+`;
+
 const TextInput = styled.textarea`
     ${InputField};
     height: 500px;
@@ -66,6 +80,15 @@ const TextInputWrapper = styled.div`
     ${InputFieldWrapper};
     width: 50%;
     height:100%;
+`;
+
+const BackButton = styled.img`
+    height: 50px;
+    align-self: center;
+    margin-right: 20px;
+    :hover {
+        cursor: pointer;
+    }
 `;
 
 const FileUploadContainer = styled.div`

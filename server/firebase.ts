@@ -7,7 +7,6 @@ const firebaseApp = initializeApp(firebaseConfig);
 const db:Database = getDatabase(firebaseApp);
 const storage = getStorage(firebaseApp);
 
-
 const listenToUser = (uid:string, callback:any) => {
     const unsubscribe = onValue(ref_db(db, 'users/' + uid), (snapshot) => {
       callback(snapshot.val());
@@ -16,11 +15,12 @@ const listenToUser = (uid:string, callback:any) => {
   return unsubscribe;
 }
 
-const store = (file) => {
+const store = (file:any) => {
   const ref = ref_storage(storage, 'profileImages');
   uploadBytes(ref, file).then((snapshot) => {
     console.log('Uploaded a blob or file!');
   });
 }
+
 
 export {db, listenToUser};

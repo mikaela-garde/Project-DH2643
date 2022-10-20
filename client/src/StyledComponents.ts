@@ -97,7 +97,7 @@ const InputFieldWrapper = css`
     justify-content: center;
     position: relative;
     z-index: 2;
-    align-self: flex-start;
+    align-self: center;
 `;
 
 const InputField = css`

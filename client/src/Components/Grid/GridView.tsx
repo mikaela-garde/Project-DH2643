@@ -90,9 +90,9 @@ const ExperienceImgContainer = styled.img`
 `;
 
 const SingleExperienceContainer = styled.div`
-    display: flex
+    display: flex;
     flex-direction: column;
-    justify-content; left;
+    justify-content: left;
     margin-left: 10px;
     margin-right: 10px;
 `;
@@ -114,7 +114,7 @@ const ExperienceButtonContainer = styled(Link)`
 const ExperienceGridContainer = styled.div`
     display: flex;
     flex-flow: row wrap;
-    justify-content; space-between;
+    justify-content: space-between;
 
     :after {
         content: "";

@@ -128,7 +128,6 @@ const MediaButton = styled.button.attrs((props: ColorTagProps) => ({colorBool: p
     width: 250px;
     cursor: pointer;
     border-style: solid;
-    onClick={ () => onToggle()
 `;
 
 const TextButton = styled.button.attrs((props: ColorTagProps) => ({colorBool: props.colorBool}))`

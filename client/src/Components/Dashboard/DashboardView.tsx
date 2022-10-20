@@ -8,7 +8,7 @@ import BackgroundBlobRightSVG from "../../Images/BackgroundBlobDashboardRight.sv
 
 const DashboardView= ({toCreateExp}) =>
     <DashboardContainer>
-        <HeaderPresenter NavTitle={"Dashboard"}/>
+        <HeaderPresenter NavTitle={"My Experiences"}/>
         <GridPresenterContainer>
             <GridPresenter/>
         </GridPresenterContainer>

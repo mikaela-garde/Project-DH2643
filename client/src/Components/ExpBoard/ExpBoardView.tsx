@@ -42,13 +42,17 @@ const DashboardContainer = styled.div<Props>`
     display: flex;
     flex-direction: column;
     height: 100vh;
-    z-index: -1;
+    z-index: 1;
     filter: ${props => props.brightness ? "brightness(50%)": "brightness(100%)"};
     filter: ${props => props.blur ? "blur(1.5em);" : "blur(0);"};
     
 `
 
 const ContentContainer = styled.div`
+    ${ContentContainerAll};
+    z-index: 0;
+    justify-content: flex-start;
+    overflow: auto;
 `
 
 const Toolbar = styled.div`

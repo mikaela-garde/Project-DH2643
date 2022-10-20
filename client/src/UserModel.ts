@@ -146,7 +146,7 @@ class UserModel {
     }
 
     setDarkMode(dark_mode: boolean) {
-        toggleDarkMode(localStorage.getItem("refreshToken"), dark_mode)
+        toggleDarkMode(localStorage.getItem("refreshToken"), dark_mode);
         this.notifyObservers();
     }
     setIsLoggedIn(boolean) {

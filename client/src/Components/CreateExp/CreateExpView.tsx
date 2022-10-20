@@ -9,12 +9,10 @@ import 'react-datepicker/dist/react-datepicker.css';
 import HeaderPresenter from '../Header/HeaderPresenter';
 import { PrimaryBtn, InputField, ContentContainerLogin, InputLabel, InputFieldWrapper } from '../../StyledComponents';
 
-const CreateExpView = ({startDate, onToggle, setName, setInvite, onInvite, participants }) =>
-
+const CreateExpView = ({setName, startDate, setStartDate, endDate, setEndDate, invite, setInvite, onInvite, participants }) =>
         <Container>
+            <HeaderPresenter NavTitle={"Create Experience"}/>
             <ContentContainer>
-                <HeaderPresenter NavTitle={"Create Experience"}/>
-                <DatePicker selected={startDate} onChange={onToggle} />
                 <ContentWrapper>
                     <Column>
                         <InputFieldExpWrapper>
@@ -25,12 +23,13 @@ const CreateExpView = ({startDate, onToggle, setName, setInvite, onInvite, parti
                         <FromToWrapper>
                             <InputFieldExpWrapper>
                                 <InputLabelExp left="">Start</InputLabelExp>
-                                <MyDatePicker selected={startDate} onChange={onToggle} dateFormat="Pp" paddingRight="0px" width="300px" fixedHeight showTimeSelect />
+                                <MyDatePicker onChange={(e) => setStartDate(e)} startDate={startDate} selected={startDate} dateFormat={"Pp"} selectsStart paddingRight="0px" width="300px" showTimeSelect />
                             </InputFieldExpWrapper>
 
                             <InputFieldExpWrapper>
                                 <InputLabelExp left="">End</InputLabelExp>
-                                <MyDatePicker selected={startDate} onChange={onToggle} dateFormat="Pp" paddingRight="0px" width="300px" fixedHeight showTimeSelect/>
+                                <MyDatePicker onChange={(e) => setEndDate(e)} startDate={startDate} endDate={endDate} minDate={startDate} selected={endDate} selectsEnd paddingRight="0px" width="300px" dateFormat={"Pp"} showTimeSelect/>
+
                             </InputFieldExpWrapper>
                         </FromToWrapper>
                     </Column> 
@@ -38,15 +37,15 @@ const CreateExpView = ({startDate, onToggle, setName, setInvite, onInvite, parti
                     <Column>
                         <InputFieldExpWrapper>
                             <InputLabelExp left="">Invite Friends</InputLabelExp>
-                            <InputFieldExp paddingRight="150px" onChange={e => setInvite(e.target.value)}></InputFieldExp>
+                            <InputFieldExp paddingRight="150px" onChange={e => setInvite(e.target.value)} value={invite}></InputFieldExp>
                             <EnterInviteButton onClick={() => onInvite()}>Invite</EnterInviteButton>
                         </InputFieldExpWrapper>
                         <ParticipantsContainer>
-                            {console.log(participants.length)}
-                            {participants.forEach(participant => {
-                                <ParicipantCard>
-                                <p>{participant.first_name} {participant.last_name}</p>
-                            </ParicipantCard>
+                            {participants.map(participant => {
+                                return <ParticipantCard key={participant.id}>
+                                    <img src={participant.profile_img} />
+                                    <p>{participant.first_name} {participant.last_name}</p>
+                                </ParticipantCard>
                             })}
                         </ParticipantsContainer>
                     </Column>
@@ -129,11 +128,12 @@ const EnterInviteButton = styled.button`
 
 const ParticipantsContainer = styled.div`
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    width: 350px;
 `;
 
-const ParicipantCard = styled.div`
-
+const ParticipantCard = styled.div`
+    margin: 10px;
 `;
 
 const ButtonContainer = styled.div`

@@ -27,3 +27,6 @@ export const listenToUserAPI = (uid) => axios.post("https://localhost:8081/api/l
 export const getUidFromTokenAPI = (token) => axios.post("https://localhost:8081/api/users/getuid", {
     token: token
 });
+
+
+export const uploadAPI = (formData) => axios.post("https://localhost:8081/api/upload", formData);

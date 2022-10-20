@@ -4,11 +4,12 @@ import https from "https";
 import fs from 'fs';
 import cors from "cors";
 import users from './routes/users';
-import { db, listenToUser } from "../firebase";
+import upload from './routes/upload';
+import { db, store, listenToUser, storage } from "../firebase";
 import { onValue, ref } from "firebase/database";
+import Multer from 'multer';
 
 const app = express();
-
 const port = process.env.PORT || 8081;
 
 const router = express.Router();
@@ -34,6 +35,35 @@ app.get("/", (req: express.Request, res: express.Response) => {
 });
 
 app.use("/api/users", users);
+//app.use("/api/upload", upload);
+
+////////////////////////////////////////////////////////////////
+
+
+
+const multer = Multer({
+    storage: Multer.memoryStorage(),
+    limits: {fileSize: 5 * 1024 * 1024} //File size limit 5mb
+
+})
+
+
+router.route("/api/upload").post(multer.single("imgfile"), (req: express.Request, res: express.Response) => {
+    try {
+        if(req.file){
+            console.log("inne i if(req)");
+            store(req.file)
+            res.status(200).send("File uploaded to Cloud Storage");
+        }
+    } catch (error) {
+        res.status(500).send(error)
+    }
+});
+
+
+
+////////////////////////////////////////////////////////////////
+
 //uses users.ts
 
 
@@ -67,5 +97,20 @@ app.post("/api/listeners/user", (req: express.Request, res: express.Response) =>
     listenToUser(req.body.uid, (val:any) => {io.sockets.emit("user", val)});
     res.status(200).send("Listening to user");
 });
+
+/*
+app.post("/upload", (req: express.Request, res: express.Response) => {
+    console.log("Inne i post fil")
+    try {
+        if(req){
+            console.log("inne i if(req)")
+            store(req)
+            res.status(200).send("File uploaded to Cloud Storage");
+        }
+    } catch (error) {
+        res.status(500).send(error)
+    }
+});
+*/
 
 

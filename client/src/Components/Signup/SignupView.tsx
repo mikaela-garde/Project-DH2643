@@ -6,9 +6,9 @@ import BackgroundBlobRightSVG from "../../Images/BackgroundBlobLoginRight.svg";
 import BackButtonArrow from "../../Images/back-button-arrow.svg";
 import {Link} from "react-router-dom";
 import CatImg from "../../Images/sad_cat.jpeg";
+import SVG from "react-inlinesvg";
 
-
-import { PrimaryBtn, InputField, ContentContainerLogin, ImgContainerLogin, InputLabel, InputFieldWrapper} from '../../StyledComponents';
+import { PrimaryBtn, InputField, ContentContainerAll, ImgContainerLogin, InputLabel, InputFieldWrapper} from '../../StyledComponents';
 
 const SignupView = ({loginErrorMessage, setFirstName, setLastName, setEmail, setPassword, onSignUp, setImage}) =>
             <ContentContainer>
@@ -51,17 +51,29 @@ const SignupView = ({loginErrorMessage, setFirstName, setLastName, setEmail, set
 ;
 
 const ContentContainer = styled.div`
-    ${ContentContainerLogin}
+    ${ContentContainerAll};
+    height: 100vh;
+    >*  {
+        margin: 15px;
+        };
 `;
 
-const ImgContainer = styled.img`
+const ImgContainer = styled(SVG)`
     ${ImgContainerLogin}
+    & circle {
+        fill: ${props => props.theme.colors.contrast};
+        stroke: ${props => props.theme.colors.primary}
+    }
+    & path{
+        fill: ${props => props.theme.colors.primary};
+    }
+
 `;
 
 const InputFieldSignupWrapper = styled.div`
     ${InputFieldWrapper};
+    
 `;
-
 
 const InputFieldSignup = styled.input`
     ${InputField};
@@ -78,6 +90,7 @@ const ButtonContainer = styled.div`
     >*  {
         margin: 10px;
         };  
+        z-index: 2;
 `;
 
 const SignUpButton = styled.button`
@@ -102,7 +115,7 @@ const BackgroundBlobContainerLeft = styled.div`
     left: 0;
     margin: 0;
     width: 20%;
-    z-index: -1;
+    z-index: 1;
 `;
 
 const BackgroundBlobContainerRight = styled.div`
@@ -111,7 +124,7 @@ const BackgroundBlobContainerRight = styled.div`
     right: 100px;
     margin: 0;
     width: 20%;
-    z-index: -1;
+    z-index: 1;
 `;
 const BackgroundBlob = styled.img`
     vertical-align: middle;

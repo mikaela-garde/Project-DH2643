@@ -7,12 +7,7 @@ import {Link} from "react-router-dom";
 import HeaderPresenter from '../Header/HeaderPresenter';
 import GridPresenter from '../Grid/GridPresenter';
 
-
-import { Heading1 } from '../../StyledComponents';
-import { Heading2 } from '../../StyledComponents';
-import { Heading3 } from '../../StyledComponents';
-import { BodyText } from '../../StyledComponents';
-import { Subtitle } from '../../StyledComponents';
+import { Heading2, Heading3, BodyText, ContentContainerAll } from '../../StyledComponents';
 
 const ProfileView = ({userProfileImg, userFirstName, userLastName, userSocialMedia, userDescription, userExperienceList}) =>
 
@@ -46,12 +41,9 @@ const ProfileView = ({userProfileImg, userFirstName, userLastName, userSocialMed
     </ContentContainer>
 ;
 const ContentContainer = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-content: center;
-    gap: 70px;
-    margin-right: 10vw;
-    margin-left: 10vw;
+    ${ContentContainerAll};
+    justify-content: flex-start;
+    overflow: auto;
 `;
 
 const ProfileContainer = styled.div`
@@ -59,6 +51,8 @@ const ProfileContainer = styled.div`
     flex-direction: column;
     justify-content: left;
     gap: 10px;
+    margin-top: 5%;
+    margin-bottom: 5%;
 `
 const ProfileHeaderContainer = styled.div`
     display: flex;
@@ -92,9 +86,7 @@ const ProfileImgContainer = styled.img`
     height: 150px;
     width: 150px;
     margin-right: 20px;
-
 `;
-
 
 const Title2 = styled.h2`
     ${Heading2};
@@ -106,15 +98,9 @@ const Title3 = styled.h3`
     margin: 5px 0px;
 `;
 
-const SmallText = styled.p`
-    ${Subtitle};
-    margin-block-start:0em;
-    margin-bottom: auto;
-`;
-
 const Text = styled.p`
     ${BodyText};
-    margin-block-start:0em;
+    margin-block-start: 0em;
     margin-bottom: auto;
 `;
 

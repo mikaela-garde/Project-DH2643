@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from "styled-components";
-import { PrimaryBtn } from '../../StyledComponents';
+import { PrimaryBtn, ContentContainerAll } from '../../StyledComponents';
 import GridPresenter from '../Grid/GridPresenter';
 import HeaderPresenter from '../Header/HeaderPresenter';
 import BackgroundBlobLeftSVG from "../../Images/BackgroundBlobDashboardLeft.svg";
@@ -8,7 +8,7 @@ import BackgroundBlobRightSVG from "../../Images/BackgroundBlobDashboardRight.sv
 
 const DashboardView= ({toCreateExp}) =>
     <DashboardContainer>
-        <HeaderPresenter NavTitle={"Dashboard"}/>
+        <HeaderPresenter NavTitle={"My Experiences"}/>
         <GridPresenterContainer>
             <GridPresenter/>
         </GridPresenterContainer>
@@ -32,29 +32,29 @@ const CreateExpButton = styled.button`
     margin-bottom: 30px;
 `;
 
+const DashboardContainer = styled.div`
+    ${ContentContainerAll};
+    justify-content: flex-start;
+    overflow: auto;
+`;
+
 const GridPresenterContainer = styled.div`
     margin: 40px;
 `;
-
-const DashboardContainer = styled.div`
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
-`
 
 const BackgroundBlobContainerLeft = styled.div`
     position: fixed;
     left: 50%;
     transform: translateX(-50%);
     bottom: -50px;
-    z-index:-1;
+    z-index: 1;
 `;
 
 const BackgroundBlobContainerRight = styled.div`
     position: fixed;
     top: 0px;
     right: -100px;
-    z-index: -1;
+    z-index: 1;
 
     @media (max-width: 768px) {
         top: -100px;

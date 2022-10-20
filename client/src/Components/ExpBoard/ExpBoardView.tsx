@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from "styled-components";
-import { PrimaryBtn } from '../../StyledComponents';
+import { PrimaryBtn, ContentContainerAll } from '../../StyledComponents';
 import GridPresenter from '../Grid/GridPresenter';
 import HeaderPresenter from '../Header/HeaderPresenter';
 import UploadPresenter from '../Upload/UploadPresenter';
@@ -60,14 +60,14 @@ const BackgroundBlobContainerLeft = styled.div`
     left: 50%;
     transform: translateX(-50%);
     bottom: 0px;
-    z-index:-1;
+    z-index: 1;
 `;
 
 const BackgroundBlobContainerRight = styled.div`
     position: fixed;
     top: 0px;
     right: 0px;
-    z-index: -1;
+    z-index: 1;
 
     @media (max-width: 768px) {
         top: -100px;

@@ -30,3 +30,8 @@ export const listenToUserAPI = (uid) => axios.post("https://localhost:8081/api/l
 export const getUidFromTokenAPI = (token) => axios.post("https://localhost:8081/api/users/getuid", {
     token: token
 });
+
+export const toggleDarkMode = (token, dark_mode) => axios.post("https://localhost:8081/api/users/toggle-dark", {
+    token: token,
+    dark_mode: dark_mode
+});

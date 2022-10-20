@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from "styled-components";
 import addMediaIcon from "../../Images/addMedia.svg";
-import { Heading1, Heading2, Heading3, BodyText, Subtitle, PrimaryBtn, InputField, InputFieldWrapper, InputLabel} from '../../StyledComponents';
+import { Heading1, Heading3, BodyText, Subtitle, PrimaryBtn, InputField, InputFieldWrapper, InputLabel, ContentContainerAll} from '../../StyledComponents';
 import { FileUploader } from "react-drag-drop-files";
 import BackButtonArrow from "../../Images/back-button-arrow.svg";
 
@@ -51,10 +51,7 @@ const UploadView = ({isActive, setIsActive, setText, handleFileChange, fileTypes
     372px x 500 */
 
 const ContentContainer = styled.div`
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    ${ContentContainerAll};
     background-color: rgba(0, 0, 0, 0.5);
     gap: 40px;
     width: 100vw;
@@ -99,7 +96,7 @@ const FileUploadContainer = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    border-color: white;
+    border-color: ${props => props.theme.colors.contrast};
     border-style: dashed;
     border-radius: 50px;
     width: 375px;
@@ -119,29 +116,28 @@ const UploadMedia = styled.div`
 `;
 
 const MediaButton = styled.button.attrs((props: ColorTagProps) => ({colorBool: props.colorBool}))`
-    color: ${props => props.colorBool ? "white" : props.theme.colors.primary};
-    font-size: 1em;
+    color: ${props => props.colorBool ? props.theme.colors.contrast : props.theme.colors.primary};
+    font-size: ${props => props.theme.fontSizes.xsmall};
     font-weight: 400;
     font-family: ${props => props.theme.fonts.raleway}; 
     background-color: solid;
-    background-color: ${props => props.colorBool ? props.theme.colors.primary : "white"};
-    border-color: ${props => props.colorBool ? props.theme.colors.primary : "white"};
+    background-color: ${props => props.colorBool ? props.theme.colors.primary : props.theme.colors.contrast};
+    border-color: ${props => props.colorBool ? props.theme.colors.primary : props.theme.colors.contrast};
     border-radius: 150px 0px 0px 150px;
     height: 45px;
     width: 250px;
     cursor: pointer;
     border-style: solid;
-    onClick={ () => onToggle()
 `;
 
 const TextButton = styled.button.attrs((props: ColorTagProps) => ({colorBool: props.colorBool}))`
-    color: ${props => props.colorBool ? props.theme.colors.primary : "white"};
+    color: ${props => props.colorBool ? props.theme.colors.primary : props.theme.colors.contrast};
     font-size: 1em;
     font-weight: 400;
     font-family: ${props => props.theme.fonts.raleway}; 
     background-color: solid;
-    background-color: ${props => props.colorBool ? "white" : props.theme.colors.primary};
-    border-color:  ${props => props.colorBool ? "white" : props.theme.colors.primary};
+    background-color: ${props => props.colorBool ? props.theme.colors.contrast : props.theme.colors.primary};
+    border-color:  ${props => props.colorBool ? props.theme.colors.contrast : props.theme.colors.primary};
     height: 45px;
     width: 250px;
     border-radius: 0px 150px 150px 0px;
@@ -161,19 +157,13 @@ const UploadButton = styled.button`
 `;
 const PageTitle = styled.h1`
     ${Heading1}
-    color: white;
+    color: props.theme.colors.contrast;
     margin: 0;
-`;
-
-const Title2 = styled.h2`
-    ${Heading2};
-    color: white;
-    margin: auto;
 `;
 
 const Title3 = styled.h3`
     ${Heading3};
-    color: white;
+    color: props.theme.colors.contrast;
     margin: 5px 0px;
     text-align: center;
 `;
@@ -182,21 +172,16 @@ const SmallText = styled.p.attrs((props: errorColorTag) => ({errorColor: props.e
     ${Subtitle};
     margin-block-start:0em;
     margin-bottom: auto;
-    color: ${props => props.errorColor ? "red" : "white"}
+    color: ${props => props.errorColor ? "red" : props.theme.colors.contrast}
 `;
 
 const Text = styled.p`
     ${BodyText};
-    color: white;
+    color: props.theme.colors.contrast;
     margin-block-start:0em;
     margin-bottom: 0s;
     font-size: 1em;
 `;
-
-type Props = {
-    classname?: string,
-    as?: string
-}
 
 interface ColorTagProps {
     colorBool: boolean;

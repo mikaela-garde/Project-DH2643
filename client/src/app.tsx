@@ -5,19 +5,15 @@ import TemplatePresenter from './Components/Template/TemplatePresenter';
 import LoginPresenter from './Components/Login/LoginPresenter';
 import ProfilePresenter from './Components/Profile/ProfilePresenter';
 import SignupPresenter from './Components/Signup/SignupPresenter';
-import UploadPresenter from './Components/Upload/UploadPresenter';
 import CreateExpPresenter from './Components/CreateExp/CreateExpPresenter';
 import DashboardPresenter from './Components/Dashboard/DashboardPresenter';
 import ExpBoardPresenter from './Components/ExpBoard/ExpBoardPresenter';
-//import EmptyProfileImage from "./Images/EmptyProfileImg.svg";
-import Theme from "./Theme";
+//import EmptyProfileImage from "./Images/NewEmptyProfileImg.svg";
+import { lightTheme, darkTheme } from './Theme';
+import {ThemeProvider} from "styled-components";
 import "react-datepicker/dist/react-datepicker.css";
 import{ createGlobalStyle } from "styled-components";
-import {
-    HashRouter,
-    Routes,
-    Route,
-  } from "react-router-dom";
+import { HashRouter, Routes, Route } from "react-router-dom";
 import { io } from "socket.io-client";
 import Model from './UserModel';
 import useModelProp from './useModelProp';
@@ -30,8 +26,17 @@ let experienceModel = new ExperienceModel();
 
 const socket = io("https://localhost:8081");
 
+const GlobalStyle = createGlobalStyle `
+    body * {
+        margin: 0;
+        padding: 0;
+    }
+`;
+
 const App = () => {
+    const darkMode = useModelProp(UserModel, "dark_mode");
     const loggedIn = useModelProp(UserModel, "isLoggedIn");
+
     useEffect(() => {
         if(localStorage.getItem("refreshToken")) {
             UserModel.getUserFromToken(localStorage.getItem("refreshToken"));
@@ -48,7 +53,7 @@ const App = () => {
     });
 
     return (
-    <Theme> 
+    <ThemeProvider theme={darkMode ? darkTheme : lightTheme}> 
         <GlobalStyle/>
         <HashRouter>
             <Routes>
@@ -60,16 +65,9 @@ const App = () => {
                 <Route path="/exp-board" element={loggedIn == undefined ? <NoDataView />:loggedIn ? <ExpBoardPresenter />: <Navigate to="/"/> } />
             </Routes>
         </HashRouter>
-    </Theme>
+    </ThemeProvider>
     )
 }
-
-const GlobalStyle = createGlobalStyle `
-    body *{
-    margin: 0;
-    padding: 0;
-    }
-`;
 
 ReactDOM.createRoot(document.getElementById('app')!).render(<App />);
 

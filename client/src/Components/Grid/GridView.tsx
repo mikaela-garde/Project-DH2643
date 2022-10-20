@@ -44,6 +44,38 @@ const GridView= ({setExperience, ExpList}) =>
                 </SingleExperienceContainer>
             </ExperienceButtonContainer>
 
+            <ExperienceButtonContainer to="/login">
+                <SingleExperienceContainer>
+                    <ExperienceImgContainer src={ExperienceImg}></ExperienceImgContainer>
+                    <Title3>28th Bday Party</Title3>
+                    <SmallText>27 Apr 2007</SmallText>
+                </SingleExperienceContainer>
+            </ExperienceButtonContainer>
+
+            <ExperienceButtonContainer to="/login">
+                <SingleExperienceContainer>
+                    <ExperienceImgContainer src={ExperienceImg}></ExperienceImgContainer>
+                    <Title3>28th Bday Party</Title3>
+                    <SmallText>27 Apr 2007</SmallText>
+                </SingleExperienceContainer>
+            </ExperienceButtonContainer>
+
+            <ExperienceButtonContainer to="/login">
+                <SingleExperienceContainer>
+                    <ExperienceImgContainer src={ExperienceImg}></ExperienceImgContainer>
+                    <Title3>28th Bday Party</Title3>
+                    <SmallText>27 Apr 2007</SmallText>
+                </SingleExperienceContainer>
+            </ExperienceButtonContainer>
+
+            <ExperienceButtonContainer to="/login">
+                <SingleExperienceContainer>
+                    <ExperienceImgContainer src={ExperienceImg}></ExperienceImgContainer>
+                    <Title3>28th Bday Party</Title3>
+                    <SmallText>27 Apr 2007</SmallText>
+                </SingleExperienceContainer>
+            </ExperienceButtonContainer>
+
         </ExperienceGridContainer>
     </ExperienceContainer>
         
@@ -58,9 +90,9 @@ const ExperienceImgContainer = styled.img`
 `;
 
 const SingleExperienceContainer = styled.div`
-    display: flex
+    display: flex;
     flex-direction: column;
-    justify-content; left;
+    justify-content: left;
     margin-left: 10px;
     margin-right: 10px;
 `;
@@ -82,12 +114,13 @@ const ExperienceButtonContainer = styled(Link)`
 const ExperienceGridContainer = styled.div`
     display: flex;
     flex-flow: row wrap;
-    justify-content; space-between;
+    justify-content: space-between;
 
     :after {
         content: "";
         flex: auto;
       }
+    z-index: 2;
 `;
 
 const ExperienceContainer = styled.div`

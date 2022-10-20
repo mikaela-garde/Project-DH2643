@@ -1,6 +1,6 @@
 import { socket } from "./app";
 import {User, Image, Social_Media, Friend_request, Notifications} from "./types";
-import {createAccountAPI, listenToUserAPI, loginAPI, getUidFromTokenAPI} from "./webAPI/webAPI";
+import {createAccountAPI, listenToUserAPI, loginAPI, getUidFromTokenAPI, toggleDarkMode} from "./webAPI/webAPI";
 
 class UserModel {
     /** Model containing information for the logged in user from firebase*/
@@ -37,7 +37,7 @@ class UserModel {
         this.friend_requests;
         this.experiences;
         this.notifications;
-        this.dark_mode;
+        this.dark_mode = false;
         this.subscribers =[];
         this.signInErrorMsg;
         this.signUpErrorMsg;
@@ -156,6 +156,10 @@ class UserModel {
         this.notifyObservers();
     }
 
+    setDarkMode(dark_mode: boolean) {
+        toggleDarkMode(localStorage.getItem("refreshToken"), dark_mode)
+        this.notifyObservers();
+    }
     setIsLoggedIn(boolean) {
         this.isLoggedIn = boolean;
         this.notifyObservers();

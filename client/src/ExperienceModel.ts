@@ -42,7 +42,7 @@ class ExperienceModel {
         getUserFromEmailAPI(email).then((res) => {
             //Get the first property in the response object
             console.log(res.data);
-                this.participants.push(res.data[Object.keys(res.data)[0]]);
+                this.participants = [...this.participants, (res.data[Object.keys(res.data)[0]])];
                 this.notifyObservers();
             
         });

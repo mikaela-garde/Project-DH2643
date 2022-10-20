@@ -7,18 +7,24 @@ import useModelProp from '../../useModelProp';
 function CreateExpPresenter (props) {
     const participants = useModelProp(experienceModel, "participants");
     const [startDate, setStartDate] = useState(new Date());
+    const [endDate, setEndDate] = useState(new Date());
     const [name, setName] = useState("");
     const [invite, setInvite] = useState("");
-
-    //https://stackoverflow.com/questions/26700924/query-based-on-multiple-where-clauses-in-firebase/26701282#26701282 För att få ut invite
     
     return React.createElement(CreateExpView, {
-        //onToggle: () =>  setStartDate({date}),
         startDate: startDate,
-        onToggle: (date:Date) => setStartDate(date),
+        setStartDate: (date:Date) => {setStartDate(date)
+            setEndDate(date)},
+        endDate: endDate,
+        setEndDate: (date:Date) => {setEndDate(date)
+            console.log("enddate", date)},
         setName: (input) => setName(input),
+        invite: invite,
         setInvite: (input) => setInvite(input),
-        onInvite: () => experienceModel.addParticipant(invite),
+        onInvite: () => {
+            experienceModel.addParticipant(invite);
+            setInvite("");
+        },
         participants: participants
     })
 }

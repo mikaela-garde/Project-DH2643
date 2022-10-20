@@ -33,9 +33,9 @@ const SignupView = ({loginErrorMessage, setFirstName, setLastName, setEmail, set
                     <InputLabelSignup>Password</InputLabelSignup>
                     <InputFieldSignup type ="password" onChange={e => setPassword(e.target.value)}></InputFieldSignup>
                 </InputFieldSignupWrapper>
-                {loginErrorMessage};
+                {loginErrorMessage}
                 <ButtonContainer>
-                    <NavLink to="/login">
+                    <NavLink to="/">
                         <BackButton src={BackButtonArrow}></BackButton>
                     </NavLink>
                         <SignUpButton onClick={() => onSignUp()}>Sign up</SignUpButton>
@@ -98,8 +98,19 @@ const SignUpButton = styled.button`
     align-self: center;
 `;
 
-const BackButton = styled.img`
-    width: 70%;
+const BackButton = styled(SVG)`
+    height: 50px;
+    align-self: center;
+    margin-right: 20px;
+    & circle {
+        fill: ${props => props.theme.colors.primary};
+    }
+    & path{
+        fill: ${props => props.theme.colors.contrast};
+    }
+    :hover {
+        cursor: pointer;
+    }
 `;
 
 const NavLink = styled(Link)`

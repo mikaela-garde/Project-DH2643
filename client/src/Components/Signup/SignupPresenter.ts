@@ -5,6 +5,7 @@ import useModelProp from "../../useModelProp";
 import EmptyProfileImage from "../../Images/EmptyProfileImg.svg"
 import CatImg from "../../Images/sad_cat.jpeg";
 import { useNavigate } from "react-router-dom";
+import SVG from "react-inlinesvg";
 
 function SignUpPresenter (props) {
     const navigate = useNavigate();

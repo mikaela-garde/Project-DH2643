@@ -23,12 +23,12 @@ const CreateExpView = ({setName, startDate, setStartDate, endDate, setEndDate, i
                         <FromToWrapper>
                             <InputFieldExpWrapper>
                                 <InputLabelExp left="">Start</InputLabelExp>
-                                <MyDatePicker onChange={(e) => setStartDate(e)} startDate={startDate} selected={startDate} dateFormat={"Pp"} selectsStart paddingRight="0px" width="300px" showTimeSelect />
+                                <MyDatePicker onChange={(e) => setStartDate(e)} startDate={startDate} selected={startDate} dateFormat={"Pp"} selectsStart paddingRight="0px" width="170px" showTimeSelect />
                             </InputFieldExpWrapper>
 
                             <InputFieldExpWrapper>
                                 <InputLabelExp left="">End</InputLabelExp>
-                                <MyDatePicker onChange={(e) => setEndDate(e)} startDate={startDate} endDate={endDate} minDate={startDate} selected={endDate} selectsEnd paddingRight="0px" width="300px" dateFormat={"Pp"} showTimeSelect/>
+                                <MyDatePicker onChange={(e) => setEndDate(e)} startDate={startDate} endDate={endDate} minDate={startDate} selected={endDate} selectsEnd paddingRight="0px" width="170px" dateFormat={"Pp"} showTimeSelect/>
 
                             </InputFieldExpWrapper>
                         </FromToWrapper>
@@ -53,7 +53,7 @@ const CreateExpView = ({setName, startDate, setStartDate, endDate, setEndDate, i
                 <ButtonContainer>
                     <NavLink to="/login">
                     </NavLink>
-                        <SignUpButton>Sign up</SignUpButton>
+                        <SignUpButton>Create Experience</SignUpButton>
                 </ButtonContainer>
                 
                 <BackgroundBlobContainerLeft>
@@ -97,6 +97,7 @@ const InputFieldExpWrapper = styled.div`
 const FromToWrapper = styled.div`
     display: flex;
     flex-direction: row;
+    margin: 0;
     >*  {
         margin: 12px;
         };  
@@ -104,26 +105,29 @@ const FromToWrapper = styled.div`
 
 const InputFieldExp = styled.input<propsField>`
     ${InputField};
-    padding: 12px 150px 12px 20px;
-    width: 200px;
+    padding: 12px 150px 12px 14px;
     padding-right: ${props => props.paddingRight}; 
     width: ${props => props.width}; 
 `;
 
 const MyDatePicker = styled(DatePicker)`
     ${InputField};
-    padding: 12px 150px 12px 20px;
+    padding: 12px 100px 12px 20px;
     padding-right: ${props => props.paddingRight}; 
     width: ${props => props.width};
+    margin: 0;
 `;
 
 const InputLabelExp = styled.label<propsLabel>`
     ${InputLabel}
     left: ${props => props.left}; 
+    z-index: 1;
 `;
 const EnterInviteButton = styled.button`
     ${PrimaryBtn}
     align-self: center;
+    margin-left: 20px;
+    width: 150px;
 `;
 
 const ParticipantsContainer = styled.div`
@@ -147,9 +151,6 @@ const SignUpButton = styled.button`
     align-self: center;
 `;
 
-const BackButton = styled.img`
-    width: 70%;
-`;
 
 const NavLink = styled(Link)`
     display: flex;
@@ -160,7 +161,7 @@ const NavLink = styled(Link)`
 
 const BackgroundBlobContainerLeft = styled.div`
     position: fixed;
-    bottom: -100px;
+    bottom: 0;
     left: 0;
     margin: 0;
     width: 20%;

@@ -163,13 +163,13 @@ const UploadButton = styled.button`
 `;
 const PageTitle = styled.h1`
     ${Heading1}
-    color: props.theme.colors.contrast;
+    color: ${props => props.theme.colors.contrast};
     margin: 0;
 `;
 
 const Title3 = styled.h3`
     ${Heading3};
-    color: props.theme.colors.contrast;
+    color: ${props => props.theme.colors.contrast};
     margin: 5px 0px;
     text-align: center;
 `;
@@ -183,7 +183,7 @@ const SmallText = styled.p.attrs((props: errorColorTag) => ({errorColor: props.e
 
 const Text = styled.p`
     ${BodyText};
-    color: props.theme.colors.contrast;
+    color: ${props => props.theme.colors.contrast};
     margin-block-start:0em;
     margin-bottom: 0s;
     font-size: 1em;

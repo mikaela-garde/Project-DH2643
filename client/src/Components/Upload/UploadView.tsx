@@ -56,7 +56,7 @@ const ContentContainer = styled.div`
     gap: 40px;
     width: 100vw;
     position: fixed;
-    z-index: 1;
+    z-index: 2;
 `;
 
 const TitleBackBtnContainer = styled.div`

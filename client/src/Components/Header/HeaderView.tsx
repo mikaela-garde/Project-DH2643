@@ -9,7 +9,7 @@ import { Heading1 } from '../../StyledComponents';
 import SVG from "react-inlinesvg";
 import Switch from "react-switch";
 
-const HeaderView= ({NavTitle, ProfilePic, darkMode, setDarkMode, handleModeChange, onLogout, backButtonVis}) =>
+const HeaderView= ({NavTitle, ProfilePic, darkMode, handleModeChange, onLogout, backButtonVis}) =>
 
     <HeadingContainer>
 

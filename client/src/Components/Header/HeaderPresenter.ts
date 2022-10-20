@@ -1,15 +1,11 @@
 import React, {useState, useEffect} from 'react';
 import { UserModel } from '../../app';
+import useModelProp from '../../useModelProp';
 import HeaderView from "./HeaderView";
 
 function HeaderPresenter ({NavTitle}) {
-    const [darkMode, setDarkMode] = useState(UserModel.dark_mode);
-
-    const handleModeChange = changeBool => {
-        setDarkMode(changeBool);
-        UserModel.setDarkMode(changeBool);
-        console.log("Dett här är i headerpresenter: " + UserModel.dark_mode);
-    }
+    const darkMode = useModelProp(UserModel, "dark_mode");
+    
     const profilePic = "" //Getta profilepic from databas
     const [backButtonVis, setBackButtonVis] = useState(true);
     useEffect(() => {
@@ -24,8 +20,7 @@ function HeaderPresenter ({NavTitle}) {
         NavTitle: NavTitle,
         ProfilePic : profilePic,
         darkMode: darkMode,
-        setDarkMode: setDarkMode,
-        handleModeChange: handleModeChange,
+        handleModeChange: (changeBool) => UserModel.setDarkMode(changeBool),
         onLogout: () => {
             UserModel.logoutUser();
         },

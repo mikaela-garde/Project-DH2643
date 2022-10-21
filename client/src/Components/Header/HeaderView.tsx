@@ -53,6 +53,7 @@ const HeadingContainer = styled.div`
         height:200px;
         gap: 40px;
     }
+    z-index: 3;
 `;
 
 ////////////////////////////// BACK BUTTON & TITLE //////////////////////////////////
@@ -100,7 +101,7 @@ const Menu = styled.div`
         width: 60vw;
         cursor: pointer;
         border-style: solid;
-       
+
         @media (min-width: 1000px) {
             position: absolute;
             right: 20px;

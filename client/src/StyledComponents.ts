@@ -91,6 +91,17 @@ const PrimaryBtn = css`
     }
 `;
 
+const PrimaryBtnContainer = css`
+    display: flex;
+    flex-direction: row;
+    margin: 0px;
+    >*  {
+        margin: 10px;
+        };  
+        z-index: 2;
+`;
+
+
 const InputFieldWrapper = css`
     display: flex;
     align-items: center;
@@ -143,4 +154,4 @@ const NavLink = css`
     }
 `;
 
-export {Heading1, Heading2, Heading3, BodyText, Subtitle, PrimaryBtn, InputField, ContentContainerAll, ContentContainerLogin, ImgContainerLogin, InputLabel, NavLink, InputFieldWrapper};
+export {Heading1, Heading2, Heading3, BodyText, Subtitle, PrimaryBtn, InputField, ContentContainerAll, ContentContainerLogin, ImgContainerLogin, InputLabel, NavLink, InputFieldWrapper, PrimaryBtnContainer};

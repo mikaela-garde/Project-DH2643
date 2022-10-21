@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import CreateExpView from './CreateExpView';
 import {experienceModel} from "../../app";
 import useModelProp from '../../useModelProp';
+import { useNavigate } from "react-router-dom";
 
 
 function CreateExpPresenter (props) {
@@ -9,8 +10,8 @@ function CreateExpPresenter (props) {
     const [startDate, setStartDate] = useState(new Date());
     const [endDate, setEndDate] = useState(new Date());
     const [participants, setParticipants] = useState([]);
-    console.log(participants);
     const [invite, setInvite] = useState("");
+    const navigate = useNavigate();
     
     return React.createElement(CreateExpView, {
         startDate: startDate,

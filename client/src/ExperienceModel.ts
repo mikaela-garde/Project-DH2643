@@ -43,7 +43,7 @@ class ExperienceModel {
     }
 
     fetchInvitedParticipant(email: string){
-        return getUserFromEmailAPI(email).then((res) => {
+        return getUserFromEmailAPI(email, localStorage.getItem("refreshToken")).then((res) => {
             //Get the first property in the response object
             console.log(res.data);
                 return res.data[Object.keys(res.data)[0]];
@@ -52,7 +52,7 @@ class ExperienceModel {
     }
 
     addParticipant(email: string){
-        getUserFromEmailAPI(email).then((res) => {
+        getUserFromEmailAPI(email, localStorage.getItem("refreshToken")).then((res) => {
             //Get the first property in the response object
             console.log(res.data);
                 this.participants = [...this.participants, (res.data[Object.keys(res.data)[0]])];

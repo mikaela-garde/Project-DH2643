@@ -10,6 +10,7 @@ import { db, store, listenToUser, storage, listenToExperience } from "../firebas
 import { onValue, ref } from "firebase/database";
 import Multer, { diskStorage } from 'multer';
 import { Blob } from "buffer";
+import { checkAuth } from "./middlewares/auth";
 
 const app = express();
 const port = process.env.PORT || 8081;
@@ -121,13 +122,14 @@ io.on('connection', (socket:any) => {
     */
 });
 
-app.post("/api/listeners/user", (req: express.Request, res: express.Response) => {
-    listenToUser(req.body.uid, (val:any) => {io.sockets.emit("user", val)});
+app.post("/api/listeners/user", checkAuth, (req: express.Request, res: express.Response) => {
+    listenToUser(res.locals.user.user_id, (val:any) => {io.sockets.emit("user", val)});
     res.status(200).send("Listening to user");
+    console.log("började lyssna")
 });
 
-app.post("/api/listeners/experience", (req: express.Request, res: express.Response) => {
-    listenToExperience(req.body.id, (val:any) => {io.sockets.emit("experience", val)});
+app.post("/api/listeners/experience", checkAuth, (req: express.Request, res: express.Response) => {
+    listenToExperience(res.locals.user.user_id, (val:any) => {io.sockets.emit("experience", val)});
     res.status(200).send("Listening to user");
 });
 /*

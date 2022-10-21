@@ -5,27 +5,31 @@ import useModelProp from '../../useModelProp';
 
 
 function CreateExpPresenter (props) {
-    const participants = useModelProp(experienceModel, "participants");
+    const [name, setName] = useState("");
     const [startDate, setStartDate] = useState(new Date());
     const [endDate, setEndDate] = useState(new Date());
-    const [name, setName] = useState("");
+    const [participants, setParticipants] = useState([]);
+    console.log(participants);
     const [invite, setInvite] = useState("");
     
     return React.createElement(CreateExpView, {
         startDate: startDate,
         setStartDate: (date:Date) => {setStartDate(date)
-            setEndDate(date)},
+            setEndDate(date)
+        },
         endDate: endDate,
         setEndDate: (date:Date) => {setEndDate(date)
-            console.log("enddate", date)},
+            console.log("enddate", date)
+        },
         setName: (input) => setName(input),
         invite: invite,
         setInvite: (input) => setInvite(input),
         onInvite: () => {
-            experienceModel.addParticipant(invite);
+            experienceModel.fetchInvitedParticipant(invite).then((user) => setParticipants([...participants, user]));
             setInvite("");
         },
-        participants: participants
+        participants: participants,
+        onCreate: () => experienceModel.createExperience(name, startDate, endDate, participants)
     })
 }
 

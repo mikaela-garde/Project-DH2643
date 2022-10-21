@@ -16,7 +16,8 @@
     "firebase-admin": "^11.2.0",
     "mkcert": "^1.5.1",
     "node-fetch": "^2.6.7",
-    "socket.io": "^4.5.2"
+    "socket.io": "^4.5.2",
+    "uuidv4": "^6.2.13"
   },
   "devDependencies": {
     "@types/cors": "^2.8.12",

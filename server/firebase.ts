@@ -15,6 +15,15 @@ const listenToUser = (uid:string, callback:any) => {
   return unsubscribe;
 }
 
+const listenToExperience = (id:string, callback:any) => {
+  const unsubscribe = onValue(ref_db(db, 'experiences/' + id), (snapshot:any) => {
+    snapshot.val()[id]= id; 
+    callback(snapshot.val());
+});
+
+return unsubscribe;
+}
+
 const store = (file:any) => {
   const ref = ref_storage(storage, 'profileImages');
   uploadBytes(ref, file).then((snapshot) => {
@@ -23,4 +32,4 @@ const store = (file:any) => {
 }
 
 
-export {db, listenToUser};
+export {db, listenToUser, listenToExperience};

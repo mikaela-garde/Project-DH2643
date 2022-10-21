@@ -9,7 +9,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 import HeaderPresenter from '../Header/HeaderPresenter';
 import { PrimaryBtn, InputField, ContentContainerLogin, InputLabel, InputFieldWrapper } from '../../StyledComponents';
 
-const CreateExpView = ({setName, startDate, setStartDate, endDate, setEndDate, invite, setInvite, onInvite, participants }) =>
+const CreateExpView = ({setName, startDate, setStartDate, endDate, setEndDate, invite, setInvite, onInvite, participants, onCreate}) =>
         <Container>
             <HeaderPresenter NavTitle={"Create Experience"}/>
             <ContentContainer>
@@ -53,7 +53,7 @@ const CreateExpView = ({setName, startDate, setStartDate, endDate, setEndDate, i
                 <ButtonContainer>
                     <NavLink to="/login">
                     </NavLink>
-                        <SignUpButton>Create Experience</SignUpButton>
+                        <SignUpButton onClick={e => onCreate()}>Create Experience</SignUpButton>
                 </ButtonContainer>
                 
                 <BackgroundBlobContainerLeft>

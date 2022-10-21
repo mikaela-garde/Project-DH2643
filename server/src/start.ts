@@ -4,7 +4,8 @@ import https from "https";
 import fs from 'fs';
 import cors from "cors";
 import users from './routes/users';
-import { db, listenToUser } from "../firebase";
+import experiences from './routes/experiences';
+import { db, listenToUser, listenToExperience } from "../firebase";
 import { onValue, ref } from "firebase/database";
 
 const app = express();
@@ -36,6 +37,11 @@ app.get("/", (req: express.Request, res: express.Response) => {
 app.use("/api/users", users);
 //uses users.ts
 
+app.use("/api/experiences", experiences);
+//uses experiences.ts
+
+
+
 
 const server = https.createServer(options, app);
 
@@ -65,6 +71,11 @@ io.on('connection', (socket:any) => {
 
 app.post("/api/listeners/user", (req: express.Request, res: express.Response) => {
     listenToUser(req.body.uid, (val:any) => {io.sockets.emit("user", val)});
+    res.status(200).send("Listening to user");
+});
+
+app.post("/api/listeners/experience", (req: express.Request, res: express.Response) => {
+    listenToExperience(req.body.id, (val:any) => {io.sockets.emit("experience", val)});
     res.status(200).send("Listening to user");
 });
 

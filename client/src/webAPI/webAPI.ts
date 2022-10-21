@@ -11,7 +11,6 @@ export const getUserFromEmailAPI = (email, token) => axios.post("https://localho
 });
 
 export const createAccountAPI = (firstName, lastName, email, password, profileImage) => axios.post("https://localhost:8081/api/users/signup", {
-    
     firstName: firstName,
     lastName: lastName,
     email: email,

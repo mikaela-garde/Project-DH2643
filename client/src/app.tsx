@@ -46,11 +46,12 @@ const App = () => {
             UserModel.setIsLoggedIn(false);
         }
         const socket = io("https://localhost:8081");
+        console.log("vid socketen");
         // Specify how to clean up after this effect:
         return function cleanup() {
             socket.disconnect()
         }
-    });
+    }, []);
 
     return (
     <ThemeProvider theme={darkMode ? darkTheme : lightTheme}> 

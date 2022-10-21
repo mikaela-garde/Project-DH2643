@@ -118,18 +118,20 @@ class UserModel {
 
     listenToUserData(token) {
         listenToUserAPI(token);
+        console.log("den kom hit")
         socket.on("user", (data) => {
             this.id = data.id;
+            console.log("det funka");
             this.email = data.email;
             this.first_name = data.first_name;
             this.last_name = data.last_name;
-            this.social_media = Object.values(data.social_media);
+            this.social_media = data.social_media;
             this.description = data.description;
             this.profile_img = data.profile_img;
-            this.friends = Object.values(data.friends); //Ska man lägga in hela användaren här eller vara ett id
-            this.friend_requests = Object.values(data.friend_requests);
-            this.experiences = Object.values(data.experiences);
-            this.notifications = Object.values(data.notifications);
+            this.friends = data.friends; //Ska man lägga in hela användaren här eller vara ett id
+            this.friend_requests = data.friend_requests;
+            this.experiences = data.experiences;
+            this.notifications = data.notifications;
             this.dark_mode = data.dark_mode;
             this.notifyObservers();
         });

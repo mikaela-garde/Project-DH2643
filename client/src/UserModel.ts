@@ -1,6 +1,6 @@
 import { socket } from "./app";
 import {User, Image, Social_Media, Friend_request, Notifications} from "./types";
-import {createAccountAPI, listenToUserAPI, loginAPI, getUidFromTokenAPI} from "./webAPI/webAPI";
+import {createAccountAPI, listenToUserAPI, loginAPI, getUidFromTokenAPI, toggleDarkMode} from "./webAPI/webAPI";
 
 class UserModel {
     /** Model containing information for the logged in user from firebase*/
@@ -21,28 +21,28 @@ class UserModel {
     dark_mode: boolean;
     subscribers: Array<any>;
     signInErrorMsg: string;
-    signUpErrorMsg: string;
+    signErrorMsg: string;
     accessToken: string;
+    isLoggedIn: boolean;
 
-    constructor(user: User /*id = "", token = "", displayName = "", img = null*/){
-
-        
-        this.id = user.id;
-        this.email = user.email;
-        this.first_name = user.first_name;
-        this.last_name = user.last_name;
-        this.social_media = user.social_media;
-        this.description = user.description;
-        this.profile_img = user.profile_img;
-        this.friends = user.friends; //Ska man lägga in hela användaren här eller vara ett id
-        this.friend_requests = user.friend_requests;
-        this.experiences = user.experiences;
-        this.notifications = user.notifications;
-        this.dark_mode = user.dark_mode;
+    constructor(){       
+        this.id;
+        this.email;
+        this.first_name;
+        this.last_name;
+        this.social_media;
+        this.description;
+        this.profile_img;
+        this.friends; //Ska man lägga in hela användaren här eller vara ett id
+        this.friend_requests;
+        this.experiences;
+        this.notifications;
+        this.dark_mode = false;
         this.subscribers =[];
-        this.signInErrorMsg = "";
-        this.signUpErrorMsg = "";
-        this.accessToken = "";
+        this.signInErrorMsg;
+        this.signErrorMsg;
+        this.accessToken;
+        this.isLoggedIn;
     }
     
     addObserver(obs){
@@ -61,48 +61,38 @@ class UserModel {
         })
     }
 
-
     createNewUserFB(firstName, lastName, email, password, image) {
-        console.log(image);
         createAccountAPI(firstName, lastName, email, password, image).then(( { data }: { data: any  }) => {
             if (data.success) {
                 localStorage.setItem("refreshToken", data.userAuth.stsTokenManager.refreshToken);
-                console.log("Denna refresh token ligger nu i localstorage: " + localStorage.getItem("refreshToken"));
-                console.log("det blev inte error", data)
                 this.listenToUserData(data.userAuth.uid);
+                this.setIsLoggedIn(true);
                 // subscribeToFirebase(): här ska vi nu subscriba till Firebase
                 // hur man använder refresh token för att få en ID token som vi sen kan använda för att skicka requests:
                 // https://firebase.google.com/docs/reference/rest/auth/#section-refresh-token
             }
             else {
                 // här ska vi visa felmeddelandet för användaren
-                this.signInErrorMsg = data.error;
-                this.notifyObservers();
-                console.log("det blev error", data);
+                this.setSignErrorMsg(data.error);
             }
             });
-        this.notifyObservers();
     }
 
     SignInFB(email, password) {
         loginAPI(email, password).then(( { data }: { data: any  }) => {
             if (data.success) {
                 localStorage.setItem("refreshToken", data.userAuth.stsTokenManager.refreshToken);
-                console.log("Denna refresh token ligger nu i localstorage: " + localStorage.getItem("refreshToken"));
-                console.log("det blev inte error", data)
                 this.accessToken = data.userAuth.stsTokenManager.accessToken;
                 this.listenToUserData(data.userAuth.uid);
+                this.setIsLoggedIn(true);
                 // subscribeToFirebase(): här ska vi nu subscriba till Firebase
                 // hur man använder refresh token för att få en ID token som vi sen kan använda för att skicka requests:
                 // https://firebase.google.com/docs/reference/rest/auth/#section-refresh-token
             }
             else {
                 // här ska vi visa felmeddelandet för användaren
-                this.signInErrorMsg = data.error;
-                this.notifyObservers();
-                console.log("det blev error", data);
-            }
-            });
+                this.setSignErrorMsg(data.error);
+            }});
         //let user = new Promise(signInFirebase(email, password));
         //console.log(user);
     }
@@ -113,13 +103,17 @@ class UserModel {
             if (data.success) {
                 console.log("nu har vi accessat användaren fb", data);
                 this.listenToUserData(data.user.user_id);
+                this.setUid(data.user.user_id);
+                this.setIsLoggedIn(true);
             } else {
                 this.signInErrorMsg = data.error;
                 this.notifyObservers();
                 console.log("det blev error", data);
             }
+        }).catch(error => {
+            console.log(error);
+            this.setIsLoggedIn(false);
         });
-
     }
 
     listenToUserData(uid:string) {
@@ -138,7 +132,6 @@ class UserModel {
             this.notifications = data.notifications;
             this.dark_mode = data.dark_mode;
             this.notifyObservers();
-            console.log("log från usermodel", data);
         });
     }
 
@@ -151,5 +144,51 @@ class UserModel {
         this.id = id;
         this.notifyObservers();
     }
+
+    setDarkMode(dark_mode: boolean) {
+        toggleDarkMode(localStorage.getItem("refreshToken"), dark_mode);
+        this.notifyObservers();
+    }
+    setIsLoggedIn(boolean) {
+        this.isLoggedIn = boolean;
+        this.notifyObservers();
+    }
+
+    logoutUser() {
+        localStorage.removeItem("refreshToken");
+        window.location.reload();
+    }
+
+
+    setSignErrorMsg(msg) {
+        if (msg == "Firebase: Error (auth/invalid-email).") {
+            this.signErrorMsg = "Invalid Email."
+        } else if (msg == "Firebase: Password should be at least 6 characters (auth/weak-password).") {
+            this.signErrorMsg = "Password should be at least 6 characters."
+        } else if (msg == "Firebase: Error (auth/missing-email).") {
+            this.signErrorMsg = "Missing Email.";
+        } else if (msg == "Firebase: Error (auth/email-already-in-use).") {
+            this.signErrorMsg = "Email already in use.";
+        } else if (msg == "Firebase: Error (auth/wrong-password).") {
+            this.signErrorMsg ="Wrong Password."
+        }
+        else {
+            this.signErrorMsg = msg
+        }
+        this.notifyObservers();
+    }
+
+    regExSignUp(first_name, last_name) {
+        if (new RegExp(/^[a-zA-Z]+$/).test(first_name) == false) {
+            this.setSignErrorMsg("First name can only be letters and can't be empty.");
+            return false;
+        } else if (new RegExp(/^[a-zA-Z]+$/).test(last_name) == false){
+            this.setSignErrorMsg("Last name can only be letters and can't be empty.");
+            return false;
+        } else {
+            this.setSignErrorMsg("");
+            return true;
+        }
+    };
 }
 export default UserModel;

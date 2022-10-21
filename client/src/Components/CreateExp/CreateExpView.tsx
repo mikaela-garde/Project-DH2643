@@ -7,49 +7,53 @@ import {Link} from "react-router-dom";
 import DatePicker from "react-datepicker"
 import 'react-datepicker/dist/react-datepicker.css';
 import HeaderPresenter from '../Header/HeaderPresenter';
+import { PrimaryBtn, InputField, ContentContainerLogin, InputLabel, InputFieldWrapper, ContentContainerAll } from '../../StyledComponents';
 
-
-
-import { PrimaryBtn, InputField, ContentContainerLogin, InputLabel, InputFieldWrapper } from '../../StyledComponents';
-
-const CreateExpView = ({startDate, onToggle }) =>
-
+const CreateExpView = ({setName, startDate, setStartDate, endDate, setEndDate, invite, setInvite, onInvite, participants }) =>
         <Container>
+            <HeaderPresenter NavTitle={"Create Experience"}/>
             <ContentContainer>
-                <HeaderPresenter NavTitle={"Dashboard"}/>
-                <DatePicker selected={startDate} onChange={onToggle} />
                 <ContentWrapper>
                     <Column>
                         <InputFieldExpWrapper>
-                            <InputLabelExp left="35px">Experience name</InputLabelExp>
-                            <InputFieldExp paddingRight="150px"></InputFieldExp>
+                            <InputLabelExp left="">Experience name</InputLabelExp>
+                            <InputFieldExp paddingRight="150px" onChange={e => setName(e.target.value)}></InputFieldExp>
                         </InputFieldExpWrapper>
-
 
                         <FromToWrapper>
                             <InputFieldExpWrapper>
-                                <InputLabelExp left="">From</InputLabelExp>
-                                <InputFieldExp paddingRight="0px" width="150px"></InputFieldExp>
+                                <InputLabelExp left="">Start</InputLabelExp>
+                                <MyDatePicker onChange={(e) => setStartDate(e)} startDate={startDate} selected={startDate} dateFormat={"Pp"} selectsStart paddingRight="0px" width="170px" showTimeSelect />
                             </InputFieldExpWrapper>
 
                             <InputFieldExpWrapper>
-                                <InputLabelExp left="">To</InputLabelExp>
-                                <InputFieldExp paddingRight="0px" width="150px"></InputFieldExp>
+                                <InputLabelExp left="">End</InputLabelExp>
+                                <MyDatePicker onChange={(e) => setEndDate(e)} startDate={startDate} endDate={endDate} minDate={startDate} selected={endDate} selectsEnd paddingRight="0px" width="170px" dateFormat={"Pp"} showTimeSelect/>
+
                             </InputFieldExpWrapper>
                         </FromToWrapper>
                     </Column> 
 
                     <Column>
                         <InputFieldExpWrapper>
-                            <InputLabelExp left="">First name</InputLabelExp>
-                            <InputFieldExp paddingRight="150px"></InputFieldExp>
+                            <InputLabelExp left="">Invite Friends</InputLabelExp>
+                            <InputFieldExp paddingRight="150px" onChange={e => setInvite(e.target.value)} value={invite}></InputFieldExp>
+                            <EnterInviteButton onClick={() => onInvite()}>Invite</EnterInviteButton>
                         </InputFieldExpWrapper>
+                        <ParticipantsContainer>
+                            {participants.map(participant => {
+                                return <ParticipantCard key={participant.id}>
+                                    <img src={participant.profile_img} />
+                                    <p>{participant.first_name} {participant.last_name}</p>
+                                </ParticipantCard>
+                            })}
+                        </ParticipantsContainer>
                     </Column>
                 </ContentWrapper>
                 <ButtonContainer>
                     <NavLink to="/login">
                     </NavLink>
-                        <SignUpButton>Sign up</SignUpButton>
+                        <SignUpButton>Create Experience</SignUpButton>
                 </ButtonContainer>
                 
                 <BackgroundBlobContainerLeft>
@@ -64,9 +68,8 @@ const CreateExpView = ({startDate, onToggle }) =>
 ;
 
 const Container= styled.div`
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+    ${ContentContainerAll};
+    
 `;
 
 const ContentContainer = styled.div`
@@ -93,6 +96,7 @@ const InputFieldExpWrapper = styled.div`
 const FromToWrapper = styled.div`
     display: flex;
     flex-direction: row;
+    margin: 0;
     >*  {
         margin: 12px;
         };  
@@ -100,15 +104,39 @@ const FromToWrapper = styled.div`
 
 const InputFieldExp = styled.input<propsField>`
     ${InputField};
-    padding: 12px 150px 12px 20px;
-    width: 200px;
+    padding: 12px 150px 12px 14px;
     padding-right: ${props => props.paddingRight}; 
     width: ${props => props.width}; 
+`;
+
+const MyDatePicker = styled(DatePicker)`
+    ${InputField};
+    padding: 12px 100px 12px 20px;
+    padding-right: ${props => props.paddingRight}; 
+    width: ${props => props.width};
+    margin: 0;
 `;
 
 const InputLabelExp = styled.label<propsLabel>`
     ${InputLabel}
     left: ${props => props.left}; 
+    z-index: 1;
+`;
+const EnterInviteButton = styled.button`
+    ${PrimaryBtn}
+    align-self: center;
+    margin-left: 20px;
+    width: 150px;
+`;
+
+const ParticipantsContainer = styled.div`
+    display: flex;
+    flex-direction: row;
+    width: 350px;
+`;
+
+const ParticipantCard = styled.div`
+    margin: 10px;
 `;
 
 const ButtonContainer = styled.div`
@@ -122,9 +150,6 @@ const SignUpButton = styled.button`
     align-self: center;
 `;
 
-const BackButton = styled.img`
-    width: 70%;
-`;
 
 const NavLink = styled(Link)`
     display: flex;
@@ -135,7 +160,7 @@ const NavLink = styled(Link)`
 
 const BackgroundBlobContainerLeft = styled.div`
     position: fixed;
-    bottom: -100px;
+    bottom: 0;
     left: 0;
     margin: 0;
     width: 20%;

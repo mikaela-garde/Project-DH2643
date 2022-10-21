@@ -1,22 +1,18 @@
 import React from 'react';
 import styled from "styled-components"
 import LoadingIconSVG from "../../Images/loading.svg"
+import { ContentContainerAll } from '../../StyledComponents';
 
-const NoDataView = () => 
+const NoDataView = () => {
 
-    <LoadingIconContainer>
+    return (<LoadingIconContainer>
         <LoadingIcon src={LoadingIconSVG} alt ="Loading gif" /> 
-    </LoadingIconContainer>
-
+    </LoadingIconContainer>)
+}
 ;
 
 const LoadingIconContainer = styled.div`
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: ${props => props.theme.colors.primary};
-    height: 100vh;
-    
+    ${ContentContainerAll};    
 `;
 
 const LoadingIcon = styled.img``;

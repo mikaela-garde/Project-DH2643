@@ -5,6 +5,9 @@ export const getUserAPI = (uid) => axios.get("https://localhost:8081/api/users/"
     withCredentials: true,
 });
 
+export const getUserFromEmailAPI = (email) => axios.post("https://localhost:8081/api/users/email", { 
+    email: email
+});
 
 export const createAccountAPI = (firstName, lastName, email, password, profileImage) => axios.post("https://localhost:8081/api/users/signup", {
     
@@ -28,5 +31,9 @@ export const getUidFromTokenAPI = (token) => axios.post("https://localhost:8081/
     token: token
 });
 
-
 export const uploadAPI = (formData) => axios.post("https://localhost:8081/api/upload", formData);
+
+export const toggleDarkMode = (token, dark_mode) => axios.post("https://localhost:8081/api/users/toggle-dark", {
+    token: token,
+    dark_mode: dark_mode
+});

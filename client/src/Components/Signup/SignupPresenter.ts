@@ -1,18 +1,21 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import SignupView from "./SignupView";
 import {UserModel} from "../../app";
 import useModelProp from "../../useModelProp";
 import EmptyProfileImage from "../../Images/EmptyProfileImg.svg"
-import CatImg from "../../Images/sad_cat.jpeg";
+
 
 function SignUpPresenter (props) {
-
-    const loginErrorMessage = useModelProp(UserModel, "signUpErrorMsg");
+    const loginErrorMessage = useModelProp(UserModel, "signErrorMsg");
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [image, setImage] = useState((data) => data? data : EmptyProfileImage);
+
+    useEffect(() => {
+        return UserModel.setSignErrorMsg(""); // cleans up error message if user comes back
+    }, []);
 
     return React.createElement(SignupView, {
         loginErrorMessage: loginErrorMessage,
@@ -21,8 +24,12 @@ function SignUpPresenter (props) {
         setEmail: (input) => setEmail(input),
         setPassword: (input) => setPassword(input),
         setImage: (input) => setImage(input),
-        onSignUp: () => UserModel.createNewUserFB(firstName, lastName, email, password, image)
-    });
+        onSignUp: () => {
+            if (UserModel.regExSignUp(firstName, lastName)) {
+                UserModel.createNewUserFB(firstName, lastName, email, password == "" ? " ": password, image)
+            }
+        }
+    })
 }
 
 

@@ -1,17 +1,18 @@
 import React from 'react';
 import styled from "styled-components";
-import { PrimaryBtn } from '../../StyledComponents';
+import { PrimaryBtn, ContentContainerAll } from '../../StyledComponents';
 import GridPresenter from '../Grid/GridPresenter';
 import HeaderPresenter from '../Header/HeaderPresenter';
 import BackgroundBlobLeftSVG from "../../Images/BackgroundBlobDashboardLeft.svg";
 import BackgroundBlobRightSVG from "../../Images/BackgroundBlobDashboardRight.svg";
 
-const DashboardView= ({}) =>
+const DashboardView= ({toCreateExp}) =>
     <DashboardContainer>
-        <HeaderPresenter NavTitle={"Dashboard"}/>
-        <GridPresenter/>
-        <CreateExpButton>Create Experience</CreateExpButton>
-
+        <HeaderPresenter NavTitle={"My Experiences"}/>
+        <GridPresenterContainer>
+            <GridPresenter/>
+        </GridPresenterContainer>
+        <CreateExpButton onClick={() => toCreateExp()}>Create Experience</CreateExpButton>
         <BackgroundBlobContainerLeft>
             <BackgroundBlob src ={BackgroundBlobLeftSVG}></BackgroundBlob>
         </BackgroundBlobContainerLeft>
@@ -26,32 +27,34 @@ const DashboardView= ({}) =>
 
 const CreateExpButton = styled.button`
     ${PrimaryBtn}
-    position: fixed;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-
+    align-self: center;
+    margin-top: auto;
+    margin-bottom: 30px;
 `;
 
 const DashboardContainer = styled.div`
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-`
+    ${ContentContainerAll};
+    justify-content: flex-start;
+    overflow: auto;
+`;
+
+const GridPresenterContainer = styled.div`
+    margin: 40px;
+`;
 
 const BackgroundBlobContainerLeft = styled.div`
     position: fixed;
     left: 50%;
     transform: translateX(-50%);
     bottom: -50px;
-    z-index:-1;
+    z-index: 1;
 `;
 
 const BackgroundBlobContainerRight = styled.div`
     position: fixed;
     top: 0px;
     right: -100px;
-    z-index: -1;
+    z-index: 1;
 
     @media (max-width: 768px) {
         top: -100px;

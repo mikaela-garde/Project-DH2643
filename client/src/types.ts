@@ -5,12 +5,12 @@ export enum Social_Media {
     TikTok
 }
 
-enum Experience_Template {
+export enum Experience_Template {
     Timeline,
     Participant
 }
 
-enum Post_Type {
+export enum Post_Type {
     Image,
     Video,
     Audio

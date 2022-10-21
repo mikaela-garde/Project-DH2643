@@ -35,6 +35,7 @@ const GlobalStyle = createGlobalStyle `
 
 const App = () => {
     const darkMode = useModelProp(UserModel, "dark_mode");
+    console.log("xx App: "+ darkMode);
     const loggedIn = useModelProp(UserModel, "isLoggedIn");
 
     useEffect(() => {

@@ -31,6 +31,8 @@ export const getUidFromTokenAPI = (token) => axios.post("https://localhost:8081/
     token: token
 });
 
+export const uploadAPI = (formData) => axios.post("https://localhost:8081/api/upload", formData);
+
 export const toggleDarkMode = (token, dark_mode) => axios.post("https://localhost:8081/api/users/toggle-dark", {
     token: token,
     dark_mode: dark_mode

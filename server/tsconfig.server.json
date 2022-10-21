@@ -6,7 +6,8 @@
         "rootDir": "./src",
         "strict": false,
         "moduleResolution": "node",
-        "esModuleInterop": true
+        "esModuleInterop": true,
+        "lib": ["webworker"],
     },
     "exclude": ["node_modules"]
 }

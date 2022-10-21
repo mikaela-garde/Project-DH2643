@@ -47,6 +47,7 @@ const ImgContainer = styled.img`
 
 const InputFieldLoginWrapper = styled.div`
     ${InputFieldWrapper}
+    align-self: center ;
 `;
 
 const InputFieldLogin = styled.input`

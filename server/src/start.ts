@@ -5,11 +5,13 @@ import fs from 'fs';
 import cors from "cors";
 import users from './routes/users';
 import experiences from './routes/experiences';
-import { db, listenToUser, listenToExperience } from "../firebase";
+import upload from './routes/upload';
+import { db, store, listenToUser, storage, listenToExperience } from "../firebase";
 import { onValue, ref } from "firebase/database";
+import Multer, { diskStorage } from 'multer';
+import { Blob } from "buffer";
 
 const app = express();
-
 const port = process.env.PORT || 8081;
 
 const router = express.Router();
@@ -35,6 +37,56 @@ app.get("/", (req: express.Request, res: express.Response) => {
 });
 
 app.use("/api/users", users);
+//app.use("/api/upload", upload);
+
+////////////////////////////////////////////////////////////////
+
+/*
+var mulStorage = Multer.diskStorage({
+    destination: function (req, file, cb) {
+      cb(null, 'uploads/')
+    },
+    filename: function (req, file, cb) {
+      cb(null, Date.now() + path.extname(file.originalname)) //Appending extension
+    }
+  })
+
+const multer = Multer({
+    storage: mulStorage,
+    limits: {fileSize: 5 * 1024 * 1024} //File size limit 5mb
+})*/////////////////////
+
+
+const multer = Multer({
+    storage: Multer.memoryStorage(),
+    limits: {
+      fileSize: 5 * 1024 * 1024, // No larger than 5mb, change as you need
+    },
+  });  
+
+
+router.route("/api/upload").post(multer.single("imgfile"), (req: express.Request, res: express.Response) => {
+    console.log(req)
+    try {
+        if(req.file){
+            console.log(req.file.buffer);
+            /*
+            const buff = Buffer.from(req.file.buffer); // Node.js Buffer
+            const blob = new Blob([buff], {type: "image"});
+            console.log(typeof blob)*/
+            store(req.file.buffer);
+            
+            res.status(200).send("File uploaded to Cloud Storage");
+        }
+    } catch (error) {
+        res.status(500).send(error)
+    }
+});
+
+
+
+////////////////////////////////////////////////////////////////
+
 //uses users.ts
 
 app.use("/api/experiences", experiences);
@@ -78,5 +130,19 @@ app.post("/api/listeners/experience", (req: express.Request, res: express.Respon
     listenToExperience(req.body.id, (val:any) => {io.sockets.emit("experience", val)});
     res.status(200).send("Listening to user");
 });
+/*
+app.post("/upload", (req: express.Request, res: express.Response) => {
+    console.log("Inne i post fil")
+    try {
+        if(req){
+            console.log("inne i if(req)")
+            store(req)
+            res.status(200).send("File uploaded to Cloud Storage");
+        }
+    } catch (error) {
+        res.status(500).send(error)
+    }
+});
+*/
 
 

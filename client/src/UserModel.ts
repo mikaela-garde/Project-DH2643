@@ -21,7 +21,7 @@ class UserModel {
     dark_mode: boolean;
     subscribers: Array<any>;
     signInErrorMsg: string;
-    signUpErrorMsg: string;
+    signErrorMsg: string;
     accessToken: string;
     isLoggedIn: boolean;
 
@@ -40,7 +40,7 @@ class UserModel {
         this.dark_mode = false;
         this.subscribers =[];
         this.signInErrorMsg;
-        this.signUpErrorMsg;
+        this.signErrorMsg;
         this.accessToken;
         this.isLoggedIn;
     }
@@ -62,12 +62,9 @@ class UserModel {
     }
 
     createNewUserFB(firstName, lastName, email, password, image) {
-        console.log(image);
         createAccountAPI(firstName, lastName, email, password, image).then(( { data }: { data: any  }) => {
             if (data.success) {
                 localStorage.setItem("refreshToken", data.userAuth.stsTokenManager.refreshToken);
-                console.log("Denna refresh token ligger nu i localstorage: " + localStorage.getItem("refreshToken"));
-                console.log("det blev inte error", data)
                 this.listenToUserData(data.userAuth.uid);
                 this.setIsLoggedIn(true);
                 // subscribeToFirebase(): här ska vi nu subscriba till Firebase
@@ -76,20 +73,15 @@ class UserModel {
             }
             else {
                 // här ska vi visa felmeddelandet för användaren
-                this.signInErrorMsg = data.error;
-                this.notifyObservers();
-                console.log("det blev error", data);
+                this.setSignErrorMsg(data.error);
             }
             });
-        this.notifyObservers();
     }
 
     SignInFB(email, password) {
         loginAPI(email, password).then(( { data }: { data: any  }) => {
             if (data.success) {
                 localStorage.setItem("refreshToken", data.userAuth.stsTokenManager.refreshToken);
-                console.log("Denna refresh token ligger nu i localstorage: " + localStorage.getItem("refreshToken"));
-                console.log("det blev inte error", data)
                 this.accessToken = data.userAuth.stsTokenManager.accessToken;
                 this.listenToUserData(data.userAuth.uid);
                 this.setIsLoggedIn(true);
@@ -99,9 +91,7 @@ class UserModel {
             }
             else {
                 // här ska vi visa felmeddelandet för användaren
-                this.signInErrorMsg = data.error;
-                this.notifyObservers();
-                console.log("det blev error", data);
+                this.setSignErrorMsg(data.error);
             }});
         //let user = new Promise(signInFirebase(email, password));
         //console.log(user);
@@ -142,7 +132,6 @@ class UserModel {
             this.notifications = Object.values(data.notifications);
             this.dark_mode = data.dark_mode;
             this.notifyObservers();
-            console.log("log från usermodel", data);
         });
     }
 
@@ -157,7 +146,7 @@ class UserModel {
     }
 
     setDarkMode(dark_mode: boolean) {
-        toggleDarkMode(localStorage.getItem("refreshToken"), dark_mode)
+        toggleDarkMode(localStorage.getItem("refreshToken"), dark_mode);
         this.notifyObservers();
     }
     setIsLoggedIn(boolean) {
@@ -175,5 +164,37 @@ class UserModel {
         console.log("exp i user", this.experiences);
         this.notifyObservers();
     }
+
+
+    setSignErrorMsg(msg) {
+        if (msg == "Firebase: Error (auth/invalid-email).") {
+            this.signErrorMsg = "Invalid Email."
+        } else if (msg == "Firebase: Password should be at least 6 characters (auth/weak-password).") {
+            this.signErrorMsg = "Password should be at least 6 characters."
+        } else if (msg == "Firebase: Error (auth/missing-email).") {
+            this.signErrorMsg = "Missing Email.";
+        } else if (msg == "Firebase: Error (auth/email-already-in-use).") {
+            this.signErrorMsg = "Email already in use.";
+        } else if (msg == "Firebase: Error (auth/wrong-password).") {
+            this.signErrorMsg ="Wrong Password."
+        }
+        else {
+            this.signErrorMsg = msg
+        }
+        this.notifyObservers();
+    }
+
+    regExSignUp(first_name, last_name) {
+        if (new RegExp(/^[a-zA-Z]+$/).test(first_name) == false) {
+            this.setSignErrorMsg("First name can only be letters and can't be empty.");
+            return false;
+        } else if (new RegExp(/^[a-zA-Z]+$/).test(last_name) == false){
+            this.setSignErrorMsg("Last name can only be letters and can't be empty.");
+            return false;
+        } else {
+            this.setSignErrorMsg("");
+            return true;
+        }
+    };
 }
 export default UserModel;

@@ -3,19 +3,19 @@ import SignupView from "./SignupView";
 import {UserModel} from "../../app";
 import useModelProp from "../../useModelProp";
 import EmptyProfileImage from "../../Images/EmptyProfileImg.svg"
-import CatImg from "../../Images/sad_cat.jpeg";
-import { useNavigate } from "react-router-dom";
-import SVG from "react-inlinesvg";
+
 
 function SignUpPresenter (props) {
-    const navigate = useNavigate();
-    const loginErrorMessage = useModelProp(UserModel, "signUpErrorMsg");
-    const loggedIn = useModelProp(UserModel, "isLoggedIn");
+    const loginErrorMessage = useModelProp(UserModel, "signErrorMsg");
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [image, setImage] = useState((data) => data? data : EmptyProfileImage);
+
+    useEffect(() => {
+        return UserModel.setSignErrorMsg(""); // cleans up error message if user comes back
+    }, []);
 
     return React.createElement(SignupView, {
         loginErrorMessage: loginErrorMessage,
@@ -25,7 +25,9 @@ function SignUpPresenter (props) {
         setPassword: (input) => setPassword(input),
         setImage: (input) => setImage(input),
         onSignUp: () => {
-            UserModel.createNewUserFB(firstName, lastName, email, password, image)
+            if (UserModel.regExSignUp(firstName, lastName)) {
+                UserModel.createNewUserFB(firstName, lastName, email, password == "" ? " ": password, image)
+            }
         }
     })
 }

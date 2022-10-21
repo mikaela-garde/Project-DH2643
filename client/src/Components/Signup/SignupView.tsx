@@ -13,7 +13,6 @@ import { PrimaryBtn, InputField, ContentContainerAll, ImgContainerLogin, InputLa
 const SignupView = ({loginErrorMessage, setFirstName, setLastName, setEmail, setPassword, onSignUp, setImage}) =>
             <ContentContainer>
                 <ImgContainer src={ProfileHolderImg} onClick={e => setImage(CatImg)}></ImgContainer>
-                
                 <InputFieldSignupWrapper>
                     <InputLabelSignup>First name</InputLabelSignup>
                     <InputFieldSignup onChange={e => setFirstName(e.target.value)}></InputFieldSignup>

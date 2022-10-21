@@ -7,7 +7,7 @@ import {Link} from "react-router-dom";
 import DatePicker from "react-datepicker"
 import 'react-datepicker/dist/react-datepicker.css';
 import HeaderPresenter from '../Header/HeaderPresenter';
-import { PrimaryBtn, InputField, ContentContainerLogin, InputLabel, InputFieldWrapper } from '../../StyledComponents';
+import { PrimaryBtn, InputField, ContentContainerLogin, InputLabel, InputFieldWrapper, ContentContainerAll } from '../../StyledComponents';
 
 const CreateExpView = ({setName, startDate, setStartDate, endDate, setEndDate, invite, setInvite, onInvite, participants, onCreate}) =>
         <Container>
@@ -68,9 +68,8 @@ const CreateExpView = ({setName, startDate, setStartDate, endDate, setEndDate, i
 ;
 
 const Container= styled.div`
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+    ${ContentContainerAll};
+    
 `;
 
 const ContentContainer = styled.div`

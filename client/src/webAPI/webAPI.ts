@@ -1,9 +1,4 @@
 import axios from 'axios';
-import {User} from "../types";
-
-export const getUserAPI = (uid) => axios.get("https://localhost:8081/api/users/"+uid, { 
-    withCredentials: true,
-});
 
 export const getUserFromEmailAPI = (email, token) => axios.post("https://localhost:8081/api/users/email", { 
     email: email,
@@ -48,6 +43,7 @@ export const createExperienceAPI = (token, name, start_time, end_time, participa
     participants: participants
 });
 
-export const listenToExperienceAPI = (id) => axios.post("https://localhost:8081/api/listeners/experience", {
-    id: id
+export const listenToExperienceAPI = (id, token) => axios.post("https://localhost:8081/api/listeners/experience", {
+    id: id,
+    token: token
 });

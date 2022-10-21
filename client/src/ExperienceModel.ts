@@ -73,7 +73,7 @@ class ExperienceModel {
     }
 
     listenToExperienceData(id:string) {
-        listenToExperienceAPI(id);
+        listenToExperienceAPI(id, localStorage.getItem("refreshToken"));
         socket.on("experience", (data) => {
             this.id = data.id;
             this.name = data.name;

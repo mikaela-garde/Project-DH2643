@@ -24,16 +24,16 @@ function TemplatePresenter (props) {
   };
 
   const uploadImage = (file) => {
-    //let postid = "hejsanBild123";
+    let postid = "hejsanBild123";
     
     // Create new file so we can rename the file
-    /*let blob = file.slice(0, file.size, "image/jpeg");
+    let blob = file.slice(0, file.size, "image/jpeg");
     let newFile = new File([blob], `${postid}_post.jpeg`, { type: "image/jpeg" });
-    */
+    
     // Build the form data - You can add other input values to this i.e descriptions, make sure img is appended last
     let formData = new FormData();
-    formData.append("imgfile", file);
-    console.log(formData.get("imgfile"))
+    formData.append("imgfile", newFile);
+  
     uploadAPI(formData)//.then((res) => res.text()).then((x) => console.log(x));
       //.then(loadPosts());
   }

@@ -26,7 +26,7 @@ const listenToExperience = (id:string, callback:any) => {
   return unsubscribe;
 }
 
-const store = (file:any) => {
+const store = (buffer:any) => {
 //Store data in Cloud Storage
   const ref = ref_storage(storage, 'profileImages');
   uploadBytesResumable(ref, buffer).then((snapshot) => {

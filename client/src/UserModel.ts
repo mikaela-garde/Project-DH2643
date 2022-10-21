@@ -102,7 +102,7 @@ class UserModel {
         getUidFromTokenAPI(token).then(( { data }: { data: any  }) => {
             if (data.success) {
                 console.log("nu har vi accessat användaren fb", data);
-                this.listenToUserData(data.user.user_id);
+                this.listenToUserData(localStorage.getItem("refreshToken"));
                 this.setUid(data.user.user_id);
                 this.setIsLoggedIn(true);
             } else {
@@ -116,8 +116,8 @@ class UserModel {
         });
     }
 
-    listenToUserData(uid:string) {
-        listenToUserAPI(uid);
+    listenToUserData(token) {
+        listenToUserAPI(token);
         socket.on("user", (data) => {
             this.id = data.id;
             this.email = data.email;

@@ -5,8 +5,9 @@ export const getUserAPI = (uid) => axios.get("https://localhost:8081/api/users/"
     withCredentials: true,
 });
 
-export const getUserFromEmailAPI = (email) => axios.post("https://localhost:8081/api/users/email", { 
-    email: email
+export const getUserFromEmailAPI = (email, token) => axios.post("https://localhost:8081/api/users/email", { 
+    email: email,
+    token: token
 });
 
 export const createAccountAPI = (firstName, lastName, email, password, profileImage) => axios.post("https://localhost:8081/api/users/signup", {
@@ -23,8 +24,8 @@ export const loginAPI = (email, password) => axios.post("https://localhost:8081/
     password: password
 });
 
-export const listenToUserAPI = (uid) => axios.post("https://localhost:8081/api/listeners/user", {
-    uid: uid
+export const listenToUserAPI = (token) => axios.post("https://localhost:8081/api/listeners/user", {
+    token: token
 });
 
 export const getUidFromTokenAPI = (token) => axios.post("https://localhost:8081/api/users/getuid", {

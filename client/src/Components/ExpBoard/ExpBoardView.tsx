@@ -7,11 +7,12 @@ import UploadPresenter from '../Upload/UploadPresenter';
 import BackgroundBlobLeftSVG from "../../Images/BackgroundBlobDashboardLeft.svg";
 import BackgroundBlobRightSVG from "../../Images/BackgroundBlobDashboardRight.svg";
 
-const ExpBoardView= ({ExpName, showAddContent, isShown, blur, brightness}) =>
+const ExpBoardView= ({name, startTime, endTime, posts, showAddContent, isShown, blur, brightness}) =>
     <ContentContainer>
         {isShown && <UploadPresenter showAdd={showAddContent}></UploadPresenter>}
         <DashboardContainer blur={blur} brightness={brightness}>
-        <HeaderPresenter NavTitle={ExpName}/>
+        <HeaderPresenter NavTitle={name}/>
+        <p>{startTime} - {endTime}</p>
         <GridPresenter/>
         <AddContentBtn onClick={() => showAddContent()}>Add content</AddContentBtn>
 

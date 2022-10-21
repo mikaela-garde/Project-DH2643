@@ -1,16 +1,16 @@
-enum Social_Media {
+export enum Social_Media {
     Instagram,
     Twitter,
     Facebook,
     TikTok
 }
 
-enum Experience_Template {
+export enum Experience_Template {
     Timeline,
     Participant
 }
 
-enum Post_Type {
+export enum Post_Type {
     Image,
     Video,
     Audio
@@ -38,13 +38,14 @@ export type User = {
 }
 
 export type Experience = {
-    id: number,
+    id: string,
     name: string,
     participants: User[],
     start_time: string,
     end_time: string,
     template: Experience_Template,
-    posts: Post[]
+    posts: Post[],
+    creator: string
 }
 
 export type Post = {

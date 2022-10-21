@@ -13,7 +13,7 @@ const authFirebase = (req: express.Request, res: express.Response, next: express
 }
 
 const checkAuth = (req: express.Request, res: express.Response, next: express.NextFunction) => {
-  console.log("kom in i checkAuth")
+  console.log("NY checkAuth")
   fetch('https://securetoken.googleapis.com/v1/token?key=AIzaSyBfZR7iec4_6_AbFzQliaLBq326x3FS91I', {
     method: 'POST',
     body: "grant_type=refresh_token&refresh_token=" + req.body.token,

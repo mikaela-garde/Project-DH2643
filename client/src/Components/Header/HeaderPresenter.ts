@@ -9,7 +9,7 @@ function HeaderPresenter ({NavTitle}) {
     const profilePic = "" //Getta profilepic from databas
     const [backButtonVis, setBackButtonVis] = useState(true);
     useEffect(() => {
-        if (window.location.hash == "#/") {
+        if (window.location.hash == "#/" || window.location.hash =="") {
             setBackButtonVis(false);
         } else {
             setBackButtonVis(true);

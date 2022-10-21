@@ -16,7 +16,7 @@ class UserModel {
     profile_img: Image;
     friends: number[]; //Ska man lägga in hela användaren här eller vara ett id
     friend_requests: Friend_request[];
-    experiences: number[];
+    experiences: string[];
     notifications: Notifications[];
     dark_mode: boolean;
     subscribers: Array<any>;
@@ -35,7 +35,7 @@ class UserModel {
         this.profile_img;
         this.friends; //Ska man lägga in hela användaren här eller vara ett id
         this.friend_requests;
-        this.experiences;
+        this.experiences = [];
         this.notifications;
         this.dark_mode = false;
         this.subscribers =[];
@@ -123,13 +123,13 @@ class UserModel {
             this.email = data.email;
             this.first_name = data.first_name;
             this.last_name = data.last_name;
-            this.social_media = data.social_media;
+            this.social_media = Object.values(data.social_media);
             this.description = data.description;
             this.profile_img = data.profile_img;
-            this.friends = data.friends; //Ska man lägga in hela användaren här eller vara ett id
-            this.friend_requests = data.friend_requests;
-            this.experiences = data.experiences;
-            this.notifications = data.notifications;
+            this.friends = Object.values(data.friends); //Ska man lägga in hela användaren här eller vara ett id
+            this.friend_requests = Object.values(data.friend_requests);
+            this.experiences = Object.values(data.experiences);
+            this.notifications = Object.values(data.notifications);
             this.dark_mode = data.dark_mode;
             this.notifyObservers();
         });
@@ -157,6 +157,12 @@ class UserModel {
     logoutUser() {
         localStorage.removeItem("refreshToken");
         window.location.reload();
+    }
+
+    addExperience(id: string) {
+        this.experiences = [...this.experiences, id];
+        console.log("exp i user", this.experiences);
+        this.notifyObservers();
     }
 
 

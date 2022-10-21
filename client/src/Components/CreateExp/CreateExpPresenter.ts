@@ -2,30 +2,35 @@ import React, {useState} from 'react';
 import CreateExpView from './CreateExpView';
 import {experienceModel} from "../../app";
 import useModelProp from '../../useModelProp';
+import { useNavigate } from "react-router-dom";
 
 
 function CreateExpPresenter (props) {
-    const participants = useModelProp(experienceModel, "participants");
+    const [name, setName] = useState("");
     const [startDate, setStartDate] = useState(new Date());
     const [endDate, setEndDate] = useState(new Date());
-    const [name, setName] = useState("");
+    const [participants, setParticipants] = useState([]);
     const [invite, setInvite] = useState("");
+    const navigate = useNavigate();
     
     return React.createElement(CreateExpView, {
         startDate: startDate,
         setStartDate: (date:Date) => {setStartDate(date)
-            setEndDate(date)},
+            setEndDate(date)
+        },
         endDate: endDate,
         setEndDate: (date:Date) => {setEndDate(date)
-            console.log("enddate", date)},
+            console.log("enddate", date)
+        },
         setName: (input) => setName(input),
         invite: invite,
         setInvite: (input) => setInvite(input),
         onInvite: () => {
-            experienceModel.addParticipant(invite);
+            experienceModel.fetchInvitedParticipant(invite).then((user) => setParticipants([...participants, user]));
             setInvite("");
         },
-        participants: participants
+        participants: participants,
+        onCreate: () => experienceModel.createExperience(name, startDate, endDate, participants)
     })
 }
 

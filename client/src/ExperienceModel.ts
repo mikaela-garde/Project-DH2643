@@ -65,10 +65,10 @@ class ExperienceModel {
         participants.push(UserModel);
         console.log("deltagare", { ...participants.map(p => p.id)});
         
-        createExperienceAPI(localStorage.getItem("refreshToken"), name,start_time, end_time, { ...participants.map(p => p.id)}).then((res) => {
-            console.log(res.data.exp_id);
+        return createExperienceAPI(localStorage.getItem("refreshToken"), name,start_time, end_time, { ...participants.map(p => p.id)}).then((res) => {
             UserModel.addExperience(res.data.exp_id);
-            this.listenToExperienceData(res.data.exp_id)
+            this.listenToExperienceData(res.data.exp_id);
+            return res;
         });
     }
 
@@ -84,7 +84,7 @@ class ExperienceModel {
             this.posts = data.posts;
             this.creator = data.creator;
             this.notifyObservers();
-            console.log("log från experiencemodel", this.participants);
+            console.log("log från experiencemodel", this.name);
         });
     }
 }

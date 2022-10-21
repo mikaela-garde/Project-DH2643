@@ -1,14 +1,25 @@
 import React, {useState} from 'react';
 import DashboardView from "./ExpBoardView";
 import { useNavigate } from "react-router-dom";
-function ExpBoardPresenter (props) {
-    const ExpName = "Experience Name" // ÄNDRA TILL props.EXP namnet
+import useModelProp from '../../useModelProp';
+import { experienceModel } from '../../app';
+
+
+function ExpBoardPresenter () {
+    const name= useModelProp(experienceModel, "name");
+    const startTime= useModelProp(experienceModel, "start_time");
+    const endTime= useModelProp(experienceModel, "end_time");
+    const posts = useModelProp(experienceModel, "posts");
+
     const navigate = useNavigate();
     const [isShown, setIsShown] = useState(false);
     const [blur, setBlur] = useState(false);
     const [brightness, setBrightness] = useState(false);
     return React.createElement(DashboardView, {
-        ExpName: ExpName,
+        name: name,
+        startTime: startTime,
+        endTime: endTime,
+        posts: posts,
         showAddContent: () => {
             setIsShown((current => !current));
             setBlur(current => !current),

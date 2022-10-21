@@ -8,17 +8,6 @@ import { User } from "../models/types";
 
 const router = express.Router();
 
-//Get all users
-router.route("/").get((req: express.Request, res: express.Response) => {
-    //Get users from database
-    const user_ref = ref(db, 'users');
-    get(user_ref).then((snapshot) => {
-        const data:any = snapshot.val();
-        res.status(200).send(data);
-    });
-
-})
-
 router.route("/signup").post(createAccountFirebase, (req: express.Request, res: express.Response) => {
     
     console.log("posting user");
@@ -42,9 +31,8 @@ router.route("/signup").post(createAccountFirebase, (req: express.Request, res: 
     res.status(200).send({userDB: user, userAuth: res.locals.user, success: true});
 });
 
-//Get user data from id
-router.route("/email").post((req: express.Request, res: express.Response) => {
     //Get user from email
+router.route("/email").post(checkAuth, (req: express.Request, res: express.Response) => {
     const key_ref = query(ref(db, 'users'), orderByChild('email'));
     const email_ref = query(key_ref, equalTo(req.body.email));
     onValue(email_ref, (snapshot) => {

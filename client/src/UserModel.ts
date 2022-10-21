@@ -67,12 +67,8 @@ class UserModel {
                 localStorage.setItem("refreshToken", data.userAuth.stsTokenManager.refreshToken);
                 this.listenToUserData(data.userAuth.uid);
                 this.setIsLoggedIn(true);
-                // subscribeToFirebase(): här ska vi nu subscriba till Firebase
-                // hur man använder refresh token för att få en ID token som vi sen kan använda för att skicka requests:
-                // https://firebase.google.com/docs/reference/rest/auth/#section-refresh-token
             }
             else {
-                // här ska vi visa felmeddelandet för användaren
                 this.setSignErrorMsg(data.error);
             }
             });
@@ -85,30 +81,22 @@ class UserModel {
                 this.accessToken = data.userAuth.stsTokenManager.accessToken;
                 this.listenToUserData(data.userAuth.uid);
                 this.setIsLoggedIn(true);
-                // subscribeToFirebase(): här ska vi nu subscriba till Firebase
-                // hur man använder refresh token för att få en ID token som vi sen kan använda för att skicka requests:
-                // https://firebase.google.com/docs/reference/rest/auth/#section-refresh-token
             }
             else {
-                // här ska vi visa felmeddelandet för användaren
                 this.setSignErrorMsg(data.error);
             }});
-        //let user = new Promise(signInFirebase(email, password));
-        //console.log(user);
     }
 
 //Get user data when a refresh token exists
     getUserFromToken(token: any) {
         getUidFromTokenAPI(token).then(( { data }: { data: any  }) => {
             if (data.success) {
-                console.log("nu har vi accessat användaren fb", data);
-                this.listenToUserData(data.user.user_id);
+                this.listenToUserData(localStorage.getItem("refreshToken"));
                 this.setUid(data.user.user_id);
                 this.setIsLoggedIn(true);
             } else {
                 this.signInErrorMsg = data.error;
                 this.notifyObservers();
-                console.log("det blev error", data);
             }
         }).catch(error => {
             console.log(error);
@@ -116,20 +104,20 @@ class UserModel {
         });
     }
 
-    listenToUserData(uid:string) {
-        listenToUserAPI(uid);
+    listenToUserData(token) {
+        listenToUserAPI(token);
         socket.on("user", (data) => {
             this.id = data.id;
             this.email = data.email;
             this.first_name = data.first_name;
             this.last_name = data.last_name;
-            this.social_media = Object.values(data.social_media);
+            this.social_media = data.social_media;
             this.description = data.description;
             this.profile_img = data.profile_img;
-            this.friends = Object.values(data.friends); //Ska man lägga in hela användaren här eller vara ett id
-            this.friend_requests = Object.values(data.friend_requests);
-            this.experiences = Object.values(data.experiences);
-            this.notifications = Object.values(data.notifications);
+            this.friends = data.friends; //Ska man lägga in hela användaren här eller vara ett id
+            this.friend_requests = data.friend_requests;
+            this.experiences = data.experiences;
+            this.notifications = data.notifications;
             this.dark_mode = data.dark_mode;
             this.notifyObservers();
         });

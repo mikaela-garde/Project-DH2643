@@ -8,6 +8,7 @@ import SignupPresenter from './Components/Signup/SignupPresenter';
 import CreateExpPresenter from './Components/CreateExp/CreateExpPresenter';
 import DashboardPresenter from './Components/Dashboard/DashboardPresenter';
 import ExpBoardPresenter from './Components/ExpBoard/ExpBoardPresenter';
+import NoPagePresenter from './Components/NoPage/NoPagePresenter';
 //import EmptyProfileImage from "./Images/NewEmptyProfileImg.svg";
 import { lightTheme, darkTheme } from './Theme';
 import {ThemeProvider} from "styled-components";
@@ -36,21 +37,14 @@ const GlobalStyle = createGlobalStyle `
 const App = () => {
     const darkMode = useModelProp(UserModel, "dark_mode");
     const loggedIn = useModelProp(UserModel, "isLoggedIn");
-
     useEffect(() => {
+        console.log("i app");
         if(localStorage.getItem("refreshToken")) {
             UserModel.getUserFromToken(localStorage.getItem("refreshToken"));
-            console.log("Det finns en refresh token");
         } else {
-            console.log("ingen refreshToken");
             UserModel.setIsLoggedIn(false);
         }
-        const socket = io("https://localhost:8081");
-        // Specify how to clean up after this effect:
-        return function cleanup() {
-            socket.disconnect()
-        }
-    });
+    }, []);
 
     return (
     <ThemeProvider theme={darkMode ? darkTheme : lightTheme}> 
@@ -63,6 +57,7 @@ const App = () => {
                 <Route path="/profile" element={loggedIn == undefined ? <NoDataView />:loggedIn ? <ProfilePresenter />: <Navigate to="/"/> } />
                 <Route path="/create-exp" element={loggedIn == undefined ? <NoDataView />:loggedIn ? <CreateExpPresenter />: <Navigate to="/"/> } />
                 <Route path="/exp-board" element={loggedIn == undefined ? <NoDataView />:loggedIn ? <ExpBoardPresenter />: <Navigate to="/"/> } />
+                <Route path ="*" element ={<NoPagePresenter/>}/>
             </Routes>
         </HashRouter>
     </ThemeProvider>

@@ -13,7 +13,6 @@ const listenToUser = (uid:string, callback:any) => {
     const unsubscribe = onValue(ref_db(db, 'users/' + uid), (snapshot) => {
       callback(snapshot.val());
   });
-  
   return unsubscribe;
 }
 

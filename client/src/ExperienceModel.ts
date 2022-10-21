@@ -43,7 +43,7 @@ class ExperienceModel {
     }
 
     fetchInvitedParticipant(email: string){
-        return getUserFromEmailAPI(email).then((res) => {
+        return getUserFromEmailAPI(email, localStorage.getItem("refreshToken")).then((res) => {
             //Get the first property in the response object
             console.log(res.data);
                 return res.data[Object.keys(res.data)[0]];
@@ -52,7 +52,7 @@ class ExperienceModel {
     }
 
     addParticipant(email: string){
-        getUserFromEmailAPI(email).then((res) => {
+        getUserFromEmailAPI(email, localStorage.getItem("refreshToken")).then((res) => {
             //Get the first property in the response object
             console.log(res.data);
                 this.participants = [...this.participants, (res.data[Object.keys(res.data)[0]])];
@@ -65,15 +65,15 @@ class ExperienceModel {
         participants.push(UserModel);
         console.log("deltagare", { ...participants.map(p => p.id)});
         
-        createExperienceAPI(localStorage.getItem("refreshToken"), name,start_time, end_time, { ...participants.map(p => p.id)}).then((res) => {
-            console.log(res.data.exp_id);
+        return createExperienceAPI(localStorage.getItem("refreshToken"), name,start_time, end_time, { ...participants.map(p => p.id)}).then((res) => {
             UserModel.addExperience(res.data.exp_id);
-            this.listenToExperienceData(res.data.exp_id)
+            this.listenToExperienceData(res.data.exp_id);
+            return res;
         });
     }
 
     listenToExperienceData(id:string) {
-        listenToExperienceAPI(id);
+        listenToExperienceAPI(id, localStorage.getItem("refreshToken"));
         socket.on("experience", (data) => {
             this.id = data.id;
             this.name = data.name;
@@ -84,7 +84,7 @@ class ExperienceModel {
             this.posts = data.posts;
             this.creator = data.creator;
             this.notifyObservers();
-            console.log("log från experiencemodel", this.participants);
+            console.log("log från experiencemodel", this.name);
         });
     }
 }

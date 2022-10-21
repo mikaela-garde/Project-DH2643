@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from "styled-components";
-import { PrimaryBtn, ContentContainerAll } from '../../StyledComponents';
+import { PrimaryBtn, PrimaryBtnContainer, ContentContainerAll } from '../../StyledComponents';
 import GridPresenter from '../Grid/GridPresenter';
 import HeaderPresenter from '../Header/HeaderPresenter';
 import UploadPresenter from '../Upload/UploadPresenter';
@@ -10,11 +10,17 @@ import BackgroundBlobRightSVG from "../../Images/BackgroundBlobDashboardRight.sv
 const ExpBoardView= ({ExpName, showAddContent, isShown, blur, brightness}) =>
     <ContentContainer>
         {isShown && <UploadPresenter showAdd={showAddContent}></UploadPresenter>}
+        
         <DashboardContainer blur={blur} brightness={brightness}>
         <HeaderPresenter NavTitle={ExpName}/>
-        <GridPresenter/>
-        <AddContentBtn onClick={() => showAddContent()}>Add content</AddContentBtn>
 
+        <GridPresenterContainer>
+            <GridPresenter/>
+        </GridPresenterContainer>
+
+        <ButtonContainer>
+            <AddContentBtn onClick={() => showAddContent()}>Add content</AddContentBtn>
+        </ButtonContainer>
 
         <BackgroundBlobContainerLeft>
             <BackgroundBlob src ={BackgroundBlobLeftSVG}></BackgroundBlob>
@@ -29,20 +35,30 @@ const ExpBoardView= ({ExpName, showAddContent, isShown, blur, brightness}) =>
        
 ;
 
+const GridPresenterContainer = styled.div`
+    margin: 40px;
+    overflow: auto;
+`;
+
 const AddContentBtn = styled.button`
     ${PrimaryBtn}
     align-self: center;
     margin-top: auto;
     margin-bottom: 30px;
+`;
 
+const ButtonContainer = styled.div`
+    ${PrimaryBtnContainer}
+    justify-content: space-around;
 `;
 
 const DashboardContainer = styled.div<Props>`
-    ${ContentContainerAll};
     display: flex;
     flex-direction: column;
     height: 100vh;
     z-index: 1;
+    overflow: auto;
+
     filter: ${props => props.brightness ? "brightness(50%)": "brightness(100%)"};
     filter: ${props => props.blur ? "blur(1.5em);" : "blur(0);"};
     
@@ -52,8 +68,7 @@ const ContentContainer = styled.div`
     ${ContentContainerAll};
     z-index: 0;
     justify-content: flex-start;
-    overflow: auto;
-`
+`;
 
 const Toolbar = styled.div`
     width: 10px;

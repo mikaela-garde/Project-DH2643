@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from "styled-components";
-import { PrimaryBtn, ContentContainerAll } from '../../StyledComponents';
+import { PrimaryBtn, PrimaryBtnContainer, ContentContainerAll } from '../../StyledComponents';
 import GridPresenter from '../Grid/GridPresenter';
 import HeaderPresenter from '../Header/HeaderPresenter';
 import BackgroundBlobLeftSVG from "../../Images/BackgroundBlobDashboardLeft.svg";
@@ -12,7 +12,9 @@ const DashboardView= ({toCreateExp}) =>
         <GridPresenterContainer>
             <GridPresenter/>
         </GridPresenterContainer>
-        <CreateExpButton onClick={() => toCreateExp()}>Create Experience</CreateExpButton>
+        <ButtonContainer>
+            <CreateExpButton onClick={() => toCreateExp()}>Create Experience</CreateExpButton>
+        </ButtonContainer>
         <BackgroundBlobContainerLeft>
             <BackgroundBlob src ={BackgroundBlobLeftSVG}></BackgroundBlob>
         </BackgroundBlobContainerLeft>
@@ -24,6 +26,10 @@ const DashboardView= ({toCreateExp}) =>
     </DashboardContainer>
        
 ;
+
+const ButtonContainer = styled.div`
+    ${PrimaryBtnContainer}
+`;
 
 const CreateExpButton = styled.button`
     ${PrimaryBtn}
@@ -40,6 +46,7 @@ const DashboardContainer = styled.div`
 
 const GridPresenterContainer = styled.div`
     margin: 40px;
+    overflow: auto;
 `;
 
 const BackgroundBlobContainerLeft = styled.div`

@@ -75,11 +75,72 @@ const GridView= ({setExperience, ExpList}) =>
                     <SmallText>27 Apr 2007</SmallText>
                 </SingleExperienceContainer>
             </ExperienceButtonContainer>
+            
+            <ExperienceButtonContainer to="/login">
+                <SingleExperienceContainer>
+                    <ExperienceImgContainer src={ExperienceImg}></ExperienceImgContainer>
+                    <Title3>28th Bday Party</Title3>
+                    <SmallText>27 Apr 2007</SmallText>
+                </SingleExperienceContainer>
+            </ExperienceButtonContainer>
 
+            <ExperienceButtonContainer to="/login">
+                <SingleExperienceContainer>
+                    <ExperienceImgContainer src={ExperienceImg}></ExperienceImgContainer>
+                    <Title3>28th Bday Party</Title3>
+                    <SmallText>27 Apr 2007</SmallText>
+                </SingleExperienceContainer>
+            </ExperienceButtonContainer>
+
+            <ExperienceButtonContainer to="/login">
+                <SingleExperienceContainer>
+                    <ExperienceImgContainer src={ExperienceImg}></ExperienceImgContainer>
+                    <Title3>28th Bday Party</Title3>
+                    <SmallText>27 Apr 2007</SmallText>
+                </SingleExperienceContainer>
+            </ExperienceButtonContainer>
+
+            <ExperienceButtonContainer to="/login">
+                <SingleExperienceContainer>
+                    <ExperienceImgContainer src={ExperienceImg}></ExperienceImgContainer>
+                    <Title3>28th Bday Party</Title3>
+                    <SmallText>27 Apr 2007</SmallText>
+                </SingleExperienceContainer>
+            </ExperienceButtonContainer>
+
+            <ExperienceButtonContainer to="/login">
+                <SingleExperienceContainer>
+                    <ExperienceImgContainer src={ExperienceImg}></ExperienceImgContainer>
+                    <Title3>28th Bday Party</Title3>
+                    <SmallText>27 Apr 2007</SmallText>
+                </SingleExperienceContainer>
+            </ExperienceButtonContainer>
+
+            <ExperienceButtonContainer to="/login">
+                <SingleExperienceContainer>
+                    <ExperienceImgContainer src={ExperienceImg}></ExperienceImgContainer>
+                    <Title3>28th Bday Party</Title3>
+                    <SmallText>27 Apr 2007</SmallText>
+                </SingleExperienceContainer>
+            </ExperienceButtonContainer>
+
+            <ExperienceButtonContainer to="/login">
+                <SingleExperienceContainer>
+                    <ExperienceImgContainer src={ExperienceImg}></ExperienceImgContainer>
+                    <Title3>28th Bday Party</Title3>
+                    <SmallText>27 Apr 2007</SmallText>
+                </SingleExperienceContainer>
+            </ExperienceButtonContainer>
+
+            <ExperienceButtonContainer to="/login">
+                <SingleExperienceContainer>
+                    <ExperienceImgContainer src={ExperienceImg}></ExperienceImgContainer>
+                    <Title3>28th Bday Party</Title3>
+                    <SmallText>27 Apr 2007</SmallText>
+                </SingleExperienceContainer>
+            </ExperienceButtonContainer>
         </ExperienceGridContainer>
     </ExperienceContainer>
-        
-;
 
 
 const ExperienceImgContainer = styled.img`
@@ -115,7 +176,6 @@ const ExperienceGridContainer = styled.div`
     display: flex;
     flex-flow: row wrap;
     justify-content: space-between;
-
     :after {
         content: "";
         flex: auto;
@@ -128,7 +188,6 @@ const ExperienceContainer = styled.div`
       flex-direction: column;
       justify-content: center;
       gap: 30px;
-      
 `;
 
 const Title3 = styled.h3`

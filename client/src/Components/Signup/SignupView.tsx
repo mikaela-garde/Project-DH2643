@@ -8,7 +8,7 @@ import {Link} from "react-router-dom";
 import CatImg from "../../Images/sad_cat.jpeg";
 import SVG from "react-inlinesvg";
 
-import { PrimaryBtn, InputField, ContentContainerAll, ImgContainerLogin, InputLabel, InputFieldWrapper} from '../../StyledComponents';
+import { PrimaryBtn, PrimaryBtnContainer, InputField, ContentContainerAll, ImgContainerLogin, InputLabel, InputFieldWrapper} from '../../StyledComponents';
 
 const SignupView = ({loginErrorMessage, setFirstName, setLastName, setEmail, setPassword, onSignUp, setImage}) =>
             <ContentContainer>
@@ -83,24 +83,19 @@ const InputLabelSignup = styled.label`
 `;
 
 const ButtonContainer = styled.div`
-    display: flex;
-    flex-direction: row;
-    margin: 0px;
-    >*  {
-        margin: 10px;
-        };  
-        z-index: 2;
+    ${PrimaryBtnContainer};
 `;
 
 const SignUpButton = styled.button`
     ${PrimaryBtn}
     align-self: center;
+    width: 235px;
 `;
 
 const BackButton = styled(SVG)`
     height: 50px;
     align-self: center;
-    margin-right: 20px;
+    margin-right: 10px;
     & circle {
         fill: ${props => props.theme.colors.primary};
     }

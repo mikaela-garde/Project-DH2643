@@ -26,8 +26,8 @@ const darkTheme = {
     primary: "#FFFFFF",
     secondary: "#EC7267",
     orange: "#E38800",
-    contrast: "#1F1E61",
-    background: "#1F1E61",
+    contrast: "#0F0838",
+    background: "#0F0838",
     gradient: "linear-gradient(#EC7267, #FDA78C)"
   },
   fonts: {

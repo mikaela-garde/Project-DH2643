@@ -8,6 +8,7 @@ import upload from './routes/upload';
 import { db, store, listenToUser, storage } from "../firebase";
 import { onValue, ref } from "firebase/database";
 import Multer, { diskStorage } from 'multer';
+import { Blob } from "buffer";
 
 const app = express();
 const port = process.env.PORT || 8081;
@@ -39,7 +40,7 @@ app.use("/api/users", users);
 
 ////////////////////////////////////////////////////////////////
 
-
+/*
 var mulStorage = Multer.diskStorage({
     destination: function (req, file, cb) {
       cb(null, 'uploads/')
@@ -52,16 +53,28 @@ var mulStorage = Multer.diskStorage({
 const multer = Multer({
     storage: mulStorage,
     limits: {fileSize: 5 * 1024 * 1024} //File size limit 5mb
-})
+})*/////////////////////
 
+
+const multer = Multer({
+    storage: Multer.memoryStorage(),
+    limits: {
+      fileSize: 5 * 1024 * 1024, // No larger than 5mb, change as you need
+    },
+  });  
 
 
 router.route("/api/upload").post(multer.single("imgfile"), (req: express.Request, res: express.Response) => {
     console.log(req)
     try {
         if(req.file){
-            console.log(typeof req.file);
-            store(req.file);
+            console.log(req.file.buffer);
+            /*
+            const buff = Buffer.from(req.file.buffer); // Node.js Buffer
+            const blob = new Blob([buff], {type: "image"});
+            console.log(typeof blob)*/
+            store(req.file.buffer);
+            
             res.status(200).send("File uploaded to Cloud Storage");
         }
     } catch (error) {

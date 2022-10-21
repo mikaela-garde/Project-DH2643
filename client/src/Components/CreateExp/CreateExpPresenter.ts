@@ -30,7 +30,7 @@ function CreateExpPresenter (props) {
             setInvite("");
         },
         participants: participants,
-        onCreate: () => experienceModel.createExperience(name, startDate, endDate, participants).then(() => navigate('/exp-board'))
+        onCreate: () => experienceModel.createExperience(name, startDate, endDate, participants)
     })
 }
 

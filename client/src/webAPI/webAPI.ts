@@ -1,9 +1,4 @@
 import axios from 'axios';
-import {User} from "../types";
-
-export const getUserAPI = (uid) => axios.get("https://localhost:8081/api/users/"+uid, { 
-    withCredentials: true,
-});
 
 export const getUserFromEmailAPI = (email, token) => axios.post("https://localhost:8081/api/users/email", { 
     email: email,
@@ -11,7 +6,6 @@ export const getUserFromEmailAPI = (email, token) => axios.post("https://localho
 });
 
 export const createAccountAPI = (firstName, lastName, email, password, profileImage) => axios.post("https://localhost:8081/api/users/signup", {
-    
     firstName: firstName,
     lastName: lastName,
     email: email,
@@ -34,6 +28,9 @@ export const getUidFromTokenAPI = (token) => axios.post("https://localhost:8081/
 
 export const uploadAPI = (formData) => axios.post("https://localhost:8081/api/upload", formData);
 
+export const downloadAPI = () => axios.get("https://localhost:8081/api/upload" );
+
+
 export const toggleDarkModeAPI = (token, dark_mode) => axios.post("https://localhost:8081/api/users/toggle-dark", {
     token: token,
     dark_mode: dark_mode
@@ -54,6 +51,7 @@ export const createExperienceAPI = (token, name, start_time, end_time, participa
     participants: participants
 });
 
-export const listenToExperienceAPI = (id) => axios.post("https://localhost:8081/api/listeners/experience", {
-    id: id
+export const listenToExperienceAPI = (id, token) => axios.post("https://localhost:8081/api/listeners/experience", {
+    id: id,
+    token: token
 });

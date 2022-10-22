@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from "styled-components";
+import styled, {keyframes} from "styled-components";
 import ProfileHolderImg from "../../Images/profile-holder-signup.svg";
 import BackgroundBlobLeftSVG from "../../Images/BackgroundBlobLoginLeft.svg";
 import BackgroundBlobRightSVG from "../../Images/BackgroundBlobLoginRight.svg";
@@ -7,11 +7,23 @@ import {Link} from "react-router-dom";
 import DatePicker from "react-datepicker"
 import 'react-datepicker/dist/react-datepicker.css';
 import HeaderPresenter from '../Header/HeaderPresenter';
-import { PrimaryBtn, InputField, ContentContainerLogin, InputLabel, InputFieldWrapper, ContentContainerAll } from '../../StyledComponents';
+import BackButtonArrow from "../../Images/back-button-arrow.svg";
+import SVG from "react-inlinesvg";
+import {PrimaryBtnContainer, NavContainer, PrimaryBtn, InputField, ContentContainerLogin, InputLabel, InputFieldWrapper, ContentContainerAll, Heading1, BackButton } from '../../StyledComponents';
+import { fadeInUp, fadeInDown } from 'react-animations';
+
+const fadeInUpAnimation = keyframes`${fadeInUp}`;
+const fadeInDownAnimation = keyframes`${fadeInDown}`;
 
 const CreateExpView = ({setName, startDate, setStartDate, endDate, setEndDate, invite, setInvite, onInvite, participants, onCreate}) =>
         <Container>
-            <HeaderPresenter NavTitle={"Create Experience"}/>
+            <NavContainerXP>
+                    <NavLink to="/">
+                        <BackButtonCreate src={BackButtonArrow}></BackButtonCreate>
+                    </NavLink>
+                <PageTitle>Create Experience</PageTitle> 
+            </NavContainerXP>
+
             <ContentContainer>
                 <ContentWrapper>
                     <Column>
@@ -50,10 +62,9 @@ const CreateExpView = ({setName, startDate, setStartDate, endDate, setEndDate, i
                         </ParticipantsContainer>
                     </Column>
                 </ContentWrapper>
+
                 <ButtonContainer>
-                    <NavLink to="/login">
-                    </NavLink>
-                        <SignUpButton onClick={e => onCreate()}>Create Experience</SignUpButton>
+                    <SignUpButton onClick={e => onCreate()}>Create Experience</SignUpButton>
                 </ButtonContainer>
                 
                 <BackgroundBlobContainerLeft>
@@ -69,7 +80,27 @@ const CreateExpView = ({setName, startDate, setStartDate, endDate, setEndDate, i
 
 const Container= styled.div`
     ${ContentContainerAll};
-    
+`;
+
+const NavContainerXP = styled.div`
+    ${NavContainer}
+`;
+
+const NavLink = styled(Link)`
+    display: flex;
+    a {
+        align-self: center;
+    }
+`;
+
+const PageTitle = styled.h1`
+    ${Heading1}
+    animation: 1s ${fadeInDownAnimation};
+`;
+
+const BackButtonCreate = styled(SVG)`
+    animation: 0.8s ${fadeInDownAnimation};
+    ${BackButton}
 `;
 
 const ContentContainer = styled.div`
@@ -93,13 +124,10 @@ const InputFieldExpWrapper = styled.div`
     ${InputFieldWrapper};
 `;
 
-const FromToWrapper = styled.div`
-    display: flex;
-    flex-direction: row;
-    margin: 0;
-    >*  {
-        margin: 12px;
-        };  
+const InputLabelExp = styled.label<propsLabel>`
+    ${InputLabel}
+    left: ${props => props.left}; 
+    z-index: 1;
 `;
 
 const InputFieldExp = styled.input<propsField>`
@@ -107,6 +135,15 @@ const InputFieldExp = styled.input<propsField>`
     padding: 12px 150px 12px 14px;
     padding-right: ${props => props.paddingRight}; 
     width: ${props => props.width}; 
+`;
+
+const FromToWrapper = styled.div`
+    display: flex;
+    flex-direction: row;
+    margin: 0;
+    >*  {
+        margin: 12px;
+        };  
 `;
 
 const MyDatePicker = styled(DatePicker)`
@@ -117,11 +154,6 @@ const MyDatePicker = styled(DatePicker)`
     margin: 0;
 `;
 
-const InputLabelExp = styled.label<propsLabel>`
-    ${InputLabel}
-    left: ${props => props.left}; 
-    z-index: 1;
-`;
 const EnterInviteButton = styled.button`
     ${PrimaryBtn}
     align-self: center;
@@ -140,22 +172,12 @@ const ParticipantCard = styled.div`
 `;
 
 const ButtonContainer = styled.div`
-    display: flex;
-    flex-direction: row;
-    margin: 0px;
+    ${PrimaryBtnContainer};
 `;
 
 const SignUpButton = styled.button`
     ${PrimaryBtn}
     align-self: center;
-`;
-
-
-const NavLink = styled(Link)`
-    display: flex;
-    a {
-        align-self: center;
-    }
 `;
 
 const BackgroundBlobContainerLeft = styled.div`

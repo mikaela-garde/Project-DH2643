@@ -8,17 +8,6 @@ import { User } from "../models/types";
 
 const router = express.Router();
 
-//Get all users
-router.route("/").get((req: express.Request, res: express.Response) => {
-    //Get users from database
-    const user_ref = ref(db, 'users');
-    get(user_ref).then((snapshot) => {
-        const data:any = snapshot.val();
-        res.status(200).send(data);
-    });
-
-})
-
 router.route("/signup").post(createAccountFirebase, (req: express.Request, res: express.Response) => {
     
     console.log("posting user");

@@ -8,6 +8,8 @@ import SignupPresenter from './Components/Signup/SignupPresenter';
 import CreateExpPresenter from './Components/CreateExp/CreateExpPresenter';
 import DashboardPresenter from './Components/Dashboard/DashboardPresenter';
 import ExpBoardPresenter from './Components/ExpBoard/ExpBoardPresenter';
+import NoPagePresenter from './Components/NoPage/NoPagePresenter';
+import HeaderPresenter from './Components/Header/HeaderPresenter';
 //import EmptyProfileImage from "./Images/NewEmptyProfileImg.svg";
 import { lightTheme, darkTheme } from './Theme';
 import {ThemeProvider} from "styled-components";
@@ -20,45 +22,31 @@ import useModelProp from './useModelProp';
 import NoDataView from './Components/NoData/NoDataView';
 import ExperienceModel from "./ExperienceModel";
 import { Experience_Template } from './types';
+ 
 
 let UserModel = new Model();
 let experienceModel = new ExperienceModel();
 
 const socket = io("https://localhost:8081");
 
-const GlobalStyle = createGlobalStyle `
-    body * {
-        margin: 0;
-        padding: 0;
-    }
-`;
 
 const App = () => {
     const darkMode = useModelProp(UserModel, "dark_mode");
     const loggedIn = useModelProp(UserModel, "isLoggedIn");
-
-    console.log("user id i app", UserModel);
-    console.log("experience id i app", experienceModel.id);
-
     useEffect(() => {
         if(localStorage.getItem("refreshToken")) {
             UserModel.getUserFromToken(localStorage.getItem("refreshToken"));
-            console.log("Det finns en refresh token");
         } else {
-            console.log("ingen refreshToken");
             UserModel.setIsLoggedIn(false);
         }
-        const socket = io("https://localhost:8081");
-        // Specify how to clean up after this effect:
-        return function cleanup() {
-            socket.disconnect()
-        }
-    });
+    }, []);
 
     return (
+    <>
     <ThemeProvider theme={darkMode ? darkTheme : lightTheme}> 
         <GlobalStyle/>
         <HashRouter>
+            {loggedIn == undefined || loggedIn == false ? <></>:<HeaderPresenter/>}
             <Routes>
                 <Route path="/" element={loggedIn == undefined ? <NoDataView />: loggedIn ? <DashboardPresenter />: <LoginPresenter />} />
                 <Route path="/signup" element={loggedIn == undefined ? <NoDataView />:loggedIn ? <Navigate to="/"/>: <SignupPresenter />} />
@@ -66,11 +54,23 @@ const App = () => {
                 <Route path="/profile" element={loggedIn == undefined ? <NoDataView />:loggedIn ? <ProfilePresenter />: <Navigate to="/"/> } />
                 <Route path="/create-exp" element={loggedIn == undefined ? <NoDataView />:loggedIn ? <CreateExpPresenter />: <Navigate to="/"/> } />
                 <Route path="/exp-board" element={loggedIn == undefined ? <NoDataView />:loggedIn ? <ExpBoardPresenter />: <Navigate to="/"/> } />
+                <Route path ="*" element ={<NoPagePresenter/>}/>
             </Routes>
         </HashRouter>
     </ThemeProvider>
-    )
+    </>)
 }
+
+const GlobalStyle = createGlobalStyle `
+    html, body * {
+        margin: 0;
+        padding: 0;
+    }
+
+    body::-webkit-scrollbar {
+        display: none;
+    }
+`;
 
 ReactDOM.createRoot(document.getElementById('app')!).render(<App />);
 

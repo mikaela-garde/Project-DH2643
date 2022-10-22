@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from "styled-components";
+import styled, {keyframes} from "styled-components";
 import BackButtonArrow from "../../Images/back-button-arrow.svg";
 import {Link} from "react-router-dom";
 import BoardSVG from "../../Images/board.svg";
@@ -8,11 +8,11 @@ import darkModeIcon from "../../Images/moon.svg";
 import { Heading1 } from '../../StyledComponents';
 import SVG from "react-inlinesvg";
 import Switch from "react-switch";
+import { fadeInRight } from 'react-animations';
+const fadeInRightAnimation = keyframes`${fadeInRight}`;
 
-const HeaderView= ({NavTitle, ProfilePic, darkMode, handleModeChange, onLogout, backButtonVis}) =>
-
-    <HeadingContainer>
-
+const HeaderView= ({ProfilePic, darkMode, handleModeChange, onLogout, backButtonVis}) =>
+    <HeaderContainer>    
         <Menu>
             <IconsContainer>
                 <IconContainer>
@@ -27,68 +27,36 @@ const HeaderView= ({NavTitle, ProfilePic, darkMode, handleModeChange, onLogout, 
                 <IconContainer>
                     <Icon src={darkModeIcon}></Icon>
                     <Switch checked={darkMode} onChange={handleModeChange} uncheckedIcon={false} checkedIcon={false} offColor="#635F8B" onColor="#1F1E61" activeBoxShadow="null"/>
-                    <button onClick={() => onLogout()}>Logout</button>
+                </IconContainer>
+                <IconContainer>
+                <button onClick={() => onLogout()}>Logout</button>
                 </IconContainer>
             </IconsContainer>
         </Menu>
-
-        <NavContainer>
-            {backButtonVis && <NavLink to="/">
-                <BackButton src={BackButtonArrow}></BackButton>
-            </NavLink>}
-            <PageTitle>{NavTitle}</PageTitle> 
-        </NavContainer>
-
-    </HeadingContainer>
+    </HeaderContainer>
 ;
 
-const HeadingContainer = styled.div`
-    height: 100px;
+
+/////////////////////////////// MENU /////////////////////////////////
+const HeaderContainer = styled.div`
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    @media (max-width: 1000px) {
-        flex-direction: column;
-        height:200px;
-        gap: 40px;
-    }
-    z-index: 3;
-`;
+    position: absolute;
+    top: 30px;
+    right: 30px;
 
-////////////////////////////// BACK BUTTON & TITLE //////////////////////////////////
-const NavContainer = styled.div`
-    display: flex;
-    flex-direction: row;
-    justify-items: center;
     @media (max-width: 1000px) {
+        margin-top: 15px;
         position: static;
-    }
-    z-index: 2;
-`;
-
-const BackButton = styled(SVG)`
-    height: 50px;
-    & circle {
-        fill: ${props => props.theme.colors.primary};
-    }
-    & path{
-        fill: ${props => props.theme.colors.contrast};
+        top: 0px;
+        right: 0px;
     }
 `;
-
-const NavLink = styled(Link)`
-    display: flex;
-    align-self: center;
-    margin-right:30px;
-`;
-
-const PageTitle = styled.h1`
-    ${Heading1}
-`;
-
 /////////////////////////////// MENU /////////////////////////////////
 const Menu = styled.div`
+        animation: 2s ${fadeInRightAnimation};
         color: ${props => props.theme.colors.contrast};
         font-size: ${props => props.theme.fontSizes.xsmall};
         font-weight: 400;
@@ -97,22 +65,23 @@ const Menu = styled.div`
         background-color: ${props => props.theme.colors.primary};
         border-color: ${props => props.theme.colors.primary};
         border-radius: 150px;
-        height: 45px;
-        width: 60vw;
         cursor: pointer;
         border-style: solid;
 
-        @media (min-width: 1000px) {
-            position: absolute;
-            right: 20px;
-            width: 250px;
-            }
-       z-index: 2;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        height: 45px;
+
+       z-index: 3;
 `;
 
 const IconsContainer = styled.div`  
     display: flex;
     justify-content: space-evenly;
+    margin: 20px;
+
     &:hover > *{
         opacity: 0.5;
         transition: opacity 200ms ;
@@ -132,10 +101,17 @@ const IconContainer = styled.div`
     justify-content: center;
     opacity: 1;
     transition: opacity 200ms;
+    margin: 0px 10px;
     :hover{
         opacity: 1;
         transition: opacity 200ms ;
     }
 `;
+/*        <NavContainer>
+            {backButtonVis && <NavLink to="/">
+                <BackButton src={BackButtonArrow}></BackButton>
+            </NavLink>}
+            <PageTitle>{NavTitle}</PageTitle> 
+        </NavContainer>*/
 
 export default HeaderView;

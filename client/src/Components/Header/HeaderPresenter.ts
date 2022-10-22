@@ -3,9 +3,8 @@ import { UserModel } from '../../app';
 import useModelProp from '../../useModelProp';
 import HeaderView from "./HeaderView";
 
-function HeaderPresenter ({NavTitle}) {
+function HeaderPresenter () {
     const darkMode = useModelProp(UserModel, "dark_mode");
-    
     const profilePic = "" //Getta profilepic from databas
     const [backButtonVis, setBackButtonVis] = useState(true);
     useEffect(() => {
@@ -17,7 +16,6 @@ function HeaderPresenter ({NavTitle}) {
     });
 
     return React.createElement(HeaderView,{
-        NavTitle: NavTitle,
         ProfilePic : profilePic,
         darkMode: darkMode,
         handleModeChange: (changeBool) => UserModel.setDarkMode(changeBool),

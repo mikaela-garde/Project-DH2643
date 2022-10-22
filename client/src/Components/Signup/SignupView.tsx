@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from "styled-components";
+import styled, {keyframes} from "styled-components";
 import ProfileHolderImg from "../../Images/profile-holder-signup.svg";
 import BackgroundBlobLeftSVG from "../../Images/BackgroundBlobLoginLeft.svg";
 import BackgroundBlobRightSVG from "../../Images/BackgroundBlobLoginRight.svg";
@@ -7,28 +7,31 @@ import BackButtonArrow from "../../Images/back-button-arrow.svg";
 import {Link} from "react-router-dom";
 import CatImg from "../../Images/sad_cat.jpeg";
 import SVG from "react-inlinesvg";
+import { fadeInDown } from 'react-animations';
+
+const Animation = keyframes`${fadeInDown}`;
 
 import { PrimaryBtn, PrimaryBtnContainer, InputField, ContentContainerAll, ImgContainerLogin, InputLabel, InputFieldWrapper} from '../../StyledComponents';
 
 const SignupView = ({loginErrorMessage, setFirstName, setLastName, setEmail, setPassword, onSignUp, setImage}) =>
             <ContentContainer>
                 <ImgContainer src={ProfileHolderImg} onClick={e => setImage(CatImg)}></ImgContainer>
-                <InputFieldSignupWrapper>
+                <InputFieldSignupWrapper animationTime="2.5s">
                     <InputLabelSignup>First name</InputLabelSignup>
                     <InputFieldSignup onChange={e => setFirstName(e.target.value)}></InputFieldSignup>
                 </InputFieldSignupWrapper>
 
-                <InputFieldSignupWrapper>
+                <InputFieldSignupWrapper animationTime="2.2s">
                     <InputLabelSignup>Last name</InputLabelSignup>
                     <InputFieldSignup onChange={e => setLastName(e.target.value)}></InputFieldSignup>
                 </InputFieldSignupWrapper>
 
-                <InputFieldSignupWrapper>
+                <InputFieldSignupWrapper animationTime="1.9s">
                     <InputLabelSignup>Email</InputLabelSignup>
                     <InputFieldSignup onChange={e => setEmail(e.target.value)}></InputFieldSignup>
                 </InputFieldSignupWrapper>
 
-                <InputFieldSignupWrapper>
+                <InputFieldSignupWrapper animationTime="1.6s">
                     <InputLabelSignup>Password</InputLabelSignup>
                     <InputFieldSignup type ="password" onChange={e => setPassword(e.target.value)}></InputFieldSignup>
                 </InputFieldSignupWrapper>
@@ -51,6 +54,7 @@ const SignupView = ({loginErrorMessage, setFirstName, setLastName, setEmail, set
 
 const ContentContainer = styled.div`
     ${ContentContainerAll};
+    overflow: visible!important;
     height: 100vh;
     >*  {
         margin: 15px;
@@ -59,6 +63,7 @@ const ContentContainer = styled.div`
 
 const ImgContainer = styled(SVG)`
     ${ImgContainerLogin}
+    animation: 2s ${Animation};
     & circle {
         fill: ${props => props.theme.colors.contrast};
         stroke: ${props => props.theme.colors.primary}
@@ -69,9 +74,9 @@ const ImgContainer = styled(SVG)`
 
 `;
 
-const InputFieldSignupWrapper = styled.div`
+const InputFieldSignupWrapper = styled.div<Props>`
     ${InputFieldWrapper};
-    
+    animation: ${props => props.animationTime} ${Animation};
 `;
 
 const InputFieldSignup = styled.input`
@@ -88,11 +93,13 @@ const ButtonContainer = styled.div`
 
 const SignUpButton = styled.button`
     ${PrimaryBtn}
+    animation: 1.3s ${Animation};
     align-self: center;
     width: 235px;
 `;
 
 const BackButton = styled(SVG)`
+    animation: 1.3s ${Animation};
     height: 50px;
     align-self: center;
     margin-right: 10px;
@@ -126,7 +133,7 @@ const BackgroundBlobContainerLeft = styled.div`
 const BackgroundBlobContainerRight = styled.div`
     position: fixed;
     top: 0;
-    right: 100px;
+    right: 0;
     margin: 0;
     width: 20%;
     z-index: 1;
@@ -135,4 +142,8 @@ const BackgroundBlob = styled.img`
     vertical-align: middle;
 `;
 
+
+type Props = {
+    animationTime?: string,
+}
 export default SignupView;

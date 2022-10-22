@@ -5,11 +5,9 @@ import fs from 'fs';
 import cors from "cors";
 import users from './routes/users';
 import experiences from './routes/experiences';
-import upload from './routes/upload';
-import { db, store, listenToUser, storage, listenToExperience } from "../firebase";
+import { db, storeFile, fetchFile, listenToUser, storage, listenToExperience } from "../firebase";
 import { onValue, ref } from "firebase/database";
 import Multer, { diskStorage } from 'multer';
-import { Blob } from "buffer";
 import { checkAuth } from "./middlewares/auth";
 
 const app = express();
@@ -39,24 +37,9 @@ app.get("/", (req: express.Request, res: express.Response) => {
 
 app.use("/api/users", users);
 //app.use("/api/upload", upload);
+//uses users.ts
 
-////////////////////////////////////////////////////////////////
-
-/*
-var mulStorage = Multer.diskStorage({
-    destination: function (req, file, cb) {
-      cb(null, 'uploads/')
-    },
-    filename: function (req, file, cb) {
-      cb(null, Date.now() + path.extname(file.originalname)) //Appending extension
-    }
-  })
-
-const multer = Multer({
-    storage: mulStorage,
-    limits: {fileSize: 5 * 1024 * 1024} //File size limit 5mb
-})*/////////////////////
-
+///////////////////// MULTER & UPLOAD FILE TO CLOUD///////////////////////
 
 const multer = Multer({
     storage: Multer.memoryStorage(),
@@ -65,36 +48,29 @@ const multer = Multer({
     },
   });  
 
-
 router.route("/api/upload").post(multer.single("imgfile"), (req: express.Request, res: express.Response) => {
-    console.log(req)
     try {
         if(req.file){
-            console.log(req.file.buffer);
-            /*
-            const buff = Buffer.from(req.file.buffer); // Node.js Buffer
-            const blob = new Blob([buff], {type: "image"});
-            console.log(typeof blob)*/
-            store(req.file.buffer);
-            
-            res.status(200).send("File uploaded to Cloud Storage");
+            storeFile(req.file.buffer, req.file.originalname, res);
         }
     } catch (error) {
         res.status(500).send(error)
     }
 });
 
+router.route("/api/upload").get((req: express.Request, res: express.Response) => {
+    try {
+        fetchFile("c453d824-e681-4a9a-91a5-0f03544dade7.jpeg", res);
+    } catch (error) {
+        res.status(500).send(error)
+    }
+});
 
 
 ////////////////////////////////////////////////////////////////
 
-//uses users.ts
-
 app.use("/api/experiences", experiences);
 //uses experiences.ts
-
-
-
 
 const server = https.createServer(options, app);
 
@@ -131,19 +107,5 @@ app.post("/api/listeners/experience", checkAuth, (req: express.Request, res: exp
     listenToExperience(res.locals.user.user_id, (val:any) => {io.sockets.emit("experience", val)});
     res.status(200).send("Listening to user");
 });
-/*
-app.post("/upload", (req: express.Request, res: express.Response) => {
-    console.log("Inne i post fil")
-    try {
-        if(req){
-            console.log("inne i if(req)")
-            store(req)
-            res.status(200).send("File uploaded to Cloud Storage");
-        }
-    } catch (error) {
-        res.status(500).send(error)
-    }
-});
-*/
 
 

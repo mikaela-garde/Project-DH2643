@@ -16,7 +16,6 @@ function HeaderPresenter ({NavTitle}) {
     });
 
     return React.createElement(HeaderView,{
-        NavTitle: NavTitle,
         ProfilePic : profilePic,
         darkMode: darkMode,
         handleModeChange: (changeBool) => UserModel.setDarkMode(changeBool),

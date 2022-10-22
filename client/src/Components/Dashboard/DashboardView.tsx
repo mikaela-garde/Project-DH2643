@@ -51,6 +51,7 @@ const NavContainer = styled.div`
     display: flex;
     flex-direction: row;
     margin-top: 13px;
+    z-index: 2;
 `;
 const DashboardContainer = styled.div`
     ${ContentContainerAll};
@@ -61,6 +62,7 @@ const DashboardContainer = styled.div`
 const GridPresenterContainer = styled.div`
     margin: 150px;
     overflow: auto;
+    z-index: 2;
     ::-webkit-scrollbar { 
     display: none;
       }  /* Safari and Chrome */
@@ -99,7 +101,7 @@ const BackgroundBlobContainerRight = styled.div`
     top: 0px;
     right: 0;
     z-index: 1;
-
+    
     @media (max-width: 768px) {
         top: -100px;
         right: 0px;

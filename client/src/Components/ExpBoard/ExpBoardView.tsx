@@ -66,7 +66,8 @@ const NavContainer = styled.div`
     display: flex;
     flex-direction: row;
     margin-top: 13px;
-    align-self: center ;
+    align-self: center;
+    z-index: 2;
 `;
 
 const PageTitle = styled.h1`
@@ -76,6 +77,7 @@ const PageTitle = styled.h1`
 const GridPresenterContainer = styled.div`
     margin: 40px;
     overflow: auto;
+    z-index: 2;
     ::-webkit-scrollbar { 
     display: none;
       }  /* Safari and Chrome */
@@ -106,6 +108,7 @@ const DashboardContainer = styled.div<Props>`
 `
 
 const ContentContainer = styled.div`
+ ${ContentContainerAll};
 `;
 
 const Toolbar = styled.div`

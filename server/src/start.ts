@@ -51,8 +51,12 @@ const multer = Multer({
 router.route("/api/upload").post( multer.any(), (req: express.Request, res: express.Response) => {
     try {
         if(req.files){
-            checkAuthUpload(req, res)
-            const userId = res.locals.user.user_id
+            console.log(req.files)
+            //@ts-ignore
+            const promise = checkAuthUpload(req, res).then((res:any) => res.json())
+            .then((json:any) => {
+            const userId = json.user_id;
+           
             //@ts-ignore
             const expId = req.files[1].buffer.toString().replaceAll('"', "")
             //@ts-ignore
@@ -61,11 +65,17 @@ router.route("/api/upload").post( multer.any(), (req: express.Request, res: expr
             const file = req.files[3].buffer
             //@ts-ignore
             const fileName = req.files[3].originalname
+
             
             storeFile(file, fileName, userId, expId, date );
 
+            })
+            .catch((error:any) => console.log(error));
+          }
+            
+
         }
-    } catch (error) {
+     catch (error) {
         res.status(500).send(error)
     }
 });

@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import UploadView from "./TemplateView";
-import {uploadAPI, downloadAPI} from "../../webAPI/webAPI";
+import {uploadAPI} from "../../webAPI/webAPI";
 import { v4 as uuid } from 'uuid';
 import { experienceModel } from "../../app"
 
@@ -53,17 +53,14 @@ function TemplatePresenter (props) {
     });
     formData.append("date", dateBlob);
     
-
     let uploadId = uuid();
     //Skapar en blob så at vi kan byta namn till unikt id
     let blob = file.slice(0, file.size, "image/jpeg");
-    let newFile = new File([blob], `${uploadId}.jpeg`, { type: "image/jpeg" });
+    let newFile = new File([blob], `${uploadId}`, { type: "image/jpeg" });
     // Build the form data - You can add other input values to this i.e descriptions, make sure img is appended last
-    
     formData.append("imgfile", newFile);
   
-    uploadAPI(formData)//.then(() =>  downloadAPI().then((res)=> console.log(res.data)))
-  
+    uploadAPI(formData)
   }
     
   return React.createElement(UploadView, {

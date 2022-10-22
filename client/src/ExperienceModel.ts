@@ -84,7 +84,7 @@ class ExperienceModel {
             this.posts = data.posts;
             this.creator = data.creator;
             this.notifyObservers();
-            console.log("log från experiencemodel", this.name);
+            console.log("log från experiencemodel", this.posts);
         });
     }
 }

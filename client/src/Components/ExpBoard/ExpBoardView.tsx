@@ -27,7 +27,7 @@ const ExpBoardView= ({name, startTime, endTime, posts, showAddContent, isShown, 
             <p>{startTime} - {endTime}</p>
 
             <GridPresenterContainerXPBoard>
-                <GridPresenter/>
+                <img src="https://firebasestorage.googleapis.com/v0/b/project-dh2643.appspot.com/o/experiences%2F06a6e7e1-67a0-42fb-9840-e37257f152a4?alt=media&token=f5a4e24f-fa83-4a38-b386-400ca541ac7b"/>
             </GridPresenterContainerXPBoard>
 
             <ButtonContainer>

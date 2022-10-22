@@ -28,15 +28,17 @@ const listenToExperience = (id:string, callback:any) => {
 const storeFile =  (file:any, fileName: string, userId: string, expId: string, date: string) => {
   //Store data in Cloud Storage
   const ref = ref_storage(storage, 'experiences/' + fileName);
-  const refFirebase = ref_db(db, 'experiences/' + expId + '/posts/' + fileName);
- 
+  console.log("kom in i store")
+  const refFirebase = ref_db(db, 'experiences/' + expId + '/posts/');
+  
   uploadBytesResumable(ref, file).then(snapshot => 
     getDownloadURL(ref)
-    .then((downloadURL:string) => push(refFirebase, {
+    .then((downloadURL:string) => {console.log("kom in i urldwonload"), push(refFirebase, {
       userId : userId,
       date : date,
       imgURL : downloadURL
-    })))
+    })}
+    ))
 
   /*uploadTask.on('state_changed', () => {
     getDownloadURL(ref).then((downloadURL:string) => {

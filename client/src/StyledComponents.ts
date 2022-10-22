@@ -19,6 +19,7 @@ const Heading1 = css`
     ${PrimaryColorFont};
     font-size: ${props => props.theme.fontSizes.large};
     font-weight: 900;
+    z-index: 2;
 `;
 
 const Heading2 = css`

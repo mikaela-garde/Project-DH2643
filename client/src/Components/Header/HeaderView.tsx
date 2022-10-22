@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from "styled-components";
+import styled, {keyframes} from "styled-components";
 import BackButtonArrow from "../../Images/back-button-arrow.svg";
 import {Link} from "react-router-dom";
 import BoardSVG from "../../Images/board.svg";
@@ -8,10 +8,12 @@ import darkModeIcon from "../../Images/moon.svg";
 import { Heading1 } from '../../StyledComponents';
 import SVG from "react-inlinesvg";
 import Switch from "react-switch";
+import { fadeInDown, fadeInRight } from 'react-animations';
+
+const fadeInDownAnimation = keyframes`${fadeInDown}`;
+const fadeInUpAnimation = keyframes`${fadeInRight}`;
 
 const HeaderView= ({NavTitle, ProfilePic, darkMode, handleModeChange, onLogout, backButtonVis}) =>
-
-    <HeadingContainer>
 
         <Menu>
             <IconsContainer>
@@ -31,42 +33,9 @@ const HeaderView= ({NavTitle, ProfilePic, darkMode, handleModeChange, onLogout, 
                 </IconContainer>
             </IconsContainer>
         </Menu>
-
-        <NavContainer>
-            {backButtonVis && <NavLink to="/">
-                <BackButton src={BackButtonArrow}></BackButton>
-            </NavLink>}
-            <PageTitle>{NavTitle}</PageTitle> 
-        </NavContainer>
-
-    </HeadingContainer>
 ;
 
-const HeadingContainer = styled.div`
-    height: 100px;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    @media (max-width: 1000px) {
-        flex-direction: column;
-        height:200px;
-        gap: 40px;
-    }
-    z-index: 3;
-`;
-
 ////////////////////////////// BACK BUTTON & TITLE //////////////////////////////////
-const NavContainer = styled.div`
-    display: flex;
-    flex-direction: row;
-    justify-items: center;
-    @media (max-width: 1000px) {
-        position: static;
-    }
-    z-index: 2;
-`;
-
 const BackButton = styled(SVG)`
     height: 50px;
     & circle {
@@ -85,10 +54,12 @@ const NavLink = styled(Link)`
 
 const PageTitle = styled.h1`
     ${Heading1}
+    animation: 2s ${fadeInDownAnimation};
 `;
 
 /////////////////////////////// MENU /////////////////////////////////
 const Menu = styled.div`
+        /*animation: 2s ${fadeInUpAnimation}; borde ha detta men den rerendras ju..*/
         color: ${props => props.theme.colors.contrast};
         font-size: ${props => props.theme.fontSizes.xsmall};
         font-weight: 400;
@@ -98,9 +69,9 @@ const Menu = styled.div`
         border-color: ${props => props.theme.colors.primary};
         border-radius: 150px;
         height: 45px;
-        width: 60vw;
         cursor: pointer;
         border-style: solid;
+        top: 30px;
 
         @media (min-width: 1000px) {
             position: absolute;
@@ -137,5 +108,11 @@ const IconContainer = styled.div`
         transition: opacity 200ms ;
     }
 `;
+/*        <NavContainer>
+            {backButtonVis && <NavLink to="/">
+                <BackButton src={BackButtonArrow}></BackButton>
+            </NavLink>}
+            <PageTitle>{NavTitle}</PageTitle> 
+        </NavContainer>*/
 
 export default HeaderView;

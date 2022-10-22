@@ -7,11 +7,18 @@ import {Link} from "react-router-dom";
 import DatePicker from "react-datepicker"
 import 'react-datepicker/dist/react-datepicker.css';
 import HeaderPresenter from '../Header/HeaderPresenter';
-import { PrimaryBtn, InputField, ContentContainerLogin, InputLabel, InputFieldWrapper, ContentContainerAll } from '../../StyledComponents';
+import BackButtonArrow from "../../Images/back-button-arrow.svg";
+import SVG from "react-inlinesvg";
+import { PrimaryBtn, InputField, ContentContainerLogin, InputLabel, InputFieldWrapper, ContentContainerAll, Heading1 } from '../../StyledComponents';
 
 const CreateExpView = ({setName, startDate, setStartDate, endDate, setEndDate, invite, setInvite, onInvite, participants, onCreate}) =>
         <Container>
-            <HeaderPresenter NavTitle={"Create Experience"}/>
+            <NavContainer>
+                    <NavLink to="/">
+                        <BackButton src={BackButtonArrow}></BackButton>
+                    </NavLink>
+                <PageTitle>Create Experience</PageTitle> 
+            </NavContainer>
             <ContentContainer>
                 <ContentWrapper>
                     <Column>
@@ -76,6 +83,27 @@ const ContentContainer = styled.div`
     ${ContentContainerLogin}
 `;
 
+const BackButton = styled(SVG)`
+    height: 50px;
+    align-self: center;
+    margin-right: 20px;
+    & circle {
+        fill: ${props => props.theme.colors.primary};
+    }
+    & path{
+        fill: ${props => props.theme.colors.contrast};
+    }
+`;
+
+const PageTitle = styled.h1`
+    ${Heading1}
+`;
+
+const NavContainer = styled.div`
+    display: flex;
+    flex-direction: row;
+    margin-top: 13px;
+`;
 const ContentWrapper = styled.div`
     display: flex;
     flex-direction: row;

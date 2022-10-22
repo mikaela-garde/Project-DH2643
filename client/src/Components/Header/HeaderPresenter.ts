@@ -5,7 +5,6 @@ import HeaderView from "./HeaderView";
 
 function HeaderPresenter ({NavTitle}) {
     const darkMode = useModelProp(UserModel, "dark_mode");
-    
     const profilePic = "" //Getta profilepic from databas
     const [backButtonVis, setBackButtonVis] = useState(true);
     useEffect(() => {

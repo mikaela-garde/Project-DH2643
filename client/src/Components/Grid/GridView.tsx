@@ -188,6 +188,7 @@ const ExperienceContainer = styled.div`
       flex-direction: column;
       justify-content: center;
       gap: 30px;
+      
 `;
 
 const Title3 = styled.h3`

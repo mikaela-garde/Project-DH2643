@@ -6,9 +6,9 @@ import { experienceModel } from '../../app';
 
 
 function ExpBoardPresenter () {
-    const name= useModelProp(experienceModel, "name");
-    const startTime= useModelProp(experienceModel, "start_time");
-    const endTime= useModelProp(experienceModel, "end_time");
+    const name = useModelProp(experienceModel, "name");
+    const startTime = useModelProp(experienceModel, "start_time");
+    const endTime = useModelProp(experienceModel, "end_time");
     const posts = useModelProp(experienceModel, "posts");
 
     const navigate = useNavigate();

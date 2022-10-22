@@ -12,7 +12,8 @@ const NoDataView = () => {
 ;
 
 const LoadingIconContainer = styled.div`
-    ${ContentContainerAll};    
+    ${ContentContainerAll};
+    background-color: #0F0838;
 `;
 
 const LoadingIcon = styled.img``;

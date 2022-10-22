@@ -7,7 +7,6 @@ import { db, store, listenToUser, storage } from "../../firebase";
 const router = express.Router();
 
 router.route("/").post( (req: express.Request, res: express.Response) => {
-    console.log("innne i")
     try {
         console.log(req.body);
         /*if(req){

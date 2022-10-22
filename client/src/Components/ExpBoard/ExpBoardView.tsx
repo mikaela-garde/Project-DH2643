@@ -1,21 +1,26 @@
 import React from 'react';
 import styled from "styled-components";
-import { PrimaryBtn, PrimaryBtnContainer, ContentContainerAll } from '../../StyledComponents';
+import { PrimaryBtn, PrimaryBtnContainer, ContentContainerAll, Heading1 } from '../../StyledComponents';
 import GridPresenter from '../Grid/GridPresenter';
-import HeaderPresenter from '../Header/HeaderPresenter';
+import {Link} from "react-router-dom";
 import UploadPresenter from '../Upload/UploadPresenter';
 import BackgroundBlobLeftSVG from "../../Images/BackgroundBlobDashboardLeft.svg";
 import BackgroundBlobRightSVG from "../../Images/BackgroundBlobDashboardRight.svg";
+import SVG from "react-inlinesvg";
+import BackButtonArrow from "../../Images/back-button-arrow.svg";
 
 const ExpBoardView= ({name, startTime, endTime, posts, showAddContent, isShown, blur, brightness}) =>
     <ContentContainer>
         {isShown && <UploadPresenter showAdd={showAddContent}></UploadPresenter>}
         
         <DashboardContainer blur={blur} brightness={brightness}>
-        <HeaderPresenter NavTitle={name}/>
+        <NavContainer>
+                    <NavLink to="/">
+                        <BackButton src={BackButtonArrow}></BackButton>
+                    </NavLink>
+                <PageTitle>My Experience</PageTitle> 
+        </NavContainer>
         <p>{startTime} - {endTime}</p>
-        <GridPresenter/>
-        <AddContentBtn onClick={() => showAddContent()}>Add content</AddContentBtn>
 
         <GridPresenterContainer>
             <GridPresenter/>
@@ -38,9 +43,42 @@ const ExpBoardView= ({name, startTime, endTime, posts, showAddContent, isShown, 
        
 ;
 
+const NavLink = styled(Link)`
+    display: flex;
+    a {
+        align-self: center;
+    }
+`;
+
+const BackButton = styled(SVG)`
+    height: 50px;
+    align-self: center;
+    margin-right: 20px;
+    & circle {
+        fill: ${props => props.theme.colors.primary};
+    }
+    & path{
+        fill: ${props => props.theme.colors.contrast};
+    }
+`;
+
+const NavContainer = styled.div`
+    display: flex;
+    flex-direction: row;
+    margin-top: 13px;
+    align-self: center ;
+`;
+
+const PageTitle = styled.h1`
+    ${Heading1}
+`;
+
 const GridPresenterContainer = styled.div`
     margin: 40px;
     overflow: auto;
+    ::-webkit-scrollbar { 
+    display: none;
+      }  /* Safari and Chrome */
 `;
 
 const AddContentBtn = styled.button`
@@ -68,9 +106,6 @@ const DashboardContainer = styled.div<Props>`
 `
 
 const ContentContainer = styled.div`
-    ${ContentContainerAll};
-    z-index: 0;
-    justify-content: flex-start;
 `;
 
 const Toolbar = styled.div`
@@ -78,11 +113,12 @@ const Toolbar = styled.div`
 `;
 
 ///////////////////////////////// BLOBS ///////////////////////////////
+
 const BackgroundBlobContainerLeft = styled.div`
     position: fixed;
     left: 50%;
     transform: translateX(-50%);
-    bottom: 0px;
+    bottom: 0;
     z-index: 1;
 `;
 

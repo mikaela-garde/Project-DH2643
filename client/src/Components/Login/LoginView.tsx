@@ -1,9 +1,12 @@
 import React from 'react';
 import {Link} from "react-router-dom";
-import styled from "styled-components";
 import LogotypeHolderImg from "../../Images/LogotypeHolder.png";
 import BackgroundBlobLeftSVG from "../../Images/BackgroundBlobLoginLeft.svg";
 import BackgroundBlobRightSVG from "../../Images/BackgroundBlobLoginRight.svg";
+import styled, { keyframes } from 'styled-components';
+import { fadeInDown } from 'react-animations';
+
+const Animation = keyframes`${fadeInDown}`;
 
 import { PrimaryBtn, InputField, ContentContainerAll, ImgContainerLogin, InputLabel, NavLink, InputFieldWrapper} from '../../StyledComponents';
 
@@ -43,11 +46,13 @@ const ContentContainer = styled.div`
 
 const ImgContainer = styled.img`
     ${ImgContainerLogin}
+    animation: 1.5s ${Animation};
 `;
 
 const InputFieldLoginWrapper = styled.div`
     ${InputFieldWrapper}
-    align-self: center ;
+    align-self: center;
+    animation: 2s ${Animation};
 `;
 
 const InputFieldLogin = styled.input`
@@ -60,10 +65,12 @@ const InputLabelLogin = styled.label`
 
 const LoginButton = styled.button`
     ${PrimaryBtn}
+    animation: 2.5s ${Animation};
 `;
 const NavLinkSignup = styled(Link)`
     ${NavLink}
     z-index: 2;
+    animation: 2.5s ${Animation};
 `;
 
 const BackgroundBlobContainerLeft = styled.div`

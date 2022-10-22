@@ -9,6 +9,7 @@ import CreateExpPresenter from './Components/CreateExp/CreateExpPresenter';
 import DashboardPresenter from './Components/Dashboard/DashboardPresenter';
 import ExpBoardPresenter from './Components/ExpBoard/ExpBoardPresenter';
 import NoPagePresenter from './Components/NoPage/NoPagePresenter';
+import HeaderPresenter from './Components/Header/HeaderPresenter';
 //import EmptyProfileImage from "./Images/NewEmptyProfileImg.svg";
 import { lightTheme, darkTheme } from './Theme';
 import {ThemeProvider} from "styled-components";
@@ -21,18 +22,13 @@ import useModelProp from './useModelProp';
 import NoDataView from './Components/NoData/NoDataView';
 import ExperienceModel from "./ExperienceModel";
 import { Experience_Template } from './types';
+ 
 
 let UserModel = new Model();
 let experienceModel = new ExperienceModel();
 
 const socket = io("https://localhost:8081");
 
-const GlobalStyle = createGlobalStyle `
-    body * {
-        margin: 0;
-        padding: 0;
-    }
-`;
 
 const App = () => {
     const darkMode = useModelProp(UserModel, "dark_mode");
@@ -47,9 +43,11 @@ const App = () => {
     }, []);
 
     return (
+    <>
     <ThemeProvider theme={darkMode ? darkTheme : lightTheme}> 
         <GlobalStyle/>
         <HashRouter>
+            {loggedIn == undefined ? <></>:<HeaderPresenter NavTitle={"HEJ"}/>}
             <Routes>
                 <Route path="/" element={loggedIn == undefined ? <NoDataView />: loggedIn ? <DashboardPresenter />: <LoginPresenter />} />
                 <Route path="/signup" element={loggedIn == undefined ? <NoDataView />:loggedIn ? <Navigate to="/"/>: <SignupPresenter />} />
@@ -61,8 +59,15 @@ const App = () => {
             </Routes>
         </HashRouter>
     </ThemeProvider>
-    )
+    </>)
 }
+
+const GlobalStyle = createGlobalStyle `
+    html, body * {
+        margin: 0;
+        padding: 0;
+    }
+`;
 
 ReactDOM.createRoot(document.getElementById('app')!).render(<App />);
 

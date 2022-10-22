@@ -37,7 +37,7 @@ class UserModel {
         this.friend_requests;
         this.experiences = [];
         this.notifications;
-        this.dark_mode = false;
+        this.dark_mode= false;
         this.subscribers =[];
         this.signInErrorMsg;
         this.signErrorMsg;

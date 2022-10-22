@@ -20,10 +20,28 @@ const checkAuth = (req: express.Request, res: express.Response, next: express.Ne
     headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
     }).then((res:any) => res.json())
     .then((json:any) => {
-      res.locals.user = json;
+      res.locals.user = json; //OM DET EJ FINNS NGN TOKEN SÅ KOMMER DET SKICAKS TILLBAKA ETT ERROR HÄR
       next();
     })
     .catch((error:any) => console.log(error));
+}
+
+const checkAuthUpload = (req: express.Request, res: express.Response) => {
+  console.log("NY checkAuth")
+  //@ts-ignore
+  console.log(req.files[0].buffer.toString().replaceAll('"', ""))
+  if (req.files) {
+  fetch('https://securetoken.googleapis.com/v1/token?key=AIzaSyBfZR7iec4_6_AbFzQliaLBq326x3FS91I', {
+    method: 'POST',
+    //@ts-ignore
+    body: "grant_type=refresh_token&refresh_token=" + req.files[0].buffer.toString().replaceAll('"', ""),
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+    }).then((res:any) => res.json())
+    .then((json:any) => {
+      res.locals.user = json;
+    })
+    .catch((error:any) => console.log(error));
+  }
 }
 
 const createAccountFirebase = (req: express.Request, res: express.Response, next: express.NextFunction) => {  
@@ -55,4 +73,4 @@ const signInFirebase = (req: express.Request, res: express.Response, next: expre
   });
 }
 
-export { authFirebase, createAccountFirebase, signInFirebase, checkAuth};
+export { authFirebase, createAccountFirebase, signInFirebase, checkAuth, checkAuthUpload};

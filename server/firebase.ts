@@ -1,6 +1,6 @@
 // @ts-no-check
 import { initializeApp } from 'firebase/app';
-import { Database, getDatabase, onValue, set, ref as ref_db} from "firebase/database";
+import { Database, getDatabase, onValue, set, ref as ref_db, push} from "firebase/database";
 import firebaseConfig from './firebase-config';
 import { getStorage, ref as ref_storage, uploadBytesResumable, getDownloadURL} from "firebase/storage";
 
@@ -25,14 +25,26 @@ const listenToExperience = (id:string, callback:any) => {
   return unsubscribe;
 }
 
-const storeFile = (buffer: any, fileName: string, res: any) => {
+const storeFile =  (file:any, fileName: string, userId: string, expId: string, date: string) => {
   //Store data in Cloud Storage
   const ref = ref_storage(storage, 'experiences/' + fileName);
+  const refFirebase = ref_db(db, 'experiences/' + expId + '/posts/' + fileName);
  
-  uploadBytesResumable(ref, buffer).then((snapshot) => {
+  uploadBytesResumable(ref, file).then(snapshot => 
+    getDownloadURL(ref)
+    .then((downloadURL:string) => push(refFirebase, {
+      userId : userId,
+      date : date,
+      imgURL : downloadURL
+    })))
+
+  /*uploadTask.on('state_changed', () => {
+    getDownloadURL(ref).then((downloadURL:string) => {
+      console.log("file location", downloadURL)s; 
+    }
     console.log('Uploaded a blob or file!');
     return res.status(200).send("File uploaded to Cloud Storage");
-  })
+  })*/
 }
 
 const fetchFile = async (fileName: string, res:any) => {

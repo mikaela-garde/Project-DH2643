@@ -8,7 +8,7 @@ import experiences from './routes/experiences';
 import { db, storeFile, fetchFile, listenToUser, storage, listenToExperience } from "../firebase";
 import { onValue, ref } from "firebase/database";
 import Multer, { diskStorage } from 'multer';
-import { checkAuth } from "./middlewares/auth";
+import { checkAuth, checkAuthUpload} from "./middlewares/auth";
 
 const app = express();
 const port = process.env.PORT || 8081;
@@ -48,10 +48,22 @@ const multer = Multer({
     },
   });  
 
-router.route("/api/upload").post(multer.single("imgfile"), (req: express.Request, res: express.Response) => {
+router.route("/api/upload").post( multer.any(), (req: express.Request, res: express.Response) => {
     try {
-        if(req.file){
-            storeFile(req.file.buffer, req.file.originalname, res);
+        if(req.files){
+            checkAuthUpload(req, res)
+            const userId = res.locals.user.user_id
+            //@ts-ignore
+            const expId = req.files[1].buffer.toString().replaceAll('"', "")
+            //@ts-ignore
+            const date = req.files[2].buffer.toString().replaceAll('"', "")
+            //@ts-ignore
+            const file = req.files[3].buffer
+            //@ts-ignore
+            const fileName = req.files[3].originalname
+            
+            storeFile(file, fileName, userId, expId, date );
+
         }
     } catch (error) {
         res.status(500).send(error)
@@ -60,7 +72,7 @@ router.route("/api/upload").post(multer.single("imgfile"), (req: express.Request
 
 router.route("/api/upload").get((req: express.Request, res: express.Response) => {
     try {
-        fetchFile("c453d824-e681-4a9a-91a5-0f03544dade7.jpeg", res);
+        fetchFile("00b40d86-aaf6-410b-83a8-9517c4aac101.jpeg", res);
     } catch (error) {
         res.status(500).send(error)
     }

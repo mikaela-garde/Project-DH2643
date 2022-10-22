@@ -26,6 +26,8 @@ const ExpBoardView= ({name, startTime, endTime, posts, showAddContent, isShown, 
             </NavContainerXPBoard>
             <p>{startTime} - {endTime}</p>
 
+            
+
             <GridPresenterContainerXPBoard>
                 <GridPresenter/>
             </GridPresenterContainerXPBoard>

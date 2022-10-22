@@ -34,7 +34,6 @@ const App = () => {
     const darkMode = useModelProp(UserModel, "dark_mode");
     const loggedIn = useModelProp(UserModel, "isLoggedIn");
     useEffect(() => {
-        console.log("i app");
         if(localStorage.getItem("refreshToken")) {
             UserModel.getUserFromToken(localStorage.getItem("refreshToken"));
         } else {
@@ -47,7 +46,7 @@ const App = () => {
     <ThemeProvider theme={darkMode ? darkTheme : lightTheme}> 
         <GlobalStyle/>
         <HashRouter>
-            {loggedIn == undefined ? <></>:<HeaderPresenter NavTitle={"HEJ"}/>}
+            {loggedIn == undefined || loggedIn == false ? <></>:<HeaderPresenter/>}
             <Routes>
                 <Route path="/" element={loggedIn == undefined ? <NoDataView />: loggedIn ? <DashboardPresenter />: <LoginPresenter />} />
                 <Route path="/signup" element={loggedIn == undefined ? <NoDataView />:loggedIn ? <Navigate to="/"/>: <SignupPresenter />} />
@@ -66,6 +65,10 @@ const GlobalStyle = createGlobalStyle `
     html, body * {
         margin: 0;
         padding: 0;
+    }
+
+    body::-webkit-scrollbar {
+        display: none;
     }
 `;
 

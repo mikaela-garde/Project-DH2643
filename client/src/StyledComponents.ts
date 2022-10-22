@@ -1,62 +1,66 @@
 import { css } from 'styled-components';
 
-const Heading1 = css`
-    font-size: ${props => props.theme.fontSizes.large};
-    font-weight: 900;
+const FlexRow = css`
+    display: flex;
+    flex-direction: row;
+`;
+
+const FlexColumn = css`
+    display: flex;
+    flex-direction: column;
+`;
+
+const PrimaryColorFont = css`
     color: ${props => props.theme.colors.primary};
     font-family: ${props => props.theme.fonts.raleway}; 
-    background-color: solid;
+`;
+
+const Heading1 = css`
+    ${PrimaryColorFont};
+    font-size: ${props => props.theme.fontSizes.large};
+    font-weight: 900;
+    z-index: 2;
 `;
 
 const Heading2 = css`
+    ${PrimaryColorFont};
     font-size: ${props => props.theme.fontSizes.medium};
     font-weight: 500;
-    color: ${props => props.theme.colors.primary};
-    font-family: ${props => props.theme.fonts.raleway}; 
-    background-color: solid;
 `;
 
 const Heading3 = css`
+    ${PrimaryColorFont};
     font-size: ${props => props.theme.fontSizes.small};
     font-weight: 500;
-    color: ${props => props.theme.colors.primary};
-    font-family: ${props => props.theme.fonts.raleway}; 
-    background-color: solid;
-
 `;
 
 const BodyText = css`
+    ${PrimaryColorFont};
     font-size: ${props => props.theme.fontSizes.small};
     font-weight: 300;
-    color: ${props => props.theme.colors.primary};
-    font-family: ${props => props.theme.fonts.raleway}; 
-    background-color: solid;
 `;
 
 const Subtitle = css`
+    ${PrimaryColorFont}
     font-size: ${props => props.theme.fontSizes.xsmall};
     font-weight: 400;
-    color: ${props => props.theme.colors.primary};
-    font-family: ${props => props.theme.fonts.raleway}; 
-    background-color: solid;
 `;
 
 const ContentContainerAll = css`
-    display: flex;
-    flex-direction: column;
+    ${FlexColumn};
     align-items: center;
     justify-content: center;
     background: ${props => props.theme.colors.background};
     height: 100vh;
     width: 100vw;
+    overflow: hidden; /* animationen skapar en scrollbar om inte denna finns*/
 `;
 
 //Ta bort när createexp view är klar
 const ContentContainerLogin = css`
-    display: flex;
+    ${FlexColumn};
     align-items: center;
     justify-content: center;
-    flex-direction: column;
     height: 100vh;
     >*  {
         margin: 15px;
@@ -92,13 +96,18 @@ const PrimaryBtn = css`
 `;
 
 const PrimaryBtnContainer = css`
-    display: flex;
-    flex-direction: row;
+    ${FlexRow}
     margin: 0px;
     >*  {
         margin: 10px;
         };  
         z-index: 2;
+`;
+
+const BtnPosBottomCenter = css`
+    align-self: center;
+    margin-top: auto;
+    margin-bottom: 30px;
 `;
 
 
@@ -122,15 +131,15 @@ const InputField = css`
 `;
 
 const InputLabel = css`
-  color: ${props => props.theme.colors.primary};
-  font-family: ${props => props.theme.fonts.raleway}; 
-  position: absolute;
-  font-weight: 500;
-  background-color: ${props => props.theme.colors.contrast};
-  border-radius:20px;
-  bottom: 35px;
-  left: 25px;
-  padding: 0px 8px 0px 8px;
+    color: ${props => props.theme.colors.primary};
+    font-family: ${props => props.theme.fonts.raleway}; 
+    position: absolute;
+    font-weight: 500;
+    background-color: ${props => props.theme.colors.contrast};
+    border-radius:20px;
+    bottom: 35px;
+    left: 25px;
+    padding: 0px 8px 0px 8px;
 `;
 
 const ImgContainerLogin = css`
@@ -154,4 +163,30 @@ const NavLink = css`
     }
 `;
 
-export {Heading1, Heading2, Heading3, BodyText, Subtitle, PrimaryBtn, InputField, ContentContainerAll, ContentContainerLogin, ImgContainerLogin, InputLabel, NavLink, InputFieldWrapper, PrimaryBtnContainer};
+const BackButton = css`
+    height: 50px;
+    align-self: center;
+    margin-right: 20px;
+    & circle {
+        fill: ${props => props.theme.colors.primary};
+    }
+    & path{
+        fill: ${props => props.theme.colors.contrast};
+    }
+`;
+
+const NavContainer = css`
+    ${FlexRow}
+    margin-top: 13px;
+    align-self: center;
+`;
+
+const GridPresenterContainer = css`
+    margin: 50px 150px;
+    overflow: auto;
+    ::-webkit-scrollbar { 
+        display: none;
+    }
+`;
+
+export {BtnPosBottomCenter, GridPresenterContainer, NavContainer, BackButton, Heading1, Heading2, Heading3, BodyText, Subtitle, PrimaryBtn, InputField, ContentContainerAll, ContentContainerLogin, ImgContainerLogin, InputLabel, NavLink, InputFieldWrapper, PrimaryBtnContainer};

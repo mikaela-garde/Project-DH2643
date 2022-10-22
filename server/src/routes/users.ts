@@ -1,6 +1,6 @@
 import express from "express";
 import { reload } from "firebase/auth";
-import { get, set, ref, orderByKey, query, orderByChild, equalTo, onValue, update } from "firebase/database";
+import { get, set, ref, orderByKey, query, orderByChild, equalTo, onValue, update, push } from "firebase/database";
 import {db} from '../../firebase';
 import  {signInFirebase, createAccountFirebase, checkAuth} from "../middlewares/auth";
 import { User } from "../models/types";
@@ -61,6 +61,11 @@ router.route("/toggle-dark").post(checkAuth, (req: express.Request, res: express
         dark_mode: req.body.dark_mode
       });
     res.status(200).send({ user: res.locals.user, success: true}); // need to also add catch unless this works
+});
+
+router.route("/experience").post(checkAuth, (req: express.Request, res: express.Response) => {
+    push(ref(db, 'users/' + res.locals.user.user_id + '/experiences'), [req.body.exp_id]).then(() => res.status(200).send({ user: res.locals.user, success: true}));
+     // need to also add catch unless this works
 });
 
 export default router;

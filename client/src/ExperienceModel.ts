@@ -62,10 +62,10 @@ class ExperienceModel {
     }
 
     createExperience(name, start_time, end_time, participants) {
-        participants.push(UserModel);
-        console.log("deltagare", { ...participants.map(p => p.id)});
-        
-        return createExperienceAPI(localStorage.getItem("refreshToken"), name,start_time, end_time, { ...participants.map(p => p.id)}).then((res) => {
+        participants = [...participants, UserModel];
+
+        return createExperienceAPI(localStorage.getItem("refreshToken"), name,start_time, end_time, [...participants.map(p => p.id)]).then((res) => {
+            console.log("DENNA är creatad", res.data.exp_id);
             UserModel.addExperience(res.data.exp_id);
             this.listenToExperienceData(res.data.exp_id);
             return res;

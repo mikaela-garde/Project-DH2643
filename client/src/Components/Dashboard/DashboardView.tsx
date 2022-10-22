@@ -1,24 +1,25 @@
 import React from 'react';
 import styled, {keyframes} from "styled-components";
-import { PrimaryBtn, PrimaryBtnContainer, ContentContainerAll, Heading1 } from '../../StyledComponents';
+import { BtnPosBottomCenter, PrimaryBtn, PrimaryBtnContainer, ContentContainerAll, Heading1, NavContainer, GridPresenterContainer } from '../../StyledComponents';
 import GridPresenter from '../Grid/GridPresenter';
-import HeaderPresenter from '../Header/HeaderPresenter';
 import BackgroundBlobLeftSVG from "../../Images/BackgroundBlobDashboardLeft.svg";
 import BackgroundBlobRightSVG from "../../Images/BackgroundBlobDashboardRight.svg";
-import { fadeInUp } from 'react-animations';
-import SVG from "react-inlinesvg";
-import {Link} from "react-router-dom";
+import { fadeInUp, fadeInDown } from 'react-animations';
 
 const fadeInUpAnimation = keyframes`${fadeInUp}`;
+const fadeInDownAnimation = keyframes`${fadeInDown}`;
 
 const DashboardView= ({toCreateExp}) =>
-    <DashboardContainer>
-            <NavContainer>
-                <PageTitle>My Experiences</PageTitle> 
-            </NavContainer>
-        <GridPresenterContainer>
+    <ContentContainer>
+
+        <NavContainerDashboard>
+            <PageTitle>My Experiences</PageTitle> 
+        </NavContainerDashboard>
+
+        <GridPresenterContainerDashboard>
             <GridPresenter/>
-        </GridPresenterContainer>
+        </GridPresenterContainerDashboard>
+
         <ButtonContainer>
             <CreateExpButton onClick={() => toCreateExp()}>Create Experience</CreateExpButton>
         </ButtonContainer>
@@ -31,59 +32,35 @@ const DashboardView= ({toCreateExp}) =>
             <BackgroundBlob src = {BackgroundBlobRightSVG}></BackgroundBlob>
         </BackgroundBlobContainerRight>
 
-    </DashboardContainer>
-       
+    </ContentContainer>
 ;
+
+const ContentContainer = styled.div`
+    ${ContentContainerAll};
+    justify-content: flex-start;
+`;
+
+const NavContainerDashboard = styled.div`
+    ${NavContainer}
+`;
+
+const PageTitle = styled.h1`
+    ${Heading1};
+    animation: 1s ${fadeInDownAnimation};
+`;
+
+const GridPresenterContainerDashboard = styled.div`
+    ${GridPresenterContainer}
+`;
 
 const ButtonContainer = styled.div`
     ${PrimaryBtnContainer}
+    ${BtnPosBottomCenter}
 `;
 
 const CreateExpButton = styled.button`
     ${PrimaryBtn}
-    align-self: center;
-    margin-top: auto;
-    margin-bottom: 30px;
     animation: 2s ${fadeInUpAnimation};
-`;
-
-const NavContainer = styled.div`
-    display: flex;
-    flex-direction: row;
-    margin-top: 13px;
-`;
-const DashboardContainer = styled.div`
-    ${ContentContainerAll};
-    justify-content: flex-start;
-    overflow: hidden; /* animationen skapar en scrollbar om inte denna finns*/
-`;
-
-const GridPresenterContainer = styled.div`
-    margin: 150px;
-    overflow: auto;
-    ::-webkit-scrollbar { 
-    display: none;
-      }  /* Safari and Chrome */
-`;
-
-const BackButton = styled(SVG)`
-    height: 50px;
-    & circle {
-        fill: ${props => props.theme.colors.primary};
-    }
-    & path{
-        fill: ${props => props.theme.colors.contrast};
-    }
-`;
-
-const NavLink = styled(Link)`
-    display: flex;
-    align-self: center;
-    margin-right:30px;
-`;
-
-const PageTitle = styled.h1`
-    ${Heading1}
 `;
 
 const BackgroundBlobContainerLeft = styled.div`
@@ -99,12 +76,14 @@ const BackgroundBlobContainerRight = styled.div`
     top: 0px;
     right: 0;
     z-index: 1;
-
+    height: 50px;
+    
     @media (max-width: 768px) {
         top: -100px;
         right: 0px;
     }
 `;
+
 const BackgroundBlob = styled.img`
     vertical-align: middle;
 `;

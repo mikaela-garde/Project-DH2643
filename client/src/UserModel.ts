@@ -1,6 +1,6 @@
 import { socket } from "./app";
 import {User, Image, Social_Media, Friend_request, Notifications} from "./types";
-import {createAccountAPI, listenToUserAPI, loginAPI, getUidFromTokenAPI, toggleDarkMode} from "./webAPI/webAPI";
+import {createAccountAPI, listenToUserAPI, loginAPI, getUidFromTokenAPI, toggleDarkModeAPI, updateExperiencesUserAPI} from "./webAPI/webAPI";
 
 class UserModel {
     /** Model containing information for the logged in user from firebase*/
@@ -107,6 +107,7 @@ class UserModel {
     listenToUserData(token) {
         listenToUserAPI(token);
         socket.on("user", (data) => {
+            console.log("listening");
             this.id = data.id;
             this.email = data.email;
             this.first_name = data.first_name;
@@ -116,7 +117,11 @@ class UserModel {
             this.profile_img = data.profile_img;
             this.friends = data.friends; //Ska man lägga in hela användaren här eller vara ett id
             this.friend_requests = data.friend_requests;
-            this.experiences = data.experiences;
+            if(data.experiences) {
+                this.experiences = Object.values(data.experiences); 
+            } else {
+                this.experiences = [];
+            }
             this.notifications = data.notifications;
             this.dark_mode = data.dark_mode;
             this.notifyObservers();
@@ -134,8 +139,7 @@ class UserModel {
     }
 
     setDarkMode(dark_mode: boolean) {
-        toggleDarkMode(localStorage.getItem("refreshToken"), dark_mode);
-        this.notifyObservers();
+        toggleDarkModeAPI(localStorage.getItem("refreshToken"), dark_mode);
     }
     setIsLoggedIn(boolean) {
         this.isLoggedIn = boolean;
@@ -147,10 +151,8 @@ class UserModel {
         window.location.reload();
     }
 
-    addExperience(id: string) {
-        this.experiences = [...this.experiences, id];
-        console.log("exp i user", this.experiences);
-        this.notifyObservers();
+    addExperience(exp_id: string) {
+        updateExperiencesUserAPI(localStorage.getItem("refreshToken"), exp_id);
     }
 
 

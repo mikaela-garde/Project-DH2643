@@ -9,7 +9,7 @@ function CreateExpPresenter (props) {
     const [name, setName] = useState("");
     const [startDate, setStartDate] = useState(new Date());
     const [endDate, setEndDate] = useState(new Date());
-    const [participants, setParticipants] = useState([]);
+    const [participants, setParticipants] = useState<any[]>([]);
     const [invite, setInvite] = useState("");
     const navigate = useNavigate();
     

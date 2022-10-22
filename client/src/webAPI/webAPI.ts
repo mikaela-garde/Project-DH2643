@@ -31,9 +31,14 @@ export const uploadAPI = (formData) => axios.post("https://localhost:8081/api/up
 export const downloadAPI = () => axios.get("https://localhost:8081/api/upload" );
 
 
-export const toggleDarkMode = (token, dark_mode) => axios.post("https://localhost:8081/api/users/toggle-dark", {
+export const toggleDarkModeAPI = (token, dark_mode) => axios.post("https://localhost:8081/api/users/toggle-dark", {
     token: token,
     dark_mode: dark_mode
+});
+
+export const updateExperiencesUserAPI = (token, exp_id) => axios.post("https://localhost:8081/api/users/experience", {
+    token: token,
+    exp_id: exp_id
 });
 
 

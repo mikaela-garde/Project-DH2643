@@ -12,7 +12,6 @@ import { Heading2, Heading3, BodyText, ContentContainerAll } from '../../StyledC
 const ProfileView = ({userProfileImg, userFirstName, userLastName, userSocialMedia, userDescription, userExperienceList}) =>
 
     <ContentContainer>
-        <HeaderPresenter NavTitle={"Profile"}/>
 
         <ProfileContainer>
             <ProfileHeaderContainer>

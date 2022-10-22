@@ -49,6 +49,7 @@ const ContentContainerAll = css`
     background: ${props => props.theme.colors.background};
     height: 100vh;
     width: 100vw;
+    overflow: hidden; /* animationen skapar en scrollbar om inte denna finns*/
 `;
 
 //Ta bort när createexp view är klar
@@ -101,6 +102,12 @@ const PrimaryBtnContainer = css`
         z-index: 2;
 `;
 
+const BtnPosBottomCenter = css`
+    align-self: center;
+    margin-top: auto;
+    margin-bottom: 30px;
+`;
+
 
 const InputFieldWrapper = css`
     display: flex;
@@ -121,17 +128,17 @@ const InputField = css`
     color: ${props => props.theme.colors.primary};
 `;
 
-const InputLabel = css`
-  color: ${props => props.theme.colors.primary};
-  font-family: ${props => props.theme.fonts.raleway}; 
-  position: absolute;
-  font-weight: 500;
-  background-color: ${props => props.theme.colors.contrast};
-  border-radius:20px;
-  bottom: 35px;
-  left: 25px;
-  padding: 0px 8px 0px 8px;
-`;
+    const InputLabel = css`
+    color: ${props => props.theme.colors.primary};
+    font-family: ${props => props.theme.fonts.raleway}; 
+    position: absolute;
+    font-weight: 500;
+    background-color: ${props => props.theme.colors.contrast};
+    border-radius:20px;
+    bottom: 35px;
+    left: 25px;
+    padding: 0px 8px 0px 8px;
+    `;
 
 const ImgContainerLogin = css`
     display: flex;
@@ -154,4 +161,31 @@ const NavLink = css`
     }
 `;
 
-export {Heading1, Heading2, Heading3, BodyText, Subtitle, PrimaryBtn, InputField, ContentContainerAll, ContentContainerLogin, ImgContainerLogin, InputLabel, NavLink, InputFieldWrapper, PrimaryBtnContainer};
+const BackButton = css`
+    height: 50px;
+    align-self: center;
+    margin-right: 20px;
+    & circle {
+        fill: ${props => props.theme.colors.primary};
+    }
+    & path{
+        fill: ${props => props.theme.colors.contrast};
+    }
+`;
+
+const NavContainer = css`
+    display: flex;
+    flex-direction: row;
+    margin-top: 13px;
+    align-self: center;
+`;
+
+const GridPresenterContainer = css`
+    margin: 150px;
+    overflow: auto;
+    ::-webkit-scrollbar { 
+        display: none;
+    }
+`;
+
+export {BtnPosBottomCenter, GridPresenterContainer, NavContainer, BackButton, Heading1, Heading2, Heading3, BodyText, Subtitle, PrimaryBtn, InputField, ContentContainerAll, ContentContainerLogin, ImgContainerLogin, InputLabel, NavLink, InputFieldWrapper, PrimaryBtnContainer};

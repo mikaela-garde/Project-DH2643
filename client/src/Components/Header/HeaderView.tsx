@@ -8,13 +8,10 @@ import darkModeIcon from "../../Images/moon.svg";
 import { Heading1 } from '../../StyledComponents';
 import SVG from "react-inlinesvg";
 import Switch from "react-switch";
-import { fadeInDown, fadeInRight } from 'react-animations';
+import { fadeInRight } from 'react-animations';
+const fadeInRightAnimation = keyframes`${fadeInRight}`;
 
-const fadeInDownAnimation = keyframes`${fadeInDown}`;
-const fadeInUpAnimation = keyframes`${fadeInRight}`;
-
-const HeaderView= ({NavTitle, ProfilePic, darkMode, handleModeChange, onLogout, backButtonVis}) =>
-
+const HeaderView= ({ProfilePic, darkMode, handleModeChange, onLogout, backButtonVis}) =>
         <Menu>
             <IconsContainer>
                 <IconContainer>
@@ -35,31 +32,9 @@ const HeaderView= ({NavTitle, ProfilePic, darkMode, handleModeChange, onLogout, 
         </Menu>
 ;
 
-////////////////////////////// BACK BUTTON & TITLE //////////////////////////////////
-const BackButton = styled(SVG)`
-    height: 50px;
-    & circle {
-        fill: ${props => props.theme.colors.primary};
-    }
-    & path{
-        fill: ${props => props.theme.colors.contrast};
-    }
-`;
-
-const NavLink = styled(Link)`
-    display: flex;
-    align-self: center;
-    margin-right:30px;
-`;
-
-const PageTitle = styled.h1`
-    ${Heading1}
-    animation: 2s ${fadeInDownAnimation};
-`;
-
 /////////////////////////////// MENU /////////////////////////////////
 const Menu = styled.div`
-        /*animation: 2s ${fadeInUpAnimation}; borde ha detta men den rerendras ju..*/
+        animation: 2s ${fadeInRightAnimation};
         color: ${props => props.theme.colors.contrast};
         font-size: ${props => props.theme.fontSizes.xsmall};
         font-weight: 400;
@@ -72,6 +47,7 @@ const Menu = styled.div`
         cursor: pointer;
         border-style: solid;
         top: 30px;
+        position: fixed;
 
         @media (min-width: 1000px) {
             position: absolute;

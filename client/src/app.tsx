@@ -37,6 +37,9 @@ const App = () => {
     const darkMode = useModelProp(UserModel, "dark_mode");
     const loggedIn = useModelProp(UserModel, "isLoggedIn");
 
+    console.log("user id i app", UserModel);
+    console.log("experience id i app", experienceModel.id);
+
     useEffect(() => {
         if(localStorage.getItem("refreshToken")) {
             UserModel.getUserFromToken(localStorage.getItem("refreshToken"));

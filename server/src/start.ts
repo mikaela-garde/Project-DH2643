@@ -129,8 +129,8 @@ app.post("/api/listeners/user", checkAuth, (req: express.Request, res: express.R
 });
 
 app.post("/api/listeners/experience", checkAuth, (req: express.Request, res: express.Response) => {
-    listenToExperience(res.locals.user.user_id, (val:any) => {io.sockets.emit("experience", val)});
-    res.status(200).send("Listening to user");
+    listenToExperience(req.body.id, (val:any) => {io.sockets.emit("experience", val)});
+    res.status(200).send("Listening to exp");
 });
 /*
 app.post("/upload", (req: express.Request, res: express.Response) => {

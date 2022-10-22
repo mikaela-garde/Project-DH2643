@@ -132,8 +132,6 @@ const InputLabelExp = styled.label<propsLabel>`
 
 const InputFieldExp = styled.input<propsField>`
     ${InputField};
-    padding: 12px 150px 12px 14px;
-    padding-right: ${props => props.paddingRight}; 
     width: ${props => props.width}; 
 `;
 

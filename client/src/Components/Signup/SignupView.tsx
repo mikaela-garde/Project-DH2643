@@ -16,22 +16,22 @@ import { PrimaryBtn, PrimaryBtnContainer, InputField, ContentContainerAll, ImgCo
 const SignupView = ({loginErrorMessage, setFirstName, setLastName, setEmail, setPassword, onSignUp, setImage}) =>
             <ContentContainer>
                 <ImgContainer src={ProfileHolderImg} onClick={e => setImage(CatImg)}></ImgContainer>
-                <InputFieldSignupWrapper animationTime="1.6s">
+                <InputFieldSignupWrapper animationTime="2.5s">
                     <InputLabelSignup>First name</InputLabelSignup>
                     <InputFieldSignup onChange={e => setFirstName(e.target.value)}></InputFieldSignup>
                 </InputFieldSignupWrapper>
 
-                <InputFieldSignupWrapper animationTime="1.9s">
+                <InputFieldSignupWrapper animationTime="2.2s">
                     <InputLabelSignup>Last name</InputLabelSignup>
                     <InputFieldSignup onChange={e => setLastName(e.target.value)}></InputFieldSignup>
                 </InputFieldSignupWrapper>
 
-                <InputFieldSignupWrapper animationTime="2.2s">
+                <InputFieldSignupWrapper animationTime="1.9s">
                     <InputLabelSignup>Email</InputLabelSignup>
                     <InputFieldSignup onChange={e => setEmail(e.target.value)}></InputFieldSignup>
                 </InputFieldSignupWrapper>
 
-                <InputFieldSignupWrapper animationTime="2.5s">
+                <InputFieldSignupWrapper animationTime="1.6s">
                     <InputLabelSignup>Password</InputLabelSignup>
                     <InputFieldSignup type ="password" onChange={e => setPassword(e.target.value)}></InputFieldSignup>
                 </InputFieldSignupWrapper>
@@ -93,13 +93,13 @@ const ButtonContainer = styled.div`
 
 const SignUpButton = styled.button`
     ${PrimaryBtn}
-    animation: 2.5s ${Animation};
+    animation: 1.3s ${Animation};
     align-self: center;
     width: 235px;
 `;
 
 const BackButton = styled(SVG)`
-    animation: 2.5s ${Animation};
+    animation: 1.3s ${Animation};
     height: 50px;
     align-self: center;
     margin-right: 10px;

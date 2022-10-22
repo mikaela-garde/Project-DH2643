@@ -46,7 +46,7 @@ const ContentContainer = styled.div`
 
 const ImgContainer = styled.img`
     ${ImgContainerLogin}
-    animation: 1.5s ${Animation};
+    animation: 2.5s ${Animation};
 `;
 
 const InputFieldLoginWrapper = styled.div`
@@ -65,12 +65,12 @@ const InputLabelLogin = styled.label`
 
 const LoginButton = styled.button`
     ${PrimaryBtn}
-    animation: 2.5s ${Animation};
+    animation: 1.5s ${Animation};
 `;
 const NavLinkSignup = styled(Link)`
     ${NavLink}
     z-index: 2;
-    animation: 2.5s ${Animation};
+    animation: 1s ${Animation};
 `;
 
 const BackgroundBlobContainerLeft = styled.div`

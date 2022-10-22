@@ -1,6 +1,6 @@
 import React from 'react';
-import styled from "styled-components";
-import { PrimaryBtn, PrimaryBtnContainer, ContentContainerAll, Heading1 } from '../../StyledComponents';
+import styled, {keyframes} from "styled-components";
+import { NavLink, PrimaryBtn, PrimaryBtnContainer, Heading1, BackButton, NavContainer, GridPresenterContainer, ContentContainerAll, BtnPosBottomCenter} from '../../StyledComponents';
 import GridPresenter from '../Grid/GridPresenter';
 import {Link} from "react-router-dom";
 import UploadPresenter from '../Upload/UploadPresenter';
@@ -8,111 +8,90 @@ import BackgroundBlobLeftSVG from "../../Images/BackgroundBlobDashboardLeft.svg"
 import BackgroundBlobRightSVG from "../../Images/BackgroundBlobDashboardRight.svg";
 import SVG from "react-inlinesvg";
 import BackButtonArrow from "../../Images/back-button-arrow.svg";
+import { fadeInUp, fadeInDown } from 'react-animations';
+
+const fadeInUpAnimation = keyframes`${fadeInUp}`;
+const fadeInDownAnimation = keyframes`${fadeInDown}`;
 
 const ExpBoardView= ({name, startTime, endTime, posts, showAddContent, isShown, blur, brightness}) =>
-    <ContentContainer>
+    <ContentWrapper>
         {isShown && <UploadPresenter showAdd={showAddContent}></UploadPresenter>}
         
-        <DashboardContainer blur={blur} brightness={brightness}>
-        <NavContainer>
-                    <NavLink to="/">
-                        <BackButton src={BackButtonArrow}></BackButton>
-                    </NavLink>
-                <PageTitle>My Experience</PageTitle> 
-        </NavContainer>
-        <p>{startTime} - {endTime}</p>
+        <ContentContainer blur={blur} brightness={brightness}>
+            <NavContainerXPBoard>
+                <NavLinkXPBoard to="/">
+                    <BackButtonXP src={BackButtonArrow}></BackButtonXP>
+                </NavLinkXPBoard>
+            <PageTitle>My Experience</PageTitle> 
+            </NavContainerXPBoard>
+            <p>{startTime} - {endTime}</p>
 
-        <GridPresenterContainer>
-            <GridPresenter/>
-        </GridPresenterContainer>
+            <GridPresenterContainerXPBoard>
+                <GridPresenter/>
+            </GridPresenterContainerXPBoard>
 
-        <ButtonContainer>
-            <AddContentBtn onClick={() => showAddContent()}>Add content</AddContentBtn>
-        </ButtonContainer>
+            <ButtonContainer>
+                <AddContentBtn onClick={() => showAddContent()}>Add content</AddContentBtn>
+            </ButtonContainer>
 
-        <BackgroundBlobContainerLeft>
-            <BackgroundBlob src ={BackgroundBlobLeftSVG}></BackgroundBlob>
-        </BackgroundBlobContainerLeft>
+            <BackgroundBlobContainerLeft>
+                <BackgroundBlob src ={BackgroundBlobLeftSVG}></BackgroundBlob>
+            </BackgroundBlobContainerLeft>
 
-        <BackgroundBlobContainerRight>
-            <BackgroundBlob src = {BackgroundBlobRightSVG}></BackgroundBlob>
-        </BackgroundBlobContainerRight>
+            <BackgroundBlobContainerRight>
+                <BackgroundBlob src = {BackgroundBlobRightSVG}></BackgroundBlob>
+            </BackgroundBlobContainerRight>
 
-        </DashboardContainer>
-    </ContentContainer>
-       
+        </ContentContainer>
+    </ContentWrapper>   
 ;
 
-const NavLink = styled(Link)`
-    display: flex;
-    a {
-        align-self: center;
-    }
+const ContentWrapper = styled.div`
+    ::-webkit-scrollbar { 
+    display: none;
+      }  /* Safari and Chrome */
 `;
 
-const BackButton = styled(SVG)`
-    height: 50px;
-    align-self: center;
-    margin-right: 20px;
-    & circle {
-        fill: ${props => props.theme.colors.primary};
-    }
-    & path{
-        fill: ${props => props.theme.colors.contrast};
-    }
+const ContentContainer = styled.div<Props>`
+    ${ContentContainerAll};
+    z-index: 1;
+    overflow: hidden; /* hiding scrollbar*/
+    filter: ${props => props.brightness ? "brightness(50%)": "brightness(100%)"}; /* blur when upload component is mounted */
+    filter: ${props => props.blur ? "blur(1.5em);" : "blur(0);"};
 `;
 
-const NavContainer = styled.div`
-    display: flex;
-    flex-direction: row;
-    margin-top: 13px;
-    align-self: center;
-    z-index: 2;
+const NavContainerXPBoard = styled.div`
+    ${NavContainer}
+`;
+
+const NavLinkXPBoard = styled(Link)`
+    ${NavLink}
+`;
+
+const BackButtonXP = styled(SVG)`
+    ${BackButton}
+    animation: 1s ${fadeInDownAnimation};
 `;
 
 const PageTitle = styled.h1`
     ${Heading1}
+    animation: 1s ${fadeInDownAnimation};
 `;
 
-const GridPresenterContainer = styled.div`
-    margin: 40px;
-    overflow: auto;
-    z-index: 2;
-    ::-webkit-scrollbar { 
-    display: none;
-      }  /* Safari and Chrome */
+const GridPresenterContainerXPBoard= styled.div`
+    ${GridPresenterContainer}
+`;
+
+const ButtonContainer = styled.div`
+    ${PrimaryBtnContainer}
+    ${BtnPosBottomCenter}
+    animation: 2s ${fadeInUpAnimation};
 `;
 
 const AddContentBtn = styled.button`
     ${PrimaryBtn}
     align-self: center;
     margin-top: auto;
-    margin-bottom: 30px;
-`;
-
-const ButtonContainer = styled.div`
-    ${PrimaryBtnContainer}
-    justify-content: space-around;
-`;
-
-const DashboardContainer = styled.div<Props>`
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
-    z-index: 1;
-    overflow: auto;
-
-    filter: ${props => props.brightness ? "brightness(50%)": "brightness(100%)"};
-    filter: ${props => props.blur ? "blur(1.5em);" : "blur(0);"};
-    
-`
-
-const ContentContainer = styled.div`
- ${ContentContainerAll};
-`;
-
-const Toolbar = styled.div`
-    width: 10px;
 `;
 
 ///////////////////////////////// BLOBS ///////////////////////////////

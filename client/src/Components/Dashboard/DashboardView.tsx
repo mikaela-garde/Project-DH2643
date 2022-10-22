@@ -76,6 +76,7 @@ const BackgroundBlobContainerRight = styled.div`
     top: 0px;
     right: 0;
     z-index: 1;
+    height: 50px;
     
     @media (max-width: 768px) {
         top: -100px;

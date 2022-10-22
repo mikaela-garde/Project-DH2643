@@ -182,7 +182,7 @@ const NavContainer = css`
 `;
 
 const GridPresenterContainer = css`
-    margin: 150px;
+    margin: 50px 150px;
     overflow: auto;
     ::-webkit-scrollbar { 
         display: none;

@@ -78,7 +78,7 @@ const Menu = styled.div`
             right: 20px;
             width: 250px;
             }
-       z-index: 2;
+       z-index: 10;
 `;
 
 const IconsContainer = styled.div`  

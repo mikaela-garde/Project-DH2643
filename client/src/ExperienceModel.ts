@@ -18,6 +18,7 @@ class ExperienceModel {
     subscribers:Array<any> =[];
     creator: string;
     img: string;
+    loadingPosts: boolean;
 
     constructor() {
         this.id = "";
@@ -29,7 +30,8 @@ class ExperienceModel {
         this.posts = {};
         this.posts_formatted = [];
         this.creator = "";
-        this.img = ""
+        this.img = "";
+        this.loadingPosts;
     }
 
     addObserver(obs){

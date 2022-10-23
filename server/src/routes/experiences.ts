@@ -13,14 +13,11 @@ router.route("/fetch").post(checkAuth, (req: express.Request, res: express.Respo
     get(ref(db, 'experiences/' + req.body.id)).then((snapshot) => {
             if (snapshot.exists()) {
               res.status(200).send({data: snapshot.val(), success: true});
-            } else {
-              console.log("No data available");
             }
     });
 });
 
 router.route("/create").post(checkAuth, (req: express.Request, res: express.Response) => {
-    console.log("creating");
     const exp: Experience = {
         id: uuid(),
         name: req.body.name,
@@ -32,16 +29,13 @@ router.route("/create").post(checkAuth, (req: express.Request, res: express.Resp
         creator: res.locals.user.user_id,
         img: ""
     }
-    console.log("locasl utanför auth", res.locals.user.user_id)
     
     //Set in database
     set(ref(db, 'experiences/' + exp.id), exp).then(() => {
-        console.log("Experiencen är skapadt", exp.participants);
     
         //Set in participants array with exp
         exp.participants.map(p => {
-            console.log("det här är en particiapnt ",p);
-            return push(ref(db, 'users/' + p + '/experiences'), [exp.id]).then(()  => {console.log("heej")});
+            return push(ref(db, 'users/' + p + '/experiences'))
         });
 
     });

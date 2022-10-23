@@ -20,14 +20,13 @@ const checkAuth = (req: express.Request, res: express.Response, next: express.Ne
     }).then((res:any) => res.json())
     .then((json:any) => {
       if (json.error) {
-        console.log(json.error);
         res.status(200).send({success: false, error: json.error});
       } else {
         res.locals.user = json;
         next();
       }
     })
-    .catch((error:any) => console.log("checkauth: " ,error));
+    .catch((error:any) => res.status(200).send({success: false, error: error}));
 }
 
 const checkAuthUpload = (req: express.Request, res: express.Response) => {
@@ -51,7 +50,6 @@ const createAccountFirebase = (req: express.Request, res: express.Response, next
     })
     .catch((error) => {
         const errorMessage = error.message;
-        console.log(errorMessage);
         res.status(200).send({success: false, error: errorMessage});
     });
 }

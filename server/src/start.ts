@@ -98,7 +98,7 @@ app.use("/api/experiences", experiences);
 const server = https.createServer(options, app);
 
 server.listen(port, () => {
-    console.log(`Server is listening on port: ${port}`);
+    //console.log(`Server is listening on port: ${port}`);
 })
 
 const io = require("socket.io")(server, {
@@ -109,7 +109,6 @@ const io = require("socket.io")(server, {
 });
 
 io.on('connection', (socket:any) => {
-    console.log("den är connectad");
     // Lite kod som man kan använda för att eventuellt unsubscriba till FB
     /*
     const unsubscribe:any = [];
@@ -123,7 +122,6 @@ io.on('connection', (socket:any) => {
 
 app.post("/api/listeners/user", checkAuth, (req: express.Request, res: express.Response) => {
     listenToUser(res.locals.user.user_id, (val:any) => {io.sockets.emit("users", val)});
-    console.log("listen to userr");
     res.status(200).send("Listening to user");
 });
 

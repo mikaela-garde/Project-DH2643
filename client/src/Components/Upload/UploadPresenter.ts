@@ -5,7 +5,7 @@ import { v4 as uuid } from 'uuid';
 import { experienceModel } from "../../app"
 import {UserModel} from '../../app';
 
-function TemplatePresenter ({showAdd}) {
+function TemplatePresenter ({showAdd, setIsLoading}) {
   //isActive = Media blue, Text White
   const [isActive, setIsActive] = useState(true);
   
@@ -35,7 +35,11 @@ function TemplatePresenter ({showAdd}) {
       setIsActive: setIsActive,
       setText: (input) => setText(input),
       handleFileChange: handleFileChange,
-      uploadImage: () => experienceModel.uploadImage(file, text).then(() => showAdd()),
+      uploadImage: () => {
+        experienceModel.uploadImage(file, text).then(() => setIsLoading());
+        showAdd();
+        setIsLoading();
+      },
       fileTypes: fileTypes,
       fileName: fileName,
       fileError: fileError,

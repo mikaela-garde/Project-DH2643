@@ -83,7 +83,7 @@ class UserModel {
             if (data.success) {
                 localStorage.setItem("refreshToken", data.userAuth.stsTokenManager.refreshToken);
                 this.accessToken = data.userAuth.stsTokenManager.accessToken;
-                this.listenToUserData(data.userAuth.uid);
+                this.listenToUserData(data.userAuth.stsTokenManager.refreshToken);
                 this.setIsLoggedIn(true);
             }
             else {
@@ -100,6 +100,7 @@ class UserModel {
                 this.setIsLoggedIn(true);
             } else {
                 this.signInErrorMsg = data.error;
+                this.setIsLoggedIn(false);
                 this.notifyObservers();
             }
         }).catch(error => {
@@ -109,20 +110,21 @@ class UserModel {
     }
 
     listenToUserData(token) {
+        console.log("Kom in i listentouserdata");
         listenToUserAPI(token);
         socket.on("users", (data) => {
             this.id = data.id;
+            console.log("kom in i listne");
             this.email = data.email;
             this.first_name = data.first_name;
             this.last_name = data.last_name;
             this.social_media = data.social_media;
             this.description = data.description;
             this.profile_img = data.profile_img;
-            this.friends = data.friends; //Ska man lägga in hela användaren här eller vara ett id
+            this.friends = data.friends;
             this.friend_requests = data.friend_requests;
             if(data.experiences) {
                 this.experiences = Object.values(data.experiences); 
-
             } else {
                 this.experiences = [];
             }

@@ -1,9 +1,10 @@
 import exp from "constants";
 import { Experience, User, Experience_Template, Post, PostFormatted } from "./types";
-import { getUserFromEmailAPI, createExperienceAPI, listenToExperienceAPI, getExpAPI } from "./webAPI/webAPI";
+import { getUserFromEmailAPI, createExperienceAPI, listenToExperienceAPI, getExpAPI, uploadAPI } from "./webAPI/webAPI";
 import { socket } from "./app";
 import { UserModel } from "./app";
 import { differenceInDays, eachDayOfInterval } from "date-fns";
+import { v4 as uuid } from 'uuid';
 
 class ExperienceModel {
     id: string;
@@ -123,6 +124,60 @@ class ExperienceModel {
           })
         return promise
     }
+
+    uploadImage (file, text) {
+        let formData = new FormData();
+
+    //Konvertera token till JSON för att lägga in i formdata
+    let token = localStorage.getItem("refreshToken")
+    const tokenJSON = JSON.stringify(token);
+    const tokenBlob = new Blob([tokenJSON], {
+      type: 'application/json'
+    });
+    formData.append("token", tokenBlob);
+
+    //Appenda experience id
+    let expId = this.id
+    const expIdJSON = JSON.stringify(expId);
+    const expIdBlob = new Blob([expIdJSON], {
+      type: 'application/json'
+    });
+    formData.append("expId", expIdBlob);
+    
+    //Appenda experience id
+    let date= file.lastModifiedDate
+    const dateJSON = JSON.stringify(date);
+    const dateBlob = new Blob([dateJSON], {
+      type: 'application/json'
+    });
+    formData.append("date", dateBlob);
+
+    console.log(text)
+    let caption = text
+    const captionJSON = JSON.stringify(caption);
+    const captionBlob = new Blob([captionJSON], {
+      type: 'application/json'
+    });
+    formData.append("caption", captionBlob);
+
+    console.log(text)
+    let uploaderName:string = UserModel.first_name + " " + UserModel.last_name;
+    console.log(UserModel.first_name);
+    const uploaderNameJSON = JSON.stringify(uploaderName);
+    const uploaderNameBlob = new Blob([uploaderNameJSON], {
+      type: 'application/json'
+    });
+    formData.append("uploaderName", uploaderNameBlob);
+    
+    let uploadId = uuid();
+    //Skapar en blob så at vi kan byta namn till unikt id
+    let blob = file.slice(0, file.size, "image/jpeg");
+    let newFile = new File([blob], `${uploadId}`, { type: "image/jpeg" });
+    // Build the form data - You can add other input values to this i.e descriptions, make sure img is appended last
+    formData.append("imgfile", newFile);
+  
+    return uploadAPI(formData);
+  }
 /*
     async formatPosts(posts: object) {
         console.log(posts, " posts i formatPosts")

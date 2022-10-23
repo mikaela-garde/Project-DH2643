@@ -34,7 +34,7 @@ const ExpBoardView= ({name, startTime, endTime, showAddContent, isShown, blur, b
 
             
             <GridPresenterContainerXPBoard>
-            <Gallery images={images.map((image) => ({...image,
+            <Gallery images={images.slice(0).reverse().map((image) => ({...image,
                 customOverlay: 
                 <InfoContainer>
                 <ProfileContainer>

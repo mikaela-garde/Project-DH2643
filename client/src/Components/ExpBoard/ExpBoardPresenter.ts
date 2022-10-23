@@ -22,7 +22,7 @@ function ExpBoardPresenter () {
         return () => {
             experienceModel.clear();
         };
-    },[]);
+    }, []);
     
     return React.createElement(ExpBoardView, {
         name: name,

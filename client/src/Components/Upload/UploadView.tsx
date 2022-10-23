@@ -13,16 +13,10 @@ const UploadView = ({isActive, setIsActive, setText, handleFileChange, uploadIma
             <BackButton onClick={showAdd} src={BackButtonArrow}></BackButton>
             <PageTitle>Upload content</PageTitle>
        </TitleBackBtnContainer>
-       
-
-       <UploadTypeButtonContainer>
-            <MediaButton colorBool={isActive} onClick={() => isActive ? setIsActive(isActive) : setIsActive(!isActive)}>Media</MediaButton>
-            <TextButton colorBool={isActive} onClick={() => isActive ? setIsActive(!isActive) : setIsActive(isActive)}>Text</TextButton>
-        </UploadTypeButtonContainer>
 
         <UploadMedia>
             { // @ts-expect-error 
-            isActive && <FileUploader children={<FileUploadContainer>
+            <FileUploader children={<FileUploadContainer>
                 <img height="200px" src={addMediaIcon}></img>
                 {fileError ? <SmallText errorColor={true}>{fileError}</SmallText> : <SmallText errorColor={false}>{fileName}</SmallText>}
                 <Title3>Drag & Drop files here</Title3>

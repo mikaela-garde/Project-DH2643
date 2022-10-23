@@ -30,7 +30,7 @@ const ExpBoardView= ({name, startTime, endTime, showAddContent, isShown, blur, b
 
                 
             </NavContainerXPBoard>
-            <p>{startTime} - {endTime}</p>
+            <Heading33>{startTime} - {endTime}</Heading33>
 
             
             <GridPresenterContainerXPBoard>
@@ -127,6 +127,11 @@ const AddContentBtn = styled.button`
     align-self: center;
     margin-top:auto;
     
+`;
+
+const Heading33 = styled.h3`
+      ${Heading3};
+      text-align: center;
 `;
 
 ///////////////////////////////// BLOBS ///////////////////////////////

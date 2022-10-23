@@ -8,14 +8,21 @@ import {Link} from "react-router-dom";
 import CatImg from "../../Images/sad_cat.jpeg";
 import SVG from "react-inlinesvg";
 import { fadeInDown } from 'react-animations';
+import { FileUploader } from "react-drag-drop-files";
 
 const Animation = keyframes`${fadeInDown}`;
 
 import { PrimaryBtn, PrimaryBtnContainer, InputField, ContentContainerAll, ImgContainerLogin, InputLabel, InputFieldWrapper} from '../../StyledComponents';
 
-const SignupView = ({loginErrorMessage, setFirstName, setLastName, setEmail, setPassword, onSignUp, setImage}) =>
+const SignupView = ({loginErrorMessage, setFirstName, setLastName, setEmail, setPassword, onSignUp, setImage, handleFileChange, fileTypes}) =>
             <ContentContainer>
-                <ImgContainer src={ProfileHolderImg} onClick={e => setImage(CatImg)}></ImgContainer>
+                { // @ts-expect-error 
+                <FileUploader children={
+                    <ImgContainer src={ProfileHolderImg} onClick={e => setImage(CatImg)}></ImgContainer>
+                } hoverTitle=" " handleChange={handleFileChange} multiple={false} name="file" types={fileTypes} onTypeError={handleFileChange}>
+                </FileUploader> }
+                
+                
                 <InputFieldSignupWrapper animationTime="2.5s">
                     <InputLabelSignup>First name</InputLabelSignup>
                     <InputFieldSignup onChange={e => setFirstName(e.target.value)}></InputFieldSignup>
@@ -35,6 +42,7 @@ const SignupView = ({loginErrorMessage, setFirstName, setLastName, setEmail, set
                     <InputLabelSignup>Password</InputLabelSignup>
                     <InputFieldSignup type ="password" onChange={e => setPassword(e.target.value)}></InputFieldSignup>
                 </InputFieldSignupWrapper>
+
                 {loginErrorMessage}
                 <ButtonContainer>
                     <NavLink to="/">
@@ -71,7 +79,7 @@ const ImgContainer = styled(SVG)`
     & path{
         fill: ${props => props.theme.colors.primary};
     }
-
+    cursor: pointer;
 `;
 
 const InputFieldSignupWrapper = styled.div<Props>`

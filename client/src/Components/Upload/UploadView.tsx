@@ -75,6 +75,7 @@ const TextInput = styled.textarea`
     box-sizing: border-box;
     text-align: left;
     padding: 20px 20px 20px 30px;
+    color: ${props => props.theme.colors.primary};
     font-family: ${props => props.theme.fonts.raleway}; 
 `;
 
@@ -103,7 +104,7 @@ const FileUploadContainer = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    border-color: ${props => props.theme.colors.contrast};
+    border-color: white;
     border-style: dashed;
     border-radius: 50px;
     width: 375px;
@@ -170,7 +171,7 @@ const PageTitle = styled.h1`
 
 const Title3 = styled.h3`
     ${Heading3};
-    color: ${props => props.theme.colors.contrast};
+    color: white;
     margin: 5px 0px;
     text-align: center;
 `;
@@ -179,12 +180,12 @@ const SmallText = styled.p.attrs((props: errorColorTag) => ({errorColor: props.e
     ${Subtitle};
     margin-block-start:0em;
     margin-bottom: auto;
-    color: ${props => props.errorColor ? "red" : props.theme.colors.contrast}
+    color: ${props => props.errorColor ? "red" : "white"}
 `;
 
 const Text = styled.p`
     ${BodyText};
-    color: ${props => props.theme.colors.contrast};
+    color: white;
     margin-block-start:0em;
     margin-bottom: 0s;
     font-size: 1em;

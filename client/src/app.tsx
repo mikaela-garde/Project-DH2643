@@ -10,7 +10,6 @@ import DashboardPresenter from './Components/Dashboard/DashboardPresenter';
 import ExpBoardPresenter from './Components/ExpBoard/ExpBoardPresenter';
 import NoPagePresenter from './Components/NoPage/NoPagePresenter';
 import HeaderPresenter from './Components/Header/HeaderPresenter';
-import ExpBoardGridPresenter from './Components/ExpBoardGrid/ExpBoardGridPresenter';
 
 //import EmptyProfileImage from "./Images/NewEmptyProfileImg.svg";
 import { lightTheme, darkTheme } from './Theme';
@@ -57,8 +56,6 @@ const App = () => {
                 <Route path="/create-exp" element={loggedIn == undefined ? <NoDataView />:loggedIn ? <CreateExpPresenter />: <Navigate to="/"/> } />
                 <Route path="/exp-board" element={loggedIn == undefined ? <NoDataView />:loggedIn ? <ExpBoardPresenter />: <Navigate to="/"/> } />
                 <Route path ="*" element ={<NoPagePresenter/>}/>
-                <Route path ="exp-board-grid" element ={<ExpBoardGridPresenter/>}/>
-
             </Routes>
         </HashRouter>
     </ThemeProvider>

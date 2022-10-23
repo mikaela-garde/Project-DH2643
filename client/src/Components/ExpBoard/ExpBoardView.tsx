@@ -1,7 +1,6 @@
 import React from 'react';
 import styled, {keyframes} from "styled-components";
 import { NavLink, PrimaryBtn, PrimaryBtnContainer, Heading1, Heading2, Heading3, BackButton, NavContainer, GridPresenterContainer, ContentContainerAll, BtnPosBottomCenter, BodyText} from '../../StyledComponents';
-import ExpBoardGridPresenter from '../ExpBoardGrid/ExpBoardGridPresenter';
 import {Link} from "react-router-dom";
 import UploadPresenter from '../Upload/UploadPresenter';
 import BackgroundBlobLeftSVG from "../../Images/BackgroundBlobDashboardLeft.svg";
@@ -176,7 +175,7 @@ const ProfileImg = styled.img`
 
 const ProfileContainer = styled.div`
   display: flex;
-  margin: 5px;
+  margin: 15px;
   align-items: center;
   gap: 5px;
 `;
@@ -185,7 +184,9 @@ const Caption = styled.p`
   ${BodyText};
   color: white;
   font-size: 75%;
-  margin-left: 5px;
+  margin: 0px 15px;
+  overflow-wrap: break-word;
+  overflow:auto;
 `;
 
 const InfoContainer = styled.div`
@@ -195,10 +196,8 @@ const InfoContainer = styled.div`
   position: absolute;
   bottom: 0;
   width: 100%;
-
-  max-height: 50px;
+  height: 100%;
   overflow: auto;
-  
 `;
 
 export default ExpBoardView;

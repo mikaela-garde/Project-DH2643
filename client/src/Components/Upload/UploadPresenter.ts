@@ -11,7 +11,7 @@ function TemplatePresenter ({showAdd}) {
   
   const [text, setText] = useState(""); 
 
-  const fileTypes = ["JPG", "PNG"];
+  const fileTypes = ["JPG", "PNG", "JPEG"];
 
   const [file, setFile] = useState(new Image);
 

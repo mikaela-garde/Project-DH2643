@@ -1,6 +1,6 @@
 import exp from "constants";
 import { Experience, User, Experience_Template, Post, PostFormatted } from "./types";
-import { getUserFromEmailAPI, createExperienceAPI, listenToExperienceAPI, uploadAPI } from "./webAPI/webAPI";
+import { getUserFromEmailAPI, createExperienceAPI, listenToExperienceAPI, getExpAPI, uploadAPI } from "./webAPI/webAPI";
 import { socket } from "./app";
 import { UserModel } from "./app";
 import { differenceInDays, eachDayOfInterval } from "date-fns";
@@ -241,6 +241,27 @@ class ExperienceModel {
         } else {
             return JSON.stringify(start_time).replace('T', ' ').slice(1, 17) + " - " + JSON.stringify(end_time).slice(12, 17);
         }*/
+    }
+
+    getExpSummary(experiences){
+        const calls = experiences.map(exp => {
+
+            return getExpAPI(localStorage.getItem("refreshToken"), exp, true).then((res) => {
+                const ref = res.data.data;
+
+                return {
+                    id: ref.id,
+                    name: ref.name,
+                    creator: ref.creator,
+                    time_span: this.formatDateDashboard(ref.start_time, ref.end_time),
+                    participants: ref.participants,
+                    template: ref.template,
+                    img: ref.img
+
+                };
+            });
+        });
+        return Promise.all(calls).then((value) => {return value})
     }
 }
        

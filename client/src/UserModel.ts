@@ -125,11 +125,8 @@ class UserModel {
             this.friend_requests = data.friend_requests;
             if(data.experiences) {
                 this.experiences = Object.values(data.experiences); 
-                this.getExpExtended().then(value => {this.summarys = value;
-                    this.notifyObservers();});
             } else {
                 this.experiences = [];
-                this.summarys = [];
             }
             this.notifications = data.notifications;
             this.dark_mode = data.dark_mode;
@@ -196,25 +193,5 @@ class UserModel {
             return true;
         }
     };
-
-    getExpExtended(){
-        const calls = this.experiences.map(exp => {
-
-            return getExpAPI(localStorage.getItem("refreshToken"), exp, true).then((res) => {
-                const ref = res.data.data;
-                return {
-                    id: ref.id,
-                    name: ref.name,
-                    img: ref.img,
-                    creator: ref.creator,
-                    time_span: experienceModel.formatDateDashboard(ref.start_time, ref.end_time),
-                    participants: ref.participants,
-                    template: ref.template
-
-                };
-            });
-        });
-        return Promise.all(calls).then((value) => {return value})
-    }
 }
 export default UserModel;

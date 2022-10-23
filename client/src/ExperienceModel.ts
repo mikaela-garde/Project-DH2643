@@ -124,7 +124,7 @@ class ExperienceModel {
     }
 
     uploadImage (file, text) {
-        let formData = new FormData();
+    let formData = new FormData();
 
     //Konvertera token till JSON för att lägga in i formdata
     let token = localStorage.getItem("refreshToken")

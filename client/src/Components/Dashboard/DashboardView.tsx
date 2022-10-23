@@ -4,8 +4,8 @@ import { BtnPosBottomCenter, PrimaryBtn, PrimaryBtnContainer, ContentContainerAl
 import GridPresenter from '../Grid/GridPresenter';
 import BackgroundBlobLeftSVG from "../../Images/BackgroundBlobDashboardLeft.svg";
 import BackgroundBlobRightSVG from "../../Images/BackgroundBlobDashboardRight.svg";
-import { fadeInUp, fadeInDown } from 'react-animations';
-
+import { fadeInUp, fadeInDown, fadeIn } from 'react-animations';
+const fadeInAnimation = keyframes`${fadeIn}`;
 const fadeInUpAnimation = keyframes`${fadeInUp}`;
 const fadeInDownAnimation = keyframes`${fadeInDown}`;
 
@@ -51,6 +51,7 @@ const PageTitle = styled.h1`
 
 const GridPresenterContainerDashboard = styled.div`
     ${GridPresenterContainer}
+    animation: 2s ${fadeInAnimation};
 `;
 
 const ButtonContainer = styled.div`

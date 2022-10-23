@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import useModelProp from '../../useModelProp';
 import { experienceModel } from '../../app';
 import NoDataGridView from '../NoDataGrid/NoDataGridView';
+import {UserModel} from '../../app';
 
 
 function ExpBoardPresenter () {
@@ -13,7 +14,6 @@ function ExpBoardPresenter () {
     const images = useModelProp(experienceModel, "posts_formatted");
     const [isLoading, setIsLoading] = useState(false);
 
-    const navigate = useNavigate();
     const [isShown, setIsShown] = useState(false);
     const [blur, setBlur] = useState(false);
     const [brightness, setBrightness] = useState(false);

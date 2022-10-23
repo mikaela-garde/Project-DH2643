@@ -121,7 +121,9 @@ const ButtonContainer = styled.div`
     position: fixed;    
     bottom: 0;
     left: 42%;
-    width: 250px;    
+    width: 250px;
+
+    
 `;
 
 const AddContentBtn = styled.button`

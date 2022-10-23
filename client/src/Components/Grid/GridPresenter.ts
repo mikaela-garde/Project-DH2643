@@ -8,7 +8,7 @@ function GridPresenter (props) {
     const summarys = useModelProp(UserModel, "summarys");
     //UserModel.getExpExtended().then((value) => setSummary(value));
     const ExpList = [{title: "hej", date: "datum", img: "bild"}];
-
+    console.log("SUMMARYS: ", summarys);
     return React.createElement(summarys ? GridView: NoDataGridView,{
        summary : summarys,
        onSelect: (id) => experienceModel.listenToExperienceData(id)

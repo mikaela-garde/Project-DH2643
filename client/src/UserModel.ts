@@ -198,7 +198,6 @@ class UserModel {
         const calls = this.experiences.map(exp => {
 
             return getExpAPI(localStorage.getItem("refreshToken"), exp, true).then((res) => {
-                console.log("data i extended", res.data.data)
                 return res.data.data;
             });
         });

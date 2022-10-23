@@ -33,13 +33,13 @@ const storeFile =  (userId: string, expId: string, date: string, caption: string
   
   uploadBytesResumable(ref, file).then(snapshot => 
     getDownloadURL(ref)
-    .then((downloadURL:string) => {console.log("kom in i urldwonload"), push(refFirebase, {
+    .then((downloadURL:string) => {push(refFirebase, {
       userId : userId,
       date : date,
       caption: caption,
       imgURL : downloadURL
     })}
-    ))
+    )).catch((error) => console.log(error));
 
   /*uploadTask.on('state_changed', () => {
     getDownloadURL(ref).then((downloadURL:string) => {

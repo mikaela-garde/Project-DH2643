@@ -19,7 +19,6 @@ function ExpBoardPresenter () {
     const [brightness, setBrightness] = useState(false);
 
     //Reset experience model on unmount
-    console.log("heeej");
     useEffect(() => {
         return () => {
             console.log("unmount");

@@ -90,14 +90,10 @@ class ExperienceModel {
             this.posts = data.posts;
             this.creator = data.creator;
             this.img = data.img;
-            console.log("innan"  + this.posts.length)
             if (Object.keys(this.posts).length !== 0 ) {
-                console.log("efterif"  + this.posts.length)
                 this.formatPosts(this.posts);
             }
             this.notifyObservers();
-            console.log("log från experiencemodel", this.posts);
-            console.log("log från experiencemodel", this.posts_formatted);
         });
     }
 
@@ -115,20 +111,33 @@ class ExperienceModel {
         console.log("log från clear", this.name);
     }
 
+    async calulateImgDimensions (url) {
+        const promise: any= new Promise((resolve, reject) => {
+            let img = new Image()
+            img.onload = () => resolve([img.height, img.width]);
+            img.onerror = reject
+            img.src = url
+          })
+        return promise
+    }
+
     formatPosts(posts: any[]) {
-        console.log(posts)
-        
+        this.posts_formatted = []; // TODO: don't reset Array, push next post to it but check if it's already in here
         for (let [key, value] of Object.entries(posts)) {
-            console.log(key, value)
-            this.posts_formatted.push({
+            this.calulateImgDimensions(value.imgURL).then((res: Array<number>) => {
+                this.posts_formatted.push({
                 src: value.imgURL, 
-                width: 1000,
-                height: 1000,
+                height: res[0],
+                width: res[1],
                 caption: value.caption
-            })}
+            })
+
+            })
+            }
         }}
        
     
 
 
 export default ExperienceModel;
+

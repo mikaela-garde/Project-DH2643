@@ -30,7 +30,7 @@ function TemplatePresenter ({showAdd}) {
   };
 
   const uploadImage = (file) => {
-    console.log(file.naturalHeight)
+   
 
     let formData = new FormData();
 

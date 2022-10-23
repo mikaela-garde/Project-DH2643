@@ -12,15 +12,28 @@ function SignUpPresenter (props) {
     const [lastName, setLastName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [image, setImage] = useState((data) => data? data : EmptyProfileImage);
+    const [previewImage, setPreviewImage] = useState("");
+    const [image, setImage] = useState("");
     const fileTypes = ["JPG", "PNG", "JPEG"];
     const [file, setFile] = useState(new Image);
     const [fileName, setFileName] = useState("");
     const [fileError, setFileError] = useState("");
 
     const handleFileChange = (file) => {
-        console.log("HALLOOOJJ " + file);
-    };
+        setImage(file)
+        const reader = new FileReader();
+        reader.onload = () => {
+            let image = reader.result;
+            console.log(image)
+            if (typeof image == "string"){
+                return setPreviewImage(image);
+            }
+            
+            }
+            reader.readAsDataURL(file); 
+        }
+
+
     useEffect(() => {
         return UserModel.setSignErrorMsg(""); // cleans up error message if user comes back
     }, []);
@@ -31,14 +44,14 @@ function SignUpPresenter (props) {
         setLastName: (input) => setLastName(input),
         setEmail: (input) => setEmail(input),
         setPassword: (input) => setPassword(input),
-        setImage: (input) => setImage(input),
         onSignUp: () => {
             if (UserModel.regExSignUp(firstName, lastName)) {
-                UserModel.createNewUserFB(firstName, lastName, email, password == "" ? " ": password, image)
+                UserModel.createNewUserFB(firstName, lastName, email, password == "" ? " ": password, image == "" ? EmptyProfileImage: image)
             }
         }, 
         fileTypes: fileTypes,
-        handleFileChange: handleFileChange
+        handleFileChange: handleFileChange,
+        previewImage: previewImage
     })
 }
 

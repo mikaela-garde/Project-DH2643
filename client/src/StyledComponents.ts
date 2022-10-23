@@ -145,8 +145,8 @@ const InputLabel = css`
 
 const ImgContainerLogin = css`
     display: flex;
-    width: 200px;
     align-self: center;
+    justify-content: center;
     z-index: 2;
 `;
 

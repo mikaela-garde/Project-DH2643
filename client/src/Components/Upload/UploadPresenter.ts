@@ -26,7 +26,6 @@ function TemplatePresenter ({showAdd, setIsLoading}) {
       setFile(file);
       setFileName(file.name);
       setFileError("");
-      console.log(file.height);
     }
   };
 

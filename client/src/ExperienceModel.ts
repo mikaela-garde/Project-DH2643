@@ -53,7 +53,6 @@ class ExperienceModel {
     fetchInvitedParticipant(email: string){
         return getUserFromEmailAPI(email, localStorage.getItem("refreshToken")).then((res) => {
             //Get the first property in the response object
-            console.log(res.data);
                 return res.data[Object.keys(res.data)[0]];
             
         });
@@ -62,7 +61,6 @@ class ExperienceModel {
     addParticipant(email: string){
         getUserFromEmailAPI(email, localStorage.getItem("refreshToken")).then((res) => {
             //Get the first property in the response object
-            console.log(res.data);
                 this.participants = [...this.participants, (res.data[Object.keys(res.data)[0]])];
                 this.notifyObservers();
             
@@ -92,7 +90,6 @@ class ExperienceModel {
             this.template = data.template;
             this.posts = data.posts;
             this.creator = data.creator;
-            console.log("detta är postsen: ", this.posts);
             this.img = data.img;
             if (this.posts != undefined) {
                 this.formatPosts(this.posts);
@@ -114,7 +111,6 @@ class ExperienceModel {
         this.img = "";
         // nödlösning window.location.reload();
         this.notifyObservers();
-        console.log("log från clear", this.name);
     }
 
     async calculateImgDimensions (url) {
@@ -154,7 +150,6 @@ class ExperienceModel {
     });
     formData.append("date", dateBlob);
 
-    console.log(text)
     let caption = text
     const captionJSON = JSON.stringify(caption);
     const captionBlob = new Blob([captionJSON], {
@@ -162,9 +157,7 @@ class ExperienceModel {
     });
     formData.append("caption", captionBlob);
 
-    console.log(text)
     let uploaderName:string = UserModel.first_name + " " + UserModel.last_name;
-    console.log(UserModel.first_name);
     const uploaderNameJSON = JSON.stringify(uploaderName);
     const uploaderNameBlob = new Blob([uploaderNameJSON], {
       type: 'application/json'
@@ -202,10 +195,8 @@ class ExperienceModel {
     }*/
 
     formatPosts(posts: object) {
-        console.log(posts, " posts i formatPosts") // TODO: don't reset Array, push next post to it but check if it's already in here
         let promises: any[] = [];
         for (let [key, value] of Object.entries(posts)) {
-            console.log(value);
             promises.push(this.calculateImgDimensions(value.imgURL).then((res) => {return res}));
         }
 
@@ -213,7 +204,6 @@ class ExperienceModel {
             this.posts_formatted = [];
             let i = 0;
             for (let [key, value] of Object.entries(posts)) {
-                console.log("post i loopen", posts);
                 this.posts_formatted.push({
                     src: value.imgURL, 
                     height: res[i][0],
@@ -222,7 +212,6 @@ class ExperienceModel {
                     name: value.uploaderName
                 });
                 i += 1;
-                console.log("posts formatted: ", this.posts_formatted);
             }
             this.notifyObservers();
         });

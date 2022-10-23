@@ -22,7 +22,6 @@ function SignUpPresenter (props) {
         const reader = new FileReader();
         reader.onload = () => {
             let image = reader.result;
-            console.log(image)
             if (typeof image == "string"){
                 return setPreviewImage(image);
                 }

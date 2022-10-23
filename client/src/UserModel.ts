@@ -104,17 +104,14 @@ class UserModel {
                 this.notifyObservers();
             }
         }).catch(error => {
-            console.log(error);
             this.setIsLoggedIn(false);
         });
     }
 
     listenToUserData(token) {
-        console.log("Kom in i listentouserdata");
         listenToUserAPI(token);
         socket.on("users", (data) => {
             this.id = data.id;
-            console.log("kom in i listne");
             this.email = data.email;
             this.first_name = data.first_name;
             this.last_name = data.last_name;
@@ -158,7 +155,6 @@ class UserModel {
     }
 
     addExperience(exp_id: string) {
-        console.log("exp id i add", exp_id);
         updateExperiencesUserAPI(localStorage.getItem("refreshToken"), exp_id);
     }
 

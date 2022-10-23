@@ -28,6 +28,8 @@ function CreateExpPresenter (props) {
                     setErrorMsg("")
                 }
             }
+        } else if (invite == "") {
+            setErrorMsg("No input!")
         } else {
             experienceModel.fetchInvitedParticipant(invite).then((user) => setParticipants([...participants, user]));
             setInvite(""); 
@@ -42,7 +44,6 @@ function CreateExpPresenter (props) {
         },
         endDate: endDate,
         setEndDate: (date:Date) => {setEndDate(date)
-            console.log("enddate", date)
         },
         setName: (input) => setName(input),
         invite: invite,

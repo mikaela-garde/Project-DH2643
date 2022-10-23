@@ -12,7 +12,7 @@ function TemplatePresenter ({showAdd}) {
 
   const fileTypes = ["JPG", "PNG"];
 
-  const [file, setFile] = useState("");
+  const [file, setFile] = useState(new Image);
 
   const [fileName, setFileName] = useState("");
 
@@ -25,13 +25,12 @@ function TemplatePresenter ({showAdd}) {
       setFile(file);
       setFileName(file.name);
       setFileError("");
+      console.log(file.height);
     }
   };
 
   const uploadImage = (file) => {
-    console.log(file)
-    const img = new Image();
-    file.onload = () => {console.log(this.width + 'x' + this.height)}
+    console.log(file.naturalHeight)
 
     let formData = new FormData();
 

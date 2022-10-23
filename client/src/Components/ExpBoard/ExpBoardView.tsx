@@ -109,7 +109,7 @@ const PageTitle = styled.h1`
 const GridPresenterContainerXPBoard= styled.div`
     ${GridPresenterContainer};
     height: 500px;
- 
+    animation: 2s ${fadeInAnimation};
 `;
 
 const ButtonContainer = styled.div`

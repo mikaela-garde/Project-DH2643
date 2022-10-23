@@ -20,10 +20,9 @@ function ExpBoardPresenter () {
     //Reset experience model on unmount
     useEffect(() => {
         return () => {
-            console.log("unmount");
-            //experienceModel.clear();
+            experienceModel.clear();
         };
-    });
+    }, []);
     
     return React.createElement(ExpBoardView, {
         name: name,

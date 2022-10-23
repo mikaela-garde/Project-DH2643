@@ -12,11 +12,11 @@ class ExperienceModel {
     start_time: string;
     end_time: string;
     template: Experience_Template;
-    posts: Array<any>;
+    posts: object;
     posts_formatted: PostFormatted[];
     subscribers:Array<any> =[];
     creator: string;
-    img: ""
+    img: string;
 
     constructor() {
         this.id = "";
@@ -25,7 +25,7 @@ class ExperienceModel {
         this.start_time = "";
         this.end_time = "";
         this.template = Experience_Template.Timeline;
-        this.posts = [];
+        this.posts = {};
         this.posts_formatted = [];
         this.creator = "";
         this.img = ""
@@ -79,23 +79,26 @@ class ExperienceModel {
     }
 
     listenToExperienceData(id:string) {
-        console.log("id i client", id);
+        console.log("Nu är listening experince anropad med id: ", id);
         listenToExperienceAPI(localStorage.getItem("refreshToken"), id);
+        socket.off("experience");
         socket.on("experience", (data) => {
+            console.log("Nu får vi denna data i vår socket: ", data.id, data.name)
             this.id = data.id;
             this.name = data.name;
             this.participants = data.participants;
-            console.log("inne i listening");
             this.start_time = this.formatDate(data.start_time);
             this.end_time = this.formatDate(data.end_time);
             this.template = data.template;
             this.posts = data.posts;
             this.creator = data.creator;
+            console.log("inne i listening2");
             this.img = data.img;
-            if (Object.keys(this.posts).length !== 0 ) {
+            if (this.posts != undefined) {
                 this.formatPosts(this.posts);
             }
-            this.notifyObservers();
+            console.log("Innan nottify");
+            //this.notifyObservers();
         });
     }
 
@@ -106,14 +109,16 @@ class ExperienceModel {
         this.start_time = "";
         this.end_time = "";
         this.template = Experience_Template.Timeline;
-        this.posts = [];
+        this.posts = {};
+        this.posts_formatted = [];
         this.creator = "";
         this.img = "";
+        // nödlösning window.location.reload();
         this.notifyObservers();
         console.log("log från clear", this.name);
     }
 
-    async calulateImgDimensions (url) {
+    async calculateImgDimensions (url) {
         const promise: any= new Promise((resolve, reject) => {
             let img = new Image()
             img.onload = () => resolve([img.height, img.width]);
@@ -123,21 +128,22 @@ class ExperienceModel {
         return promise
     }
 
-    formatPosts(posts: any[]) {
+    async formatPosts(posts: object) {
+        console.log(posts, " posts i formatPosts")
         this.posts_formatted = []; // TODO: don't reset Array, push next post to it but check if it's already in here
         for (let [key, value] of Object.entries(posts)) {
-            this.calulateImgDimensions(value.imgURL).then((res: Array<number>) => {
-                this.posts_formatted.push({
-                src: value.imgURL, 
-                height: res[0],
-                width: res[1],
-                caption: value.caption,
-                name: value.uploaderName
+            this.calculateImgDimensions(value.imgURL).then((res: Array<number>) => {
+                this.posts_formatted= [...this.posts_formatted, {
+                    src: value.imgURL, 
+                    height: res[0],
+                    width: res[1],
+                    caption: value.caption,
+                    name: value.uploaderName
+                }]
+                this.notifyObservers();
             })
-
-            })
-            }
-        }
+         }
+    }
 
     formatDate(date) {
         return date.replace('T', ' ').slice(0, 16);

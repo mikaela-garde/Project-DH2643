@@ -205,8 +205,7 @@ class UserModel {
                     name: ref.name,
                     img: ref.img,
                     creator: ref.creator,
-                    start_time: experienceModel.formatDate(ref.start_time),
-                    end_time: experienceModel.formatDate(ref.end_time),
+                    time_span: experienceModel.formatDateDashboard(ref.start_time, ref.end_time),
                     participants: ref.participants,
                     template: ref.template
 

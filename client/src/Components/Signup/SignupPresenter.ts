@@ -4,8 +4,6 @@ import {UserModel} from "../../app";
 import useModelProp from "../../useModelProp";
 import EmptyProfileImage from "../../Images/EmptyProfileImg.svg"
 
-
-
 function SignUpPresenter (props) {
     const loginErrorMessage = useModelProp(UserModel, "signErrorMsg");
     const [firstName, setFirstName] = useState("");
@@ -21,6 +19,7 @@ function SignUpPresenter (props) {
     const handleFileChange = (file) => {
         console.log("HALLOOOJJ " + file);
     };
+
     useEffect(() => {
         return UserModel.setSignErrorMsg(""); // cleans up error message if user comes back
     }, []);

@@ -17,7 +17,7 @@ const GridView= ({summary, onSelect}) =>
                     <SingleExperienceContainer>
                         <ExperienceImgContainer src={exp.img == "" ? ExpePlaceholderImg : exp.img}></ExperienceImgContainer>
                         <Title3>{exp.name}</Title3>
-                        <SmallText>{exp.start_time} - {exp.end_time}</SmallText>
+                        <SmallText>{exp.time_span}</SmallText>
                     </SingleExperienceContainer>
                 </ExperienceButtonContainer>
             })}

@@ -62,12 +62,13 @@ router.route("/api/upload").post( multer.any(), (req: express.Request, res: expr
             //@ts-ignore
             const date = req.files[2].buffer.toString().replaceAll('"', "")
             //@ts-ignore
-            const file = req.files[3].buffer
+            const caption = req.files[3].buffer.toString().replaceAll('"', "")
             //@ts-ignore
-            const fileName = req.files[3].originalname
-
+            const file = req.files[4].buffer
+            //@ts-ignore
+            const fileName = req.files[4].originalname
             
-            storeFile(file, fileName, userId, expId, date );
+            storeFile(userId, expId, date, caption, file, fileName );
 
             })
             .catch((error:any) => console.log(error));

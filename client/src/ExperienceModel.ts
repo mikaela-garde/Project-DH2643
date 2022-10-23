@@ -105,7 +105,8 @@ class ExperienceModel {
                 src: value.imgURL, 
                 width: 1000,
                 height: 1000,
-                caption: "After Rain (Jeshu John - designerspics.com)",})}
+                caption: value.caption
+            })}
         }}
        
     

@@ -58,6 +58,14 @@ function TemplatePresenter ({showAdd}) {
       type: 'application/json'
     });
     formData.append("date", dateBlob);
+
+    console.log(text)
+    let caption = text
+    const captionJSON = JSON.stringify(caption);
+    const captionBlob = new Blob([captionJSON], {
+      type: 'application/json'
+    });
+    formData.append("caption", captionBlob);
     
     let uploadId = uuid();
     //Skapar en blob så at vi kan byta namn till unikt id

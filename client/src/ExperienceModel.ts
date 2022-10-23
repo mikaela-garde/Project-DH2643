@@ -69,7 +69,6 @@ class ExperienceModel {
         participants = [...participants, UserModel];
 
         return createExperienceAPI(localStorage.getItem("refreshToken"), name,start_time, end_time, [...participants.map(p => p.id)]).then((res) => {
-            console.log("DENNA är creatad", res.data.exp_id);
             //UserModel.addExperience(res.data.exp_id);
 
             this.listenToExperienceData(res.data.exp_id);
@@ -78,11 +77,9 @@ class ExperienceModel {
     }
 
     listenToExperienceData(id:string) {
-        console.log("Nu är listening experince anropad med id: ", id);
         listenToExperienceAPI(localStorage.getItem("refreshToken"), id);
         socket.off("experience");
         socket.on("experience", (data) => {
-            console.log("Nu får vi denna data i vår socket: ", data.id, data.name)
             this.id = data.id;
             this.name = data.name;
             this.participants = data.participants;
@@ -91,13 +88,12 @@ class ExperienceModel {
             this.template = data.template;
             this.posts = data.posts;
             this.creator = data.creator;
-            console.log("inne i listening2");
+            console.log("detta är postsen: ", this.posts);
             this.img = data.img;
             if (this.posts != undefined) {
                 this.formatPosts(this.posts);
             }
-            console.log("Innan nottify");
-            //this.notifyObservers();
+            this.notifyObservers();
         });
     }
 
@@ -126,13 +122,15 @@ class ExperienceModel {
           })
         return promise
     }
-
+/*
     async formatPosts(posts: object) {
         console.log(posts, " posts i formatPosts")
         this.posts_formatted = []; // TODO: don't reset Array, push next post to it but check if it's already in here
+        let promises = [];
         for (let [key, value] of Object.entries(posts)) {
+            console.log(value);
             this.calculateImgDimensions(value.imgURL).then((res: Array<number>) => {
-                this.posts_formatted= [...this.posts_formatted, {
+                this.posts_formatted = [...this.posts_formatted, {
                     src: value.imgURL, 
                     height: res[0],
                     width: res[1],
@@ -140,8 +138,36 @@ class ExperienceModel {
                     name: value.uploaderName
                 }]
                 this.notifyObservers();
+                console.log("posts formatted: ", this.posts_formatted);
             })
          }
+    }*/
+
+    formatPosts(posts: object) {
+        console.log(posts, " posts i formatPosts") // TODO: don't reset Array, push next post to it but check if it's already in here
+        let promises: any[] = [];
+        for (let [key, value] of Object.entries(posts)) {
+            console.log(value);
+            promises.push(this.calculateImgDimensions(value.imgURL).then((res) => {return res}));
+        }
+
+        Promise.all(promises).then((res) => {
+            this.posts_formatted = [];
+            let i = 0;
+            for (let [key, value] of Object.entries(posts)) {
+                console.log("post i loopen", posts);
+                this.posts_formatted.push({
+                    src: value.imgURL, 
+                    height: res[i][0],
+                    width: res[i][1],
+                    caption: value.caption,
+                    name: value.uploaderName
+                });
+                i += 1;
+                console.log("posts formatted: ", this.posts_formatted);
+            }
+            this.notifyObservers();
+        });
     }
 
     formatDate(date) {

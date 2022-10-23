@@ -25,7 +25,7 @@ const listenToExperience = (id:string, callback:any) => {
   return unsubscribe;
 }
 
-const storeFile =  (userId: string, expId: string, date: string, caption: string, uploaderName:string, file:any, fileName: string) => {
+const storeFile =  (userId: string, expId: string, date: string, caption: string, uploaderName:string, file:any, fileName: string, res:any) => {
   //Store data in Cloud Storage
   const ref = ref_storage(storage, 'experiences/' + fileName);
   const refFirebase = ref_db(db, 'experiences/' + expId + '/posts/');
@@ -38,7 +38,7 @@ const storeFile =  (userId: string, expId: string, date: string, caption: string
       caption: caption,
       imgURL : downloadURL,
       uploaderName: uploaderName,
-    })}
+    }).then(() => res.status(200).send("success"))}
     )).catch((error) => console.log("uploadbytesresumable", error));
 
   /*uploadTask.on('state_changed', () => {

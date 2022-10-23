@@ -117,7 +117,9 @@ const ButtonContainer = styled.div`
     animation: 2s ${fadeInUpAnimation};
     display: flex;
     justify-content: center;
-    height: 300px;
+    position: fixed;    
+    bottom: 0px;
+    left: 50%;
     
     
 `;

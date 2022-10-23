@@ -83,7 +83,7 @@ function TemplatePresenter ({showAdd}) {
     // Build the form data - You can add other input values to this i.e descriptions, make sure img is appended last
     formData.append("imgfile", newFile);
   
-    uploadAPI(formData)
+    uploadAPI(formData).then(() => showAdd())
   }
 
   return React.createElement(UploadView, {

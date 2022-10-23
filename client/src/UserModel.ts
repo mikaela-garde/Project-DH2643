@@ -113,6 +113,7 @@ class UserModel {
             this.id = data.id;
             this.email = data.email;
             this.first_name = data.first_name;
+            console.log(this.first_name + "detta är firstname");
             this.last_name = data.last_name;
             this.social_media = data.social_media;
             this.description = data.description;

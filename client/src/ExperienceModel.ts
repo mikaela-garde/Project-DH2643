@@ -93,13 +93,11 @@ class ExperienceModel {
             this.img = data.img;
             console.log("innan"  + this.posts.length)
             if (Object.keys(this.posts).length !== 0 ) {
-                console.log("efterif"  + this.posts.length)
                 this.formatPosts(this.posts);
             }
             this.notifyObservers();
-            console.log("log från experiencemodel", this.posts);
-            console.log("log från experiencemodel", this.posts_formatted);
-        });
+            console.log("posts: ", this.posts)
+            });
     }
 
     clear() {
@@ -118,22 +116,22 @@ class ExperienceModel {
 
     formatPosts(posts: any[]) {
         console.log(posts)
-        
+        this.posts_formatted = []; // TODO: don't reset Array, push next post to it but check if it's already in here
         for (let [key, value] of Object.entries(posts)) {
-            console.log(key, value)
             this.posts_formatted.push({
                 src: value.imgURL, 
                 width: 1000,
                 height: 1000,
-                caption: "After Rain (Jeshu John - designerspics.com)",})
-        }
+                caption: value.caption,
+                name: value.uploaderName
+            }
+        )}
     }
 
     formatDate(date) {
         return date.replace('T', ' ').slice(0, 16);
     }
 }
-
        
     
 

@@ -5,6 +5,7 @@ import useModelProp from "../../useModelProp";
 import EmptyProfileImage from "../../Images/EmptyProfileImg.svg"
 
 
+
 function SignUpPresenter (props) {
     const loginErrorMessage = useModelProp(UserModel, "signErrorMsg");
     const [firstName, setFirstName] = useState("");

@@ -19,7 +19,6 @@ const listenToUser = (uid:string, callback:any) => {
 const listenToExperience = (id:string, callback:any) => {
   console.log("id i listen", id);
   const unsubscribe = onValue(ref_db(db, 'experiences/' + id), (snapshot:any) => {
-    snapshot.val()[id]= id; 
     callback(snapshot.val());
   });
 

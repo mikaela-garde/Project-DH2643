@@ -84,8 +84,9 @@ class ExperienceModel {
             this.id = data.id;
             this.name = data.name;
             this.participants = data.participants;
-            this.start_time = data.start_time;
-            this.end_time = data.end_time;
+            console.log("inne i listening");
+            this.start_time = this.formatDate(data.start_time);
+            this.end_time = this.formatDate(data.end_time);
             this.template = data.template;
             this.posts = data.posts;
             this.creator = data.creator;
@@ -124,8 +125,13 @@ class ExperienceModel {
                 src: value.imgURL, 
                 width: 1000,
                 height: 1000,
-                caption: "After Rain (Jeshu John - designerspics.com)",})}
+                caption: "After Rain (Jeshu John - designerspics.com)",})
         }
+    }
+
+    formatDate(date) {
+        return date.replace('T', ' ').slice(0, 16);
+    }
 }
 
        

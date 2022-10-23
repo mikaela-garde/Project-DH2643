@@ -1,4 +1,4 @@
-import { socket } from "./app";
+import { experienceModel, socket } from "./app";
 import {User, Image, Social_Media, Friend_request, Notifications} from "./types";
 import {createAccountAPI, listenToUserAPI, loginAPI, getUidFromTokenAPI, toggleDarkModeAPI, updateExperiencesUserAPI, getExpAPI} from "./webAPI/webAPI";
 
@@ -199,7 +199,18 @@ class UserModel {
 
             return getExpAPI(localStorage.getItem("refreshToken"), exp, true).then((res) => {
                 console.log("data i extended", res.data.data)
-                return res.data.data;
+                const ref = res.data.data;
+                return {
+                    id: ref.id,
+                    name: ref.name,
+                    img: ref.img,
+                    creator: ref.creator,
+                    start_time: experienceModel.formatDate(ref.start_time),
+                    end_time: experienceModel.formatDate(ref.end_time),
+                    participants: ref.participants,
+                    template: ref.template
+
+                };
             });
         });
         return Promise.all(calls).then((value) => {return value})

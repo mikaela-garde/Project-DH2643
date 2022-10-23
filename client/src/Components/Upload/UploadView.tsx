@@ -16,7 +16,7 @@ const UploadView = ({isActive, setIsActive, setText, handleFileChange, uploadIma
 
         <UploadMedia>
             { // @ts-expect-error 
-            <FileUploader children={<FileUploadContainer>
+           <FileUploader children={<FileUploadContainer>
                 <img height="200px" src={addMediaIcon}></img>
                 {fileError ? <SmallText errorColor={true}>{fileError}</SmallText> : <SmallText errorColor={false}>{fileName}</SmallText>}
                 <Title3>Drag & Drop files here</Title3>

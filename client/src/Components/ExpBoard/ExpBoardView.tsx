@@ -33,7 +33,6 @@ const ExpBoardView= ({name, startTime, endTime, showAddContent, isShown, blur, b
             </NavContainerXPBoard>
             <Heading33>{startTime} - {endTime}</Heading33>
 
-            
             {isLoading ? <NoDataGridView/>: <GridPresenterContainerXPBoard>
             <Gallery images={images.slice(0).reverse().map((image) => ({...image,
                 customOverlay: 

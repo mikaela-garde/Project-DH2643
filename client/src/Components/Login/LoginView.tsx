@@ -5,14 +5,15 @@ import BackgroundBlobLeftSVG from "../../Images/BackgroundBlobLoginLeft.svg";
 import BackgroundBlobRightSVG from "../../Images/BackgroundBlobLoginRight.svg";
 import styled, { keyframes } from 'styled-components';
 import { fadeInDown } from 'react-animations';
+import Logo from "../../Images/momentousLogo.png";
 
 const Animation = keyframes`${fadeInDown}`;
 
-import { PrimaryBtn, InputField, ContentContainerAll, ImgContainerLogin, InputLabel, NavLink, InputFieldWrapper} from '../../StyledComponents';
+import { PrimaryBtn, InputField, ContentContainerAll, ImgContainerLogin, InputLabel, NavLink, InputFieldWrapper, BodyText } from '../../StyledComponents';
 
 const LoginView = ({loginErrorMessage, setEmail, setPassword, onSignIn}) =>
             <ContentContainer>
-                <ImgContainer src={LogotypeHolderImg}></ImgContainer>
+                <ImgContainer src={Logo}></ImgContainer>
 
                 <InputFieldLoginWrapper>
                     <InputLabelLogin>Email</InputLabelLogin>
@@ -24,7 +25,7 @@ const LoginView = ({loginErrorMessage, setEmail, setPassword, onSignIn}) =>
                     <InputFieldLogin type="password" onChange={e => setPassword(e.target.value)}></InputFieldLogin>
                 </InputFieldLoginWrapper>
 
-                {loginErrorMessage}
+                <ErrorText>{loginErrorMessage}</ErrorText>
                 <LoginButton onClick={() => onSignIn()}>Login</LoginButton>
                 <NavLinkSignup to="/signup">Sign up {'>'}</NavLinkSignup>
 
@@ -46,7 +47,9 @@ const ContentContainer = styled.div`
 
 const ImgContainer = styled.img`
     ${ImgContainerLogin}
+    height: 200px;
     animation: 2.5s ${Animation};
+    margin-bottom: 20px;
 `;
 
 const InputFieldLoginWrapper = styled.div`
@@ -91,6 +94,12 @@ const BackgroundBlobContainerRight = styled.div`
 `;
 const BackgroundBlob = styled.img`
     vertical-align: middle;
+`;
+
+const ErrorText = styled.p`
+    ${BodyText};
+    color: red;
+    font-size: ${props => props.theme.fontSizes.xsmall};
 `;
 
 export default LoginView;

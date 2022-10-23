@@ -8,11 +8,11 @@ We have created Momentous as the final project in DH2643 Advanced Interaction Pr
 
 #### 1. Clone project repository
 
-#### 2. npm install
-Installation of npm packages have to be done in ```/client``` *and* ```/server```. 
-
-#### 3. Change to correct Node version
+#### 2. Change to correct Node version
 Change to the correct Node Version using ```nvm use``` in the root project terminal.
+
+#### 3. npm install
+Installation of npm packages have to be done in ```/client``` *and* ```/server```. 
 
 #### 4. Start server
 In ```/server```, write ```npm run start:dev```.

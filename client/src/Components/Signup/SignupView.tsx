@@ -12,20 +12,10 @@ import { FileUploader } from "react-drag-drop-files";
 
 const Animation = keyframes`${fadeInDown}`;
 
-import { PrimaryBtn, PrimaryBtnContainer, InputField, ContentContainerAll, ImgContainerLogin, InputLabel, InputFieldWrapper} from '../../StyledComponents';
+import { PrimaryBtn, PrimaryBtnContainer, InputField, ContentContainerAll, ImgContainerLogin, InputLabel, InputFieldWrapper, BodyText} from '../../StyledComponents';
 
 const SignupView = ({loginErrorMessage, setFirstName, setLastName, setEmail, setPassword, onSignUp, handleFileChange, fileTypes, previewImage}) =>
             <ContentContainer>
-                
-                <ProfileImgContainer>
-                    <PreviewImage id="previewImg" src={previewImage == "" ? ProfileHolderImg: previewImage}/>
-                    { // @ts-expect-error 
-                    <FileUploader children={
-                        <ImgContainer src={AddButton} ></ImgContainer>
-                    } hoverTitle=" " handleChange={handleFileChange} multiple={false} name="file" types={fileTypes} onTypeError={handleFileChange}>
-                    </FileUploader> }    
-                </ProfileImgContainer>
-                
                 <InputFieldSignupWrapper animationTime="2.5s">
                     <InputLabelSignup>First name</InputLabelSignup>
                     <InputFieldSignup onChange={e => setFirstName(e.target.value)}></InputFieldSignup>
@@ -46,7 +36,7 @@ const SignupView = ({loginErrorMessage, setFirstName, setLastName, setEmail, set
                     <InputFieldSignup type ="password" onChange={e => setPassword(e.target.value)}></InputFieldSignup>
                 </InputFieldSignupWrapper>
 
-                {loginErrorMessage}
+                <ErrorText>{loginErrorMessage}</ErrorText>
                 <ButtonContainer>
                     <NavLink to="/">
                         <BackButton src={BackButtonArrow}></BackButton>
@@ -168,8 +158,26 @@ const BackgroundBlob = styled.img`
     vertical-align: middle;
 `;
 
+const ErrorText = styled.p`
+    ${BodyText};
+    color: red;
+    font-size: ${props => props.theme.fontSizes.xsmall};
+`;
 
 type Props = {
     animationTime?: string,
 }
 export default SignupView;
+
+
+/*
+Profile picture upload function for future use
+    <ProfileImgContainer>
+        <PreviewImage id="previewImg" src={previewImage == "" ? ProfileHolderImg: previewImage}/>
+        { // @ts-expect-error 
+        <FileUploader children={
+            <ImgContainer src={AddButton} ></ImgContainer>
+        } hoverTitle=" " handleChange={handleFileChange} multiple={false} name="file" types={fileTypes} onTypeError={handleFileChange}>
+        </FileUploader> }    
+    </ProfileImgContainer>
+*/

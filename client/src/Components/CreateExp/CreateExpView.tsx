@@ -1,6 +1,7 @@
 import React from 'react';
 import styled, {keyframes} from "styled-components";
 import ProfileHolderImg from "../../Images/profile-holder-signup.svg";
+import EmptyProfleImg from "../../Images/NewEmptyProfileImg.svg";
 import BackgroundBlobLeftSVG from "../../Images/BackgroundBlobLoginLeft.svg";
 import BackgroundBlobRightSVG from "../../Images/BackgroundBlobLoginRight.svg";
 import {Link} from "react-router-dom";
@@ -57,7 +58,7 @@ const CreateExpView = ({setName, startDate, setStartDate, endDate, setEndDate, i
                         <ParticipantsContainer>
                             {participants.map(participant => {
                                 return <ParticipantCard key={participant.id}>
-                                    <ParticipantImg src={participant.profile_img} />
+                                    <ParticipantImg src={EmptyProfleImg} />
                                     <ParticipantName>{participant.first_name} {participant.last_name}</ParticipantName>
                                 </ParticipantCard>
                             })}<ErrorMessage>{errorMsg}</ErrorMessage>

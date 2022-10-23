@@ -13,7 +13,7 @@ class UserModel {
         platform: Social_Media,     
         url: string}[];
     description: string | null;
-    profile_img: Image;
+    profile_img: "";
     friends: number[]; //Ska man lägga in hela användaren här eller vara ett id
     friend_requests: Friend_request[];
     experiences: string[];
@@ -34,7 +34,7 @@ class UserModel {
         this.last_name;
         this.social_media;
         this.description;
-        this.profile_img;
+        this.profile_img = "";
         this.friends; //Ska man lägga in hela användaren här eller vara ett id
         this.friend_requests;
         this.experiences = [];

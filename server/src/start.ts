@@ -122,12 +122,13 @@ io.on('connection', (socket:any) => {
 });
 
 app.post("/api/listeners/user", checkAuth, (req: express.Request, res: express.Response) => {
-    listenToUser(res.locals.user.user_id, (val:any) => {io.sockets.emit("user", val)});
+    listenToUser(res.locals.user.user_id, (val:any) => {io.sockets.emit("users", val)});
     res.status(200).send("Listening to user");
 });
 
 app.post("/api/listeners/experience", checkAuth, (req: express.Request, res: express.Response) => {
-    listenToExperience(req.body.id, (val:any) => {io.sockets.emit("experience", val)});
+    console.log("id i starst", req.body.exp_id);
+    listenToExperience(req.body.exp_id, (val:any) => {io.sockets.emit("experience", val)});
     res.status(200).send("Listening to exp");
 });
 

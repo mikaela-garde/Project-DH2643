@@ -64,7 +64,12 @@ router.route("/toggle-dark").post(checkAuth, (req: express.Request, res: express
 });
 
 router.route("/experience").post(checkAuth, (req: express.Request, res: express.Response) => {
-    push(ref(db, 'users/' + res.locals.user.user_id + '/experiences'), [req.body.exp_id]).then(() => res.status(200).send({ user: res.locals.user, success: true}));
+    console.log("u_id inne i routen exp", res.locals.user.user_id);
+    console.log("exp_id inne i routen exp", req.body.exp_id);
+    push(ref(db, 'users/' + res.locals.user.user_id + '/experiences/'), [req.body.exp_id]).then(() => {
+        console.log("inne i ref");
+        res.status(200).send({ user: res.locals.user, success: true})
+    }).catch((err) => console.log("DET HÄR ÄR ERR", err));
      // need to also add catch unless this works
 });
 

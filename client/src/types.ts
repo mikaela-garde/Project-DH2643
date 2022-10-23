@@ -55,6 +55,13 @@ export type Post = {
     author: number, //Här kanske hela user objektet
 }
 
+export type PostFormatted = {
+    src: URL,
+    width: number,
+    height: number,
+    caption: string,
+}
+
 export type Friend_request = {
     id: number,
     sender: number,

@@ -12,7 +12,7 @@ const GridView= ({summary, onSelect}) =>
 
     <ExperienceContainer>
         <ExperienceGridContainer>
-            {summary.map(exp => {
+            {summary != undefined && summary.map(exp => {
                 return <ExperienceButtonContainer key={exp.id} to="/exp-board" onClick={() => onSelect(exp.id)}>
                     <SingleExperienceContainer>
                         <ExperienceImgContainer src={exp.img == "" ? ExpePlaceholderImg : exp.img}></ExperienceImgContainer>

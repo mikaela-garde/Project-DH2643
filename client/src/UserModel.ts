@@ -25,6 +25,7 @@ class UserModel {
     accessToken: string;
     isLoggedIn: boolean;
     summarys: any[];
+    dataFetched: boolean;
 
     constructor(){       
         this.id;
@@ -40,11 +41,12 @@ class UserModel {
         this.notifications;
         this.dark_mode= false;
         this.subscribers =[];
-        this.summarys = [];
+        this.summarys;
         this.signInErrorMsg;
         this.signErrorMsg;
         this.accessToken;
         this.isLoggedIn;
+
     }
     
     addObserver(obs){
@@ -125,6 +127,7 @@ class UserModel {
 
             } else {
                 this.experiences = [];
+                this.summarys = [];
             }
             this.notifications = data.notifications;
             this.dark_mode = data.dark_mode;

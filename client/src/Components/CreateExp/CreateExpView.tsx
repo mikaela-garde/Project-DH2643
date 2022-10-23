@@ -29,7 +29,7 @@ const CreateExpView = ({setName, startDate, setStartDate, endDate, setEndDate, i
                     <Column>
                         <InputFieldExpWrapper>
                             <InputLabelExp left="">Experience name</InputLabelExp>
-                            <InputFieldExp paddingRight="150px" onChange={e => setName(e.target.value)}></InputFieldExp>
+                            <InputFieldExp paddingRight="150px" onChange={e => setName(e.target.value)} width="400px"></InputFieldExp>
                         </InputFieldExpWrapper>
 
                         <FromToWrapper>
@@ -111,7 +111,7 @@ const ContentContainer = styled.div`
 
 const ContentWrapper = styled.div`
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
 `;
 
 const Column = styled.div`
@@ -124,6 +124,7 @@ const Column = styled.div`
 
 const InputFieldExpWrapper = styled.div`
     ${InputFieldWrapper};
+    margin:50px;
 `;
 
 const InputLabelExp = styled.label<propsLabel>`
@@ -140,6 +141,7 @@ const InputFieldExp = styled.input<propsField>`
 const FromToWrapper = styled.div`
     display: flex;
     flex-direction: row;
+    justify-content: center;
     margin: 0;
     >*  {
         margin: 12px;

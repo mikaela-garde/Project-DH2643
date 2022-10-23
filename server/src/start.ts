@@ -68,8 +68,7 @@ router.route("/api/upload").post( multer.any(), (req: express.Request, res: expr
             const file = req.files[5].buffer
             //@ts-ignore
             const fileName = req.files[5].originalname
-            storeFile(userId, expId, date, caption, uploaderName, file, fileName );
-            res.status(200).send("success");
+            storeFile(userId, expId, date, caption, uploaderName, file, fileName, res );
 
             })
             .catch((error:any) => console.log("api/upload", error));
@@ -99,7 +98,7 @@ app.use("/api/experiences", experiences);
 const server = https.createServer(options, app);
 
 server.listen(port, () => {
-    console.log(`Server is listening on port: ${port}`);
+    //console.log(`Server is listening on port: ${port}`);
 })
 
 const io = require("socket.io")(server, {
@@ -110,7 +109,6 @@ const io = require("socket.io")(server, {
 });
 
 io.on('connection', (socket:any) => {
-    console.log("den är connectad");
     // Lite kod som man kan använda för att eventuellt unsubscriba till FB
     /*
     const unsubscribe:any = [];
@@ -132,5 +130,3 @@ app.post("/api/listeners/experience", checkAuth, (req: express.Request, res: exp
     listenToExperience(req.body.exp_id, (val:any) => {io.sockets.emit("experience", val)});
     res.status(200).send("Listening to exp");
 });
-
-

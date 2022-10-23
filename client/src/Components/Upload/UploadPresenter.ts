@@ -5,7 +5,7 @@ import { v4 as uuid } from 'uuid';
 import { experienceModel } from "../../app"
 import {UserModel} from '../../app';
 
-function TemplatePresenter ({showAdd}) {
+function TemplatePresenter ({showAdd, setIsLoading}) {
   //isActive = Media blue, Text White
   const [isActive, setIsActive] = useState(true);
   
@@ -30,68 +30,16 @@ function TemplatePresenter ({showAdd}) {
     }
   };
 
-  const uploadImage = (file) => {
-   
-
-    let formData = new FormData();
-
-    //Konvertera token till JSON för att lägga in i formdata
-    let token = localStorage.getItem("refreshToken")
-    const tokenJSON = JSON.stringify(token);
-    const tokenBlob = new Blob([tokenJSON], {
-      type: 'application/json'
-    });
-    formData.append("token", tokenBlob);
-
-    //Appenda experience id
-    let expId= experienceModel.id
-    const expIdJSON = JSON.stringify(expId);
-    const expIdBlob = new Blob([expIdJSON], {
-      type: 'application/json'
-    });
-    formData.append("expId", expIdBlob);
-    
-    //Appenda experience id
-    let date= file.lastModifiedDate
-    const dateJSON = JSON.stringify(date);
-    const dateBlob = new Blob([dateJSON], {
-      type: 'application/json'
-    });
-    formData.append("date", dateBlob);
-
-    console.log(text)
-    let caption = text
-    const captionJSON = JSON.stringify(caption);
-    const captionBlob = new Blob([captionJSON], {
-      type: 'application/json'
-    });
-    formData.append("caption", captionBlob);
-
-    console.log(text)
-    let uploaderName:string = UserModel.first_name + " " + UserModel.last_name;
-    console.log(UserModel.first_name);
-    const uploaderNameJSON = JSON.stringify(uploaderName);
-    const uploaderNameBlob = new Blob([uploaderNameJSON], {
-      type: 'application/json'
-    });
-    formData.append("uploaderName", uploaderNameBlob);
-    
-    let uploadId = uuid();
-    //Skapar en blob så at vi kan byta namn till unikt id
-    let blob = file.slice(0, file.size, "image/jpeg");
-    let newFile = new File([blob], `${uploadId}`, { type: "image/jpeg" });
-    // Build the form data - You can add other input values to this i.e descriptions, make sure img is appended last
-    formData.append("imgfile", newFile);
-  
-    uploadAPI(formData)
-  }
-
   return React.createElement(UploadView, {
       isActive: isActive, 
       setIsActive: setIsActive,
       setText: (input) => setText(input),
       handleFileChange: handleFileChange,
-      uploadImage: () => uploadImage(file),
+      uploadImage: () => {
+        experienceModel.uploadImage(file, text).then(() => setIsLoading());
+        showAdd();
+        setIsLoading();
+      },
       fileTypes: fileTypes,
       fileName: fileName,
       fileError: fileError,

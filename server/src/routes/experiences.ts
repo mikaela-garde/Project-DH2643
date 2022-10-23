@@ -12,7 +12,24 @@ router.route("/fetch").post(checkAuth, (req: express.Request, res: express.Respo
     //Get experiences in database
     get(ref(db, 'experiences/' + req.body.id)).then((snapshot) => {
             if (snapshot.exists()) {
-              res.status(200).send({data: snapshot.val(), success: true});
+
+                var img = "";
+                const posts = snapshot.val().posts;
+                if(snapshot.val().posts) {
+                    img = posts[Object.keys(posts)[0]].imgURL;
+                }
+
+                const exp = {
+                    id: snapshot.val().id,
+                    name: snapshot.val().name,
+                    creator: snapshot.val().creator,
+                    start_time: snapshot.val().start_time,
+                    end_time: snapshot.val().end_time,
+                    participants: snapshot.val().participants,
+                    template: snapshot.val().template,
+                    img: img
+                }
+              res.status(200).send({data: exp, success: true});
             } else {
               console.log("No data available");
             }
@@ -20,7 +37,6 @@ router.route("/fetch").post(checkAuth, (req: express.Request, res: express.Respo
 });
 
 router.route("/create").post(checkAuth, (req: express.Request, res: express.Response) => {
-    console.log("creating");
     const exp: Experience = {
         id: uuid(),
         name: req.body.name,
@@ -32,16 +48,13 @@ router.route("/create").post(checkAuth, (req: express.Request, res: express.Resp
         creator: res.locals.user.user_id,
         img: ""
     }
-    console.log("locasl utanför auth", res.locals.user.user_id)
     
     //Set in database
     set(ref(db, 'experiences/' + exp.id), exp).then(() => {
-        console.log("Experiencen är skapadt", exp.participants);
     
         //Set in participants array with exp
         exp.participants.map(p => {
-            console.log("det här är en particiapnt ",p);
-            return push(ref(db, 'users/' + p + '/experiences'), [exp.id]).then(()  => {console.log("heej")});
+            return push(ref(db, 'users/' + p + '/experiences'))
         });
 
     });

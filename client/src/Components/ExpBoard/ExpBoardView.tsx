@@ -7,18 +7,19 @@ import BackgroundBlobLeftSVG from "../../Images/BackgroundBlobDashboardLeft.svg"
 import BackgroundBlobRightSVG from "../../Images/BackgroundBlobDashboardRight.svg";
 import SVG from "react-inlinesvg";
 import BackButtonArrow from "../../Images/back-button-arrow.svg";
-import { fadeInUp, fadeInDown } from 'react-animations';
+import { fadeInUp, fadeInDown, fadeIn} from 'react-animations';
 import { Gallery } from "react-grid-gallery";
 import profileicon from "../../Images/NewEmptyProfileImg.svg";
+import NoDataGridView from '../NoDataGrid/NoDataGridView';
 
-
+const fadeInAnimation = keyframes`${fadeIn}`;
 const fadeInUpAnimation = keyframes`${fadeInUp}`;
 const fadeInDownAnimation = keyframes`${fadeInDown}`;
 
-const ExpBoardView= ({name, startTime, endTime, showAddContent, isShown, blur, brightness, images}) =>
+const ExpBoardView= ({name, startTime, endTime, showAddContent, isShown, blur, brightness, images, isLoading, setIsLoading}) =>
     <ContentWrapper>
         
-        {isShown && <UploadPresenter showAdd={showAddContent}></UploadPresenter>}
+        {isShown && <UploadPresenter setIsLoading={setIsLoading} showAdd={showAddContent}></UploadPresenter>}
         
         <ContentContainer blur={blur} brightness={brightness}>
             <NavContainerXPBoard>
@@ -30,11 +31,11 @@ const ExpBoardView= ({name, startTime, endTime, showAddContent, isShown, blur, b
 
                 
             </NavContainerXPBoard>
-            <p>{startTime} - {endTime}</p>
+            <Heading33>{startTime} - {endTime}</Heading33>
 
             
-            <GridPresenterContainerXPBoard>
-            <Gallery images={images.map((image) => ({...image,
+            {isLoading ? <NoDataGridView/>: <GridPresenterContainerXPBoard>
+            <Gallery images={images.slice(0).reverse().map((image) => ({...image,
                 customOverlay: 
                 <InfoContainer>
                 <ProfileContainer>
@@ -44,7 +45,7 @@ const ExpBoardView= ({name, startTime, endTime, showAddContent, isShown, blur, b
                 <Caption>{image.caption}</Caption>
                 </InfoContainer>
                 }))} enableImageSelection={false} rowHeight={230} margin={1} ></Gallery>
-            </GridPresenterContainerXPBoard>
+            </GridPresenterContainerXPBoard>}
 
             <ButtonContainer>
                 <AddContentBtn onClick={() => showAddContent()}>Add content</AddContentBtn>
@@ -74,9 +75,8 @@ const ContentContainer = styled.div<Props>`
     background: ${props => props.theme.colors.background};
     height: 100vh;
     width: 100vw;
-    overflow: hidden; /* animationen skapar en scrollbar om inte denna finns*/
     z-index: 1;
-    overflow: hidden; /* hiding scrollbar*/
+    overflow: auto; /* hiding scrollbar*/
     filter: ${props => props.brightness ? "brightness(50%)": "brightness(100%)"}; /* blur when upload component is mounted */
     filter: ${props => props.blur ? "blur(1.5em);" : "blur(0);"};
 `;
@@ -97,29 +97,31 @@ const NavLinkXPBoard = styled(Link)`
     
 const BackButtonXP = styled(SVG)`
     ${BackButton}
-    animation: 1s ${fadeInDownAnimation};
+    animation: 1s ${fadeInAnimation};
 `;
 
 const PageTitle = styled.h1`
     ${Heading1}
-    animation: 1s ${fadeInDownAnimation};
+    animation: 1s ${fadeInAnimation};
 
 `;
 
 const GridPresenterContainerXPBoard= styled.div`
-    ${GridPresenterContainer}
+    ${GridPresenterContainer};
+    height: 500px;
  
 `;
 
 const ButtonContainer = styled.div`
     ${PrimaryBtnContainer}
     ${BtnPosBottomCenter}
-    animation: 2s ${fadeInUpAnimation};
+    animation: 2s ${fadeInAnimation};
     display: flex;
     justify-content: center;
-    height: 300px;
-    
-    
+    position: fixed;    
+    bottom: 0;
+    left: 42%;
+    width: 250px;    
 `;
 
 const AddContentBtn = styled.button`
@@ -127,6 +129,11 @@ const AddContentBtn = styled.button`
     align-self: center;
     margin-top:auto;
     
+`;
+
+const Heading33 = styled.h3`
+      ${Heading3};
+      text-align: center;
 `;
 
 ///////////////////////////////// BLOBS ///////////////////////////////
@@ -143,7 +150,7 @@ const BackgroundBlobContainerRight = styled.div`
     position: fixed;
     top: 0px;
     right: 0px;
-    z-index: 1;
+    z-index: -1;
 
     @media (max-width: 768px) {
         top: -100px;

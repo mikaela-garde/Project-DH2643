@@ -17,7 +17,6 @@ const listenToUser = (uid:string, callback:any) => {
 }
 
 const listenToExperience = (id:string, callback:any) => {
-  console.log("id i listen", id);
   const unsubscribe = onValue(ref_db(db, 'experiences/' + id), (snapshot:any) => {
     callback(snapshot.val());
   });
@@ -25,7 +24,7 @@ const listenToExperience = (id:string, callback:any) => {
   return unsubscribe;
 }
 
-const storeFile =  (userId: string, expId: string, date: string, caption: string, uploaderName:string, file:any, fileName: string) => {
+const storeFile =  (userId: string, expId: string, date: string, caption: string, uploaderName:string, file:any, fileName: string, res:any) => {
   //Store data in Cloud Storage
   const ref = ref_storage(storage, 'experiences/' + fileName);
   const refFirebase = ref_db(db, 'experiences/' + expId + '/posts/');
@@ -38,16 +37,8 @@ const storeFile =  (userId: string, expId: string, date: string, caption: string
       caption: caption,
       imgURL : downloadURL,
       uploaderName: uploaderName,
-    })}
-    )).catch((error) => console.log("uploadbytesresumable", error));
-
-  /*uploadTask.on('state_changed', () => {
-    getDownloadURL(ref).then((downloadURL:string) => {
-      console.log("file location", downloadURL)s; 
-    }
-    console.log('Uploaded a blob or file!');
-    return res.status(200).send("File uploaded to Cloud Storage");
-  })*/
+    }).then(() => res.status(200).send("success"))}
+    )).catch((error) => res.status(200).send(error));
 }
 
 const fetchFile = async (fileName: string, res:any) => {
@@ -55,21 +46,6 @@ const fetchFile = async (fileName: string, res:any) => {
   const ref = ref_storage(storage, 'experiences/' + fileName);
   let fileURL = await getDownloadURL(ref)
   return res.status(200).send(fileURL);
-  /*
-  .then((url) => {
-    // `url` is the download URL for 'images/stars.jpg'
-    
-    const img = document.getElementById('c453d824-e681-4a9a-91a5-0f03544dade7.jpeg');
-    if (img !== null) {
-      img.setAttribute('src', url);
-      return img
-    } else {
-      console.log("Bilden hittades ej :(")
-    }
-  })
-  .catch((error) => {
-    // Handle any errors
-  });*/
 
 }
 

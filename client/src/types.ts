@@ -44,7 +44,9 @@ export type Experience = {
     start_time: string,
     end_time: string,
     template: Experience_Template,
-    posts: Post[]
+    posts: Post[],
+    creator: string,
+    img: string
 }
 
 export type Post = {

@@ -41,9 +41,8 @@ export const updateExperiencesUserAPI = (token, exp_id) => axios.post("https://l
     exp_id: exp_id
 });
 
-
 //EXPERIENCE
-export const createExperienceAPI = (token, name, start_time, end_time, participants) => axios.post("https://localhost:8081/api/experiences", {
+export const createExperienceAPI = (token, name, start_time, end_time, participants) => axios.post("https://localhost:8081/api/experiences/create", {
     token: token,
     name: name,
     start_time: start_time,
@@ -51,7 +50,13 @@ export const createExperienceAPI = (token, name, start_time, end_time, participa
     participants: participants
 });
 
-export const listenToExperienceAPI = (id, token) => axios.post("https://localhost:8081/api/listeners/experience", {
+export const listenToExperienceAPI = (token, exp_id) => axios.post("https://localhost:8081/api/listeners/experience", {
+    token: token,
+    exp_id: exp_id
+});
+
+export const getExpAPI = (token, id, withoutPosts) => axios.post("https://localhost:8081/api/experiences/fetch", {
     id: id,
+    withoutPosts: withoutPosts,
     token: token
 });

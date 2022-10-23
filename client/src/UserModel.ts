@@ -1,6 +1,6 @@
 import { socket } from "./app";
 import {User, Image, Social_Media, Friend_request, Notifications} from "./types";
-import {createAccountAPI, listenToUserAPI, loginAPI, getUidFromTokenAPI, toggleDarkModeAPI, updateExperiencesUserAPI} from "./webAPI/webAPI";
+import {createAccountAPI, listenToUserAPI, loginAPI, getUidFromTokenAPI, toggleDarkModeAPI, updateExperiencesUserAPI, getExpAPI} from "./webAPI/webAPI";
 
 class UserModel {
     /** Model containing information for the logged in user from firebase*/
@@ -24,6 +24,7 @@ class UserModel {
     signErrorMsg: string;
     accessToken: string;
     isLoggedIn: boolean;
+    summarys: any[];
 
     constructor(){       
         this.id;
@@ -39,6 +40,7 @@ class UserModel {
         this.notifications;
         this.dark_mode= false;
         this.subscribers =[];
+        this.summarys = [];
         this.signInErrorMsg;
         this.signErrorMsg;
         this.accessToken;
@@ -106,7 +108,7 @@ class UserModel {
 
     listenToUserData(token) {
         listenToUserAPI(token);
-        socket.on("user", (data) => {
+        socket.on("users", (data) => {
             console.log("listening");
             this.id = data.id;
             this.email = data.email;
@@ -119,6 +121,9 @@ class UserModel {
             this.friend_requests = data.friend_requests;
             if(data.experiences) {
                 this.experiences = Object.values(data.experiences); 
+                this.getExpExtended().then(value => {this.summarys = value;
+                    this.notifyObservers();});
+
             } else {
                 this.experiences = [];
             }
@@ -152,6 +157,7 @@ class UserModel {
     }
 
     addExperience(exp_id: string) {
+        console.log("exp id i add", exp_id);
         updateExperiencesUserAPI(localStorage.getItem("refreshToken"), exp_id);
     }
 
@@ -186,5 +192,17 @@ class UserModel {
             return true;
         }
     };
+
+    getExpExtended(){
+        console.log("EXPERIENCE", this.experiences);
+        const calls = this.experiences.map(exp => {
+
+            return getExpAPI(localStorage.getItem("refreshToken"), exp, true).then((res) => {
+                console.log("data i extended", res.data.data)
+                return res.data.data;
+            });
+        });
+        return Promise.all(calls).then((value) => {return value})
+    }
 }
 export default UserModel;

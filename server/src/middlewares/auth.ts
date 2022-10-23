@@ -23,7 +23,7 @@ const checkAuth = (req: express.Request, res: express.Response, next: express.Ne
       res.locals.user = json; //OM DET EJ FINNS NGN TOKEN SÅ KOMMER DET SKICAKS TILLBAKA ETT ERROR HÄR
       next();
     })
-    .catch((error:any) => console.log(error));
+    .catch((error:any) => console.log("checkauth: " ,error));
 }
 
 const checkAuthUpload = (req: express.Request, res: express.Response) => {
@@ -31,18 +31,14 @@ const checkAuthUpload = (req: express.Request, res: express.Response) => {
   //@ts-ignore
   console.log(req.files[0].buffer.toString().replaceAll('"', ""))
   if (req.files) {
-  fetch('https://securetoken.googleapis.com/v1/token?key=AIzaSyBfZR7iec4_6_AbFzQliaLBq326x3FS91I', {
+
+  return fetch('https://securetoken.googleapis.com/v1/token?key=AIzaSyBfZR7iec4_6_AbFzQliaLBq326x3FS91I', {
     method: 'POST',
     //@ts-ignore
     body: "grant_type=refresh_token&refresh_token=" + req.files[0].buffer.toString().replaceAll('"', ""),
     headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
-    }).then((res:any) => res.json())
-    .then((json:any) => {
-      res.locals.user = json;
     })
-    .catch((error:any) => console.log(error));
-  }
-}
+}}
 
 const createAccountFirebase = (req: express.Request, res: express.Response, next: express.NextFunction) => {  
 
@@ -68,7 +64,7 @@ const signInFirebase = (req: express.Request, res: express.Response, next: expre
   .catch((error) => {
       const errorCode = error.code;
       const errorMessage = error.message;
-      console.log(errorMessage);
+      console.log("signInFIrebase: ", errorMessage);
       res.status(200).send({success: false, error: errorMessage});
   });
 }

@@ -6,7 +6,7 @@ import { FileUploader } from "react-drag-drop-files";
 import BackButtonArrow from "../../Images/back-button-arrow.svg";
 import SVG from "react-inlinesvg";
 
-const UploadView = ({isActive, setIsActive, setText, handleFileChange, fileTypes, fileName, fileError, showAdd}) =>
+const UploadView = ({isActive, setIsActive, setText, handleFileChange, uploadImage, fileTypes, fileName, fileError, showAdd}) =>
 
     <ContentContainer>
         <TitleBackBtnContainer>
@@ -34,7 +34,8 @@ const UploadView = ({isActive, setIsActive, setText, handleFileChange, fileTypes
             </TextInputWrapper>
         </UploadMedia>
 
-       <UploadButton>Publish content</UploadButton>
+       <UploadButton onClick={uploadImage}>Publish content</UploadButton>
+
     </ContentContainer>
 ;
 

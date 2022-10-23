@@ -35,7 +35,7 @@ router.route("/signup").post(createAccountFirebase, (req: express.Request, res: 
 router.route("/email").post(checkAuth, (req: express.Request, res: express.Response) => {
     const key_ref = query(ref(db, 'users'), orderByChild('email'));
     const email_ref = query(key_ref, equalTo(req.body.email));
-    onValue(email_ref, (snapshot) => {
+    get(email_ref).then((snapshot) => {
         if(snapshot.val() != null){
             const data:any = snapshot.val();
             res.status(200).send(data);
@@ -64,7 +64,11 @@ router.route("/toggle-dark").post(checkAuth, (req: express.Request, res: express
 });
 
 router.route("/experience").post(checkAuth, (req: express.Request, res: express.Response) => {
-    push(ref(db, 'users/' + res.locals.user.user_id + '/experiences'), [req.body.exp_id]).then(() => res.status(200).send({ user: res.locals.user, success: true}));
+    console.log("exp_id inne i routen exp", req.body.exp_id);
+    push(ref(db, 'users/' + res.locals.user.user_id + '/experiences/'), [req.body.exp_id]).then(() => {
+        console.log("inne i ref");
+        res.status(200).send({ user: res.locals.user, success: true})
+    }).catch((err) => console.log("DET HÄR ÄR ERR", err));
      // need to also add catch unless this works
 });
 

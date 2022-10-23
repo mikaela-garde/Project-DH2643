@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import ExpBoardGridView from "./ExpBoardGridView";
-import {uploadAPI, downloadAPI} from "../../webAPI/webAPI";
+import {uploadAPI} from "../../webAPI/webAPI";
 import { v4 as uuid } from 'uuid';
 
 function ExpBoardGridPresenter (props) {

@@ -44,7 +44,9 @@ export type Experience = {
     start_time: string,
     end_time: string,
     template: Experience_Template,
-    posts: Post[]
+    posts: Post[],
+    creator: string,
+    img: string
 }
 
 export type Post = {
@@ -53,6 +55,15 @@ export type Post = {
     content_url: string
     type: Post_Type,
     author: number, //Här kanske hela user objektet
+}
+
+export type PostFormatted = {
+    src: URL,
+    width: number,
+    height: number,
+    caption: string,
+    name: string
+
 }
 
 export type Friend_request = {

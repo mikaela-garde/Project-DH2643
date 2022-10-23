@@ -51,21 +51,33 @@ const multer = Multer({
 router.route("/api/upload").post( multer.any(), (req: express.Request, res: express.Response) => {
     try {
         if(req.files){
-            checkAuthUpload(req, res)
-            const userId = res.locals.user.user_id
+            //@ts-ignore
+            const promise = checkAuthUpload(req, res).then((res:any) => res.json())
+            .then((json:any) => {
+            const userId = json.user_id;
+           
             //@ts-ignore
             const expId = req.files[1].buffer.toString().replaceAll('"', "")
             //@ts-ignore
             const date = req.files[2].buffer.toString().replaceAll('"', "")
             //@ts-ignore
-            const file = req.files[3].buffer
+            const caption = req.files[3].buffer.toString().replaceAll('"', "")
             //@ts-ignore
-            const fileName = req.files[3].originalname
+            const uploaderName = req.files[4].buffer.toString().replaceAll('"', "")
+            //@ts-ignore
+            const file = req.files[5].buffer
+            //@ts-ignore
+            const fileName = req.files[5].originalname
+            storeFile(userId, expId, date, caption, uploaderName, file, fileName );
+            res.status(200).send("success");
+
+            })
+            .catch((error:any) => console.log("api/upload", error));
+          }
             
-            storeFile(file, fileName, userId, expId, date );
 
         }
-    } catch (error) {
+     catch (error) {
         res.status(500).send(error)
     }
 });
@@ -111,12 +123,12 @@ io.on('connection', (socket:any) => {
 });
 
 app.post("/api/listeners/user", checkAuth, (req: express.Request, res: express.Response) => {
-    listenToUser(res.locals.user.user_id, (val:any) => {io.sockets.emit("user", val)});
+    listenToUser(res.locals.user.user_id, (val:any) => {io.sockets.emit("users", val)});
     res.status(200).send("Listening to user");
 });
 
 app.post("/api/listeners/experience", checkAuth, (req: express.Request, res: express.Response) => {
-    listenToExperience(req.body.id, (val:any) => {io.sockets.emit("experience", val)});
+    listenToExperience(req.body.exp_id, (val:any) => {io.sockets.emit("experience", val)});
     res.status(200).send("Listening to exp");
 });
 

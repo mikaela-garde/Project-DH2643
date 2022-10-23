@@ -3,6 +3,7 @@ import { Experience, User, Experience_Template, Post, PostFormatted } from "./ty
 import { getUserFromEmailAPI, createExperienceAPI, listenToExperienceAPI } from "./webAPI/webAPI";
 import { socket } from "./app";
 import { UserModel } from "./app";
+import { differenceInDays, eachDayOfInterval } from "date-fns";
 
 class ExperienceModel {
     id: string;
@@ -172,6 +173,17 @@ class ExperienceModel {
 
     formatDate(date) {
         return date.replace('T', ' ').slice(0, 16);
+    }
+
+    formatDateDashboard(start_time: Date, end_time: Date) { 
+        return JSON.stringify(start_time).replace('T', ' ').slice(1, 17) + " - " + JSON.stringify(end_time).replace('T', ' ').slice(1, 17);
+        /*
+        console.log("HEow",  eachDayOfInterval({start: start_time, end: end_time})) ;
+        if(differenceInDays(end_time, start_time) > 0) {
+            return JSON.stringify(start_time).slice(0, 10) + " - " + JSON.stringify(end_time).slice(0, 10);
+        } else {
+            return JSON.stringify(start_time).replace('T', ' ').slice(1, 17) + " - " + JSON.stringify(end_time).slice(12, 17);
+        }*/
     }
 }
        

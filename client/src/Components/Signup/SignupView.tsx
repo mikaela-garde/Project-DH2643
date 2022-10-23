@@ -1,11 +1,11 @@
 import React from 'react';
 import styled, {keyframes} from "styled-components";
-import ProfileHolderImg from "../../Images/profile-holder-signup.svg";
+import ProfileHolderImg from "../../Images/emptyProfileImgBlue.svg";
+import AddButton from "../../Images/addButton.svg"
 import BackgroundBlobLeftSVG from "../../Images/BackgroundBlobLoginLeft.svg";
 import BackgroundBlobRightSVG from "../../Images/BackgroundBlobLoginRight.svg";
 import BackButtonArrow from "../../Images/back-button-arrow.svg";
 import {Link} from "react-router-dom";
-import CatImg from "../../Images/sad_cat.jpeg";
 import SVG from "react-inlinesvg";
 import { fadeInDown } from 'react-animations';
 import { FileUploader } from "react-drag-drop-files";
@@ -14,14 +14,17 @@ const Animation = keyframes`${fadeInDown}`;
 
 import { PrimaryBtn, PrimaryBtnContainer, InputField, ContentContainerAll, ImgContainerLogin, InputLabel, InputFieldWrapper} from '../../StyledComponents';
 
-const SignupView = ({loginErrorMessage, setFirstName, setLastName, setEmail, setPassword, onSignUp, setImage, handleFileChange, fileTypes}) =>
+const SignupView = ({loginErrorMessage, setFirstName, setLastName, setEmail, setPassword, onSignUp, handleFileChange, fileTypes, previewImage}) =>
             <ContentContainer>
-                { // @ts-expect-error 
-                <FileUploader children={
-                    <ImgContainer src={ProfileHolderImg} onClick={e => setImage(CatImg)}></ImgContainer>
-                } hoverTitle=" " handleChange={handleFileChange} multiple={false} name="file" types={fileTypes} onTypeError={handleFileChange}>
-                </FileUploader> }
                 
+                <ProfileImgContainer>
+                    <PreviewImage id="previewImg" src={previewImage == "" ? ProfileHolderImg: previewImage}/>
+                    { // @ts-expect-error 
+                    <FileUploader children={
+                        <ImgContainer src={AddButton} ></ImgContainer>
+                    } hoverTitle=" " handleChange={handleFileChange} multiple={false} name="file" types={fileTypes} onTypeError={handleFileChange}>
+                    </FileUploader> }    
+                </ProfileImgContainer>
                 
                 <InputFieldSignupWrapper animationTime="2.5s">
                     <InputLabelSignup>First name</InputLabelSignup>
@@ -69,9 +72,24 @@ const ContentContainer = styled.div`
         };
 `;
 
-const ImgContainer = styled(SVG)`
+const ProfileImgContainer = styled.div`
     ${ImgContainerLogin}
     animation: 2s ${Animation};
+    justify-content: center;
+`;
+
+const PreviewImage = styled.img`
+    width: 176px;
+    height: 176px;
+    object-fit: cover;
+    border-radius: 100px;
+`;
+
+const ImgContainer = styled(SVG)`
+    animation: 2s ${Animation};
+    position: absolute;
+    top: 125px;
+    right: 0px;
     & circle {
         fill: ${props => props.theme.colors.contrast};
         stroke: ${props => props.theme.colors.primary}

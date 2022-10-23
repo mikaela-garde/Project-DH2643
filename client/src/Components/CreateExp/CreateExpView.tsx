@@ -1,6 +1,7 @@
 import React from 'react';
 import styled, {keyframes} from "styled-components";
 import ProfileHolderImg from "../../Images/profile-holder-signup.svg";
+import EmptyProfleImg from "../../Images/NewEmptyProfileImg.svg";
 import BackgroundBlobLeftSVG from "../../Images/BackgroundBlobLoginLeft.svg";
 import BackgroundBlobRightSVG from "../../Images/BackgroundBlobLoginRight.svg";
 import {Link} from "react-router-dom";
@@ -29,7 +30,7 @@ const CreateExpView = ({setName, startDate, setStartDate, endDate, setEndDate, i
                     <Column>
                         <InputFieldExpWrapper>
                             <InputLabelExp left="">Experience name</InputLabelExp>
-                            <InputFieldExp paddingRight="150px" onChange={e => setName(e.target.value)}></InputFieldExp>
+                            <InputFieldExp paddingRight="150px" onChange={e => setName(e.target.value)} width="400px"></InputFieldExp>
                         </InputFieldExpWrapper>
 
                         <FromToWrapper>
@@ -57,7 +58,7 @@ const CreateExpView = ({setName, startDate, setStartDate, endDate, setEndDate, i
                         <ParticipantsContainer>
                             {participants.map(participant => {
                                 return <ParticipantCard key={participant.id}>
-                                    <ParticipantImg src={participant.profile_img} />
+                                    <ParticipantImg src={EmptyProfleImg} />
                                     <ParticipantName>{participant.first_name} {participant.last_name}</ParticipantName>
                                 </ParticipantCard>
                             })}<ErrorMessage>{errorMsg}</ErrorMessage>
@@ -111,7 +112,7 @@ const ContentContainer = styled.div`
 
 const ContentWrapper = styled.div`
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
 `;
 
 const Column = styled.div`
@@ -124,6 +125,7 @@ const Column = styled.div`
 
 const InputFieldExpWrapper = styled.div`
     ${InputFieldWrapper};
+    margin:50px;
 `;
 
 const InputLabelExp = styled.label<propsLabel>`
@@ -140,6 +142,7 @@ const InputFieldExp = styled.input<propsField>`
 const FromToWrapper = styled.div`
     display: flex;
     flex-direction: row;
+    justify-content: center;
     margin: 0;
     >*  {
         margin: 12px;

@@ -184,7 +184,7 @@ const BackgroundBlobContainerLeft = styled.div`
     left: 0;
     margin: 0;
     width: 20%;
-    z-index: -1;
+    z-index: 1;
 `;
 
 const BackgroundBlobContainerRight = styled.div`
@@ -193,7 +193,7 @@ const BackgroundBlobContainerRight = styled.div`
     right: 100px;
     margin: 0;
     width: 20%;
-    z-index: -1;
+    z-index: 1;
 `;
 const BackgroundBlob = styled.img`
     vertical-align: middle;

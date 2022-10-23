@@ -18,10 +18,8 @@ function ExpBoardPresenter () {
     const [brightness, setBrightness] = useState(false);
 
     //Reset experience model on unmount
-    console.log("namnet på experience i presetner i board", name);
     useEffect(() => {
         return () => {
-            console.log("unmount", name);
             experienceModel.clear();
         };
     },[]);

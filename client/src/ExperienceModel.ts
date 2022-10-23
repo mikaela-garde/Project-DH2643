@@ -94,13 +94,11 @@ class ExperienceModel {
             console.log("inne i listening2");
             this.img = data.img;
             if (this.posts != undefined) {
-                console.log("inne i listening4");
                 this.formatPosts(this.posts);
             }
             console.log("Innan nottify");
             this.notifyObservers();
-            console.log("posts: ", this.posts)
-            });
+        });
     }
 
     clear() {
@@ -118,19 +116,31 @@ class ExperienceModel {
         console.log("log från clear", this.name);
     }
 
+    async calulateImgDimensions (url) {
+        const promise: any= new Promise((resolve, reject) => {
+            let img = new Image()
+            img.onload = () => resolve([img.height, img.width]);
+            img.onerror = reject
+            img.src = url
+          })
+        return promise
+    }
+
     formatPosts(posts: object) {
-        console.log(posts)
         this.posts_formatted = []; // TODO: don't reset Array, push next post to it but check if it's already in here
         for (let [key, value] of Object.entries(posts)) {
-            this.posts_formatted.push({
+            this.calulateImgDimensions(value.imgURL).then((res: Array<number>) => {
+                this.posts_formatted.push({
                 src: value.imgURL, 
-                width: 1000,
-                height: 1000,
+                height: res[0],
+                width: res[1],
                 caption: value.caption,
                 name: value.uploaderName
+            })
+
+            })
             }
-        )}
-    }
+        }
 
     formatDate(date) {
         return date.replace('T', ' ').slice(0, 16);
@@ -141,3 +151,4 @@ class ExperienceModel {
 
 
 export default ExperienceModel;
+

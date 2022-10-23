@@ -1,7 +1,8 @@
 import React, {useState} from 'react';
 import UploadView from "./TemplateView";
-import {uploadAPI, downloadAPI} from "../../webAPI/webAPI";
+import {uploadAPI} from "../../webAPI/webAPI";
 import { v4 as uuid } from 'uuid';
+import { experienceModel } from "../../app"
 
 function TemplatePresenter (props) {
   //isActive = Media blue, Text White
@@ -25,16 +26,41 @@ function TemplatePresenter (props) {
   };
 
   const uploadImage = (file) => {
-    let uploadId = uuid();
-    let blob = file.slice(0, file.size, "image/jpeg");
-    let newFile = new File([blob], `${uploadId}.jpeg`, { type: "image/jpeg" });
-    
-    // Build the form data - You can add other input values to this i.e descriptions, make sure img is appended last
+   
     let formData = new FormData();
+
+    //Konvertera token till JSON för att lägga in i formdata
+    let token = localStorage.getItem("refreshToken")
+    const tokenJSON = JSON.stringify(token);
+    const tokenBlob = new Blob([tokenJSON], {
+      type: 'application/json'
+    });
+    formData.append("token", tokenBlob);
+
+    //Appenda experience id
+    let expId= experienceModel.id
+    const expIdJSON = JSON.stringify(expId);
+    const expIdBlob = new Blob([expIdJSON], {
+      type: 'application/json'
+    });
+    formData.append("expId", expIdBlob);
+    
+    //Appenda experience id
+    let date= file.lastModifiedDate
+    const dateJSON = JSON.stringify(date);
+    const dateBlob = new Blob([dateJSON], {
+      type: 'application/json'
+    });
+    formData.append("date", dateBlob);
+    
+    let uploadId = uuid();
+    //Skapar en blob så at vi kan byta namn till unikt id
+    let blob = file.slice(0, file.size, "image/jpeg");
+    let newFile = new File([blob], `${uploadId}`, { type: "image/jpeg" });
+    // Build the form data - You can add other input values to this i.e descriptions, make sure img is appended last
     formData.append("imgfile", newFile);
   
-    uploadAPI(formData).then(() =>  downloadAPI().then((res)=> console.log(res.data)))
-  
+    uploadAPI(formData)
   }
     
   return React.createElement(UploadView, {

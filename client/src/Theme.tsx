@@ -41,8 +41,6 @@ const darkTheme = {
   }
 }
 
-const boolTheme = false;
-
 export {lightTheme, darkTheme}
  
 /*const Theme = ({ children }) => (

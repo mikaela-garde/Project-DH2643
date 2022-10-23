@@ -1,5 +1,5 @@
 import exp from "constants";
-import { Experience, User, Experience_Template, Post } from "./types";
+import { Experience, User, Experience_Template, Post, PostFormatted } from "./types";
 import { getUserFromEmailAPI, createExperienceAPI, listenToExperienceAPI } from "./webAPI/webAPI";
 import { socket } from "./app";
 import { UserModel } from "./app";
@@ -11,7 +11,8 @@ class ExperienceModel {
     start_time: string;
     end_time: string;
     template: Experience_Template;
-    posts: Post[];
+    posts: Array<any>;
+    posts_formatted: PostFormatted[];
     subscribers:Array<any> =[];
     creator: string;
     img: ""
@@ -24,6 +25,7 @@ class ExperienceModel {
         this.end_time = "";
         this.template = Experience_Template.Timeline;
         this.posts = [];
+        this.posts_formatted = [];
         this.creator = "";
         this.img = ""
     }
@@ -88,8 +90,14 @@ class ExperienceModel {
             this.posts = data.posts;
             this.creator = data.creator;
             this.img = data.img;
+            console.log("innan"  + this.posts.length)
+            if (Object.keys(this.posts).length !== 0 ) {
+                console.log("efterif"  + this.posts.length)
+                this.formatPosts(this.posts);
+            }
             this.notifyObservers();
-            console.log("log från experiencemodel", this.name);
+            console.log("log från experiencemodel", this.posts);
+            console.log("log från experiencemodel", this.posts_formatted);
         });
     }
 
@@ -106,6 +114,22 @@ class ExperienceModel {
         this.notifyObservers();
         console.log("log från clear", this.name);
     }
+
+    formatPosts(posts: any[]) {
+        console.log(posts)
+        
+        for (let [key, value] of Object.entries(posts)) {
+            console.log(key, value)
+            this.posts_formatted.push({
+                src: value.imgURL, 
+                width: 1000,
+                height: 1000,
+                caption: "After Rain (Jeshu John - designerspics.com)",})}
+        }
 }
+
+       
+    
+
 
 export default ExperienceModel;

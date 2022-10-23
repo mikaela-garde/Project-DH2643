@@ -25,6 +25,7 @@ class UserModel {
     accessToken: string;
     isLoggedIn: boolean;
     summarys: any[];
+    dataFetched: boolean;
 
     constructor(){       
         this.id;
@@ -40,11 +41,12 @@ class UserModel {
         this.notifications;
         this.dark_mode= false;
         this.subscribers =[];
-        this.summarys = [];
+        this.summarys;
         this.signInErrorMsg;
         this.signErrorMsg;
         this.accessToken;
         this.isLoggedIn;
+
     }
     
     addObserver(obs){
@@ -109,11 +111,9 @@ class UserModel {
     listenToUserData(token) {
         listenToUserAPI(token);
         socket.on("users", (data) => {
-            console.log("listening");
             this.id = data.id;
             this.email = data.email;
             this.first_name = data.first_name;
-            console.log(this.first_name + "detta är firstname");
             this.last_name = data.last_name;
             this.social_media = data.social_media;
             this.description = data.description;
@@ -127,6 +127,7 @@ class UserModel {
 
             } else {
                 this.experiences = [];
+                this.summarys = [];
             }
             this.notifications = data.notifications;
             this.dark_mode = data.dark_mode;
@@ -195,19 +196,16 @@ class UserModel {
     };
 
     getExpExtended(){
-        console.log("EXPERIENCE", this.experiences);
         const calls = this.experiences.map(exp => {
 
             return getExpAPI(localStorage.getItem("refreshToken"), exp, true).then((res) => {
-                console.log("data i extended", res.data.data)
                 const ref = res.data.data;
                 return {
                     id: ref.id,
                     name: ref.name,
                     img: ref.img,
                     creator: ref.creator,
-                    start_time: experienceModel.formatDate(ref.start_time),
-                    end_time: experienceModel.formatDate(ref.end_time),
+                    time_span: experienceModel.formatDateDashboard(ref.start_time, ref.end_time),
                     participants: ref.participants,
                     template: ref.template
 

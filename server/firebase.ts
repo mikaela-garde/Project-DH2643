@@ -29,7 +29,7 @@ const storeFile =  (userId: string, expId: string, date: string, caption: string
   //Store data in Cloud Storage
   const ref = ref_storage(storage, 'experiences/' + fileName);
   const refFirebase = ref_db(db, 'experiences/' + expId + '/posts/');
-  
+
   uploadBytesResumable(ref, file).then(snapshot => 
     getDownloadURL(ref)
     .then((downloadURL:string) => {push(refFirebase, {

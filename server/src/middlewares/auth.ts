@@ -23,7 +23,7 @@ const checkAuth = (req: express.Request, res: express.Response, next: express.Ne
       res.locals.user = json; //OM DET EJ FINNS NGN TOKEN SÅ KOMMER DET SKICAKS TILLBAKA ETT ERROR HÄR
       next();
     })
-    .catch((error:any) => console.log(error));
+    .catch((error:any) => console.log("checkauth: " ,error));
 }
 
 const checkAuthUpload = (req: express.Request, res: express.Response) => {
@@ -64,7 +64,7 @@ const signInFirebase = (req: express.Request, res: express.Response, next: expre
   .catch((error) => {
       const errorCode = error.code;
       const errorMessage = error.message;
-      console.log(errorMessage);
+      console.log("signInFIrebase: ", errorMessage);
       res.status(200).send({success: false, error: errorMessage});
   });
 }

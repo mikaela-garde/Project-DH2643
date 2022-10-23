@@ -35,7 +35,7 @@ router.route("/signup").post(createAccountFirebase, (req: express.Request, res: 
 router.route("/email").post(checkAuth, (req: express.Request, res: express.Response) => {
     const key_ref = query(ref(db, 'users'), orderByChild('email'));
     const email_ref = query(key_ref, equalTo(req.body.email));
-    onValue(email_ref, (snapshot) => {
+    get(email_ref).then((snapshot) => {
         if(snapshot.val() != null){
             const data:any = snapshot.val();
             res.status(200).send(data);
@@ -64,7 +64,6 @@ router.route("/toggle-dark").post(checkAuth, (req: express.Request, res: express
 });
 
 router.route("/experience").post(checkAuth, (req: express.Request, res: express.Response) => {
-    console.log("u_id inne i routen exp", res.locals.user.user_id);
     console.log("exp_id inne i routen exp", req.body.exp_id);
     push(ref(db, 'users/' + res.locals.user.user_id + '/experiences/'), [req.body.exp_id]).then(() => {
         console.log("inne i ref");

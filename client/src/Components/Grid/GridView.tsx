@@ -6,6 +6,7 @@ import ExpePlaceholderImg from "../../Images/expPlaceholder.svg";
 
 import { Heading3 } from '../../StyledComponents';
 import { Subtitle } from '../../StyledComponents';
+import { experienceModel } from '../../app';
 
 const GridView= ({summary}) =>
 
@@ -13,134 +14,14 @@ const GridView= ({summary}) =>
         <ExperienceGridContainer>
         {console.log("exp i grid", summary)}
             {summary.map(exp => {
-                return <ExperienceButtonContainer key={exp.id} to="/exp-board" onClick={() => console.log("hej", exp.id)/*setExperience(exp.title)*/}>
+                return <ExperienceButtonContainer key={exp.id} to="/exp-board" onClick={() =>  {console.log("hej")}}>
                     <SingleExperienceContainer>
                         <ExperienceImgContainer src={exp.img == "" ? ExpePlaceholderImg : exp.img}></ExperienceImgContainer>
                         <Title3>{exp.name}</Title3>
-                        <SmallText>{exp.start_date} - </SmallText>
+                        <SmallText>{exp.start_time} - {exp.end_time}</SmallText>
                     </SingleExperienceContainer>
                 </ExperienceButtonContainer>
             })}
-
-            <ExperienceButtonContainer to="/exp-board" onClick={() => console.log("hej")/*setExperience()*/}>
-                <SingleExperienceContainer>
-                    <ExperienceImgContainer src={ExpePlaceholderImg}></ExperienceImgContainer>
-                    <Title3>28th Bday Party</Title3>
-                    <SmallText>27 Apr 2007</SmallText>
-                </SingleExperienceContainer>
-            </ExperienceButtonContainer>
-
-            <ExperienceButtonContainer to="/exp-board">
-                <SingleExperienceContainer>
-                    <ExperienceImgContainer src={ExperienceImg}></ExperienceImgContainer>
-                    <Title3>28th Bday Party</Title3>
-                    <SmallText>27 Apr 2007</SmallText>
-                </SingleExperienceContainer>
-            </ExperienceButtonContainer>
-
-            <ExperienceButtonContainer to="/exp-board">
-                <SingleExperienceContainer>
-                    <ExperienceImgContainer src={ExperienceImg}></ExperienceImgContainer>
-                    <Title3>28th Bday Party</Title3>
-                    <SmallText>27 Apr 2007</SmallText>
-                </SingleExperienceContainer>
-            </ExperienceButtonContainer>
-
-            <ExperienceButtonContainer to="/login">
-                <SingleExperienceContainer>
-                    <ExperienceImgContainer src={ExperienceImg}></ExperienceImgContainer>
-                    <Title3>28th Bday Party</Title3>
-                    <SmallText>27 Apr 2007</SmallText>
-                </SingleExperienceContainer>
-            </ExperienceButtonContainer>
-
-            <ExperienceButtonContainer to="/login">
-                <SingleExperienceContainer>
-                    <ExperienceImgContainer src={ExperienceImg}></ExperienceImgContainer>
-                    <Title3>28th Bday Party</Title3>
-                    <SmallText>27 Apr 2007</SmallText>
-                </SingleExperienceContainer>
-            </ExperienceButtonContainer>
-
-            <ExperienceButtonContainer to="/login">
-                <SingleExperienceContainer>
-                    <ExperienceImgContainer src={ExperienceImg}></ExperienceImgContainer>
-                    <Title3>28th Bday Party</Title3>
-                    <SmallText>27 Apr 2007</SmallText>
-                </SingleExperienceContainer>
-            </ExperienceButtonContainer>
-
-            <ExperienceButtonContainer to="/login">
-                <SingleExperienceContainer>
-                    <ExperienceImgContainer src={ExperienceImg}></ExperienceImgContainer>
-                    <Title3>28th Bday Party</Title3>
-                    <SmallText>27 Apr 2007</SmallText>
-                </SingleExperienceContainer>
-            </ExperienceButtonContainer>
-            
-            <ExperienceButtonContainer to="/login">
-                <SingleExperienceContainer>
-                    <ExperienceImgContainer src={ExperienceImg}></ExperienceImgContainer>
-                    <Title3>28th Bday Party</Title3>
-                    <SmallText>27 Apr 2007</SmallText>
-                </SingleExperienceContainer>
-            </ExperienceButtonContainer>
-
-            <ExperienceButtonContainer to="/login">
-                <SingleExperienceContainer>
-                    <ExperienceImgContainer src={ExperienceImg}></ExperienceImgContainer>
-                    <Title3>28th Bday Party</Title3>
-                    <SmallText>27 Apr 2007</SmallText>
-                </SingleExperienceContainer>
-            </ExperienceButtonContainer>
-
-            <ExperienceButtonContainer to="/login">
-                <SingleExperienceContainer>
-                    <ExperienceImgContainer src={ExperienceImg}></ExperienceImgContainer>
-                    <Title3>28th Bday Party</Title3>
-                    <SmallText>27 Apr 2007</SmallText>
-                </SingleExperienceContainer>
-            </ExperienceButtonContainer>
-
-            <ExperienceButtonContainer to="/login">
-                <SingleExperienceContainer>
-                    <ExperienceImgContainer src={ExperienceImg}></ExperienceImgContainer>
-                    <Title3>28th Bday Party</Title3>
-                    <SmallText>27 Apr 2007</SmallText>
-                </SingleExperienceContainer>
-            </ExperienceButtonContainer>
-
-            <ExperienceButtonContainer to="/login">
-                <SingleExperienceContainer>
-                    <ExperienceImgContainer src={ExperienceImg}></ExperienceImgContainer>
-                    <Title3>28th Bday Party</Title3>
-                    <SmallText>27 Apr 2007</SmallText>
-                </SingleExperienceContainer>
-            </ExperienceButtonContainer>
-
-            <ExperienceButtonContainer to="/login">
-                <SingleExperienceContainer>
-                    <ExperienceImgContainer src={ExperienceImg}></ExperienceImgContainer>
-                    <Title3>28th Bday Party</Title3>
-                    <SmallText>27 Apr 2007</SmallText>
-                </SingleExperienceContainer>
-            </ExperienceButtonContainer>
-
-            <ExperienceButtonContainer to="/login">
-                <SingleExperienceContainer>
-                    <ExperienceImgContainer src={ExperienceImg}></ExperienceImgContainer>
-                    <Title3>28th Bday Party</Title3>
-                    <SmallText>27 Apr 2007</SmallText>
-                </SingleExperienceContainer>
-            </ExperienceButtonContainer>
-
-            <ExperienceButtonContainer to="/login">
-                <SingleExperienceContainer>
-                    <ExperienceImgContainer src={ExperienceImg}></ExperienceImgContainer>
-                    <Title3>28th Bday Party</Title3>
-                    <SmallText>27 Apr 2007</SmallText>
-                </SingleExperienceContainer>
-            </ExperienceButtonContainer>
         </ExperienceGridContainer>
     </ExperienceContainer>
 

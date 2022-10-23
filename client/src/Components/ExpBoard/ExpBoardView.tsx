@@ -16,7 +16,7 @@ import profileicon from "../../Images/NewEmptyProfileImg.svg";
 const fadeInUpAnimation = keyframes`${fadeInUp}`;
 const fadeInDownAnimation = keyframes`${fadeInDown}`;
 
-const ExpBoardView= ({name, startTime, endTime, posts, showAddContent, isShown, blur, brightness, images}) =>
+const ExpBoardView= ({name, startTime, endTime, showAddContent, isShown, blur, brightness, images}) =>
     <ContentWrapper>
         
         {isShown && <UploadPresenter showAdd={showAddContent}></UploadPresenter>}
@@ -40,9 +40,9 @@ const ExpBoardView= ({name, startTime, endTime, posts, showAddContent, isShown, 
                 <InfoContainer>
                 <ProfileContainer>
                 <ProfileImg src={profileicon} ></ProfileImg>
-                <Username>NAME</Username>
+                <Username>{image.name}</Username>
                 </ProfileContainer>
-                <Caption>{image.caption}</Caption>
+                <Caption>{image.uploaderName}</Caption>
                 </InfoContainer>
                 }))} enableImageSelection={false} rowHeight={230} margin={1} ></Gallery>
             </GridPresenterContainerXPBoard>

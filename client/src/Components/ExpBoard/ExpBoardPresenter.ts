@@ -9,7 +9,6 @@ function ExpBoardPresenter () {
     const name = useModelProp(experienceModel, "name");
     const startTime = useModelProp(experienceModel, "start_time");
     const endTime = useModelProp(experienceModel, "end_time");
-    const posts = useModelProp(experienceModel, "posts");
     const images = useModelProp(experienceModel, "posts_formatted");
    
 
@@ -30,7 +29,6 @@ function ExpBoardPresenter () {
         name: name,
         startTime: startTime,
         endTime: endTime,
-        posts: posts,
         showAddContent: () => {         
             setIsShown((current => !current));
             setBlur(current => !current),

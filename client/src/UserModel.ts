@@ -1,4 +1,4 @@
-import { socket } from "./app";
+import { experienceModel, socket } from "./app";
 import {User, Image, Social_Media, Friend_request, Notifications} from "./types";
 import {createAccountAPI, listenToUserAPI, loginAPI, getUidFromTokenAPI, toggleDarkModeAPI, updateExperiencesUserAPI, getExpAPI} from "./webAPI/webAPI";
 
@@ -113,6 +113,7 @@ class UserModel {
             this.id = data.id;
             this.email = data.email;
             this.first_name = data.first_name;
+            console.log(this.first_name + "detta är firstname");
             this.last_name = data.last_name;
             this.social_media = data.social_media;
             this.description = data.description;
@@ -198,7 +199,19 @@ class UserModel {
         const calls = this.experiences.map(exp => {
 
             return getExpAPI(localStorage.getItem("refreshToken"), exp, true).then((res) => {
-                return res.data.data;
+                console.log("data i extended", res.data.data)
+                const ref = res.data.data;
+                return {
+                    id: ref.id,
+                    name: ref.name,
+                    img: ref.img,
+                    creator: ref.creator,
+                    start_time: experienceModel.formatDate(ref.start_time),
+                    end_time: experienceModel.formatDate(ref.end_time),
+                    participants: ref.participants,
+                    template: ref.template
+
+                };
             });
         });
         return Promise.all(calls).then((value) => {return value})

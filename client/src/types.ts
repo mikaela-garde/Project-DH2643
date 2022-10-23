@@ -62,6 +62,8 @@ export type PostFormatted = {
     width: number,
     height: number,
     caption: string,
+    name: string
+
 }
 
 export type Friend_request = {

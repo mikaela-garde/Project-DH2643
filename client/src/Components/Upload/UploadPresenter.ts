@@ -3,6 +3,7 @@ import UploadView from "./UploadView";
 import {uploadAPI} from "../../webAPI/webAPI";
 import { v4 as uuid } from 'uuid';
 import { experienceModel } from "../../app"
+import {UserModel} from '../../app';
 
 function TemplatePresenter ({showAdd}) {
   //isActive = Media blue, Text White
@@ -65,6 +66,15 @@ function TemplatePresenter ({showAdd}) {
       type: 'application/json'
     });
     formData.append("caption", captionBlob);
+
+    console.log(text)
+    let uploaderName:string = UserModel.first_name + " " + UserModel.last_name;
+    console.log(UserModel.first_name);
+    const uploaderNameJSON = JSON.stringify(uploaderName);
+    const uploaderNameBlob = new Blob([uploaderNameJSON], {
+      type: 'application/json'
+    });
+    formData.append("uploaderName", uploaderNameBlob);
     
     let uploadId = uuid();
     //Skapar en blob så at vi kan byta namn till unikt id

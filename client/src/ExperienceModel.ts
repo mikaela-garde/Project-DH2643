@@ -117,12 +117,12 @@ class ExperienceModel {
         console.log(posts)
         this.posts_formatted = []; // TODO: don't reset Array, push next post to it but check if it's already in here
         for (let [key, value] of Object.entries(posts)) {
-            console.log(key, value)
             this.posts_formatted.push({
                 src: value.imgURL, 
                 width: 1000,
                 height: 1000,
-                caption: value.caption
+                caption: value.caption,
+                name: value.uploaderName
             })}
         }}
        

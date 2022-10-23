@@ -63,14 +63,16 @@ router.route("/api/upload").post( multer.any(), (req: express.Request, res: expr
             //@ts-ignore
             const caption = req.files[3].buffer.toString().replaceAll('"', "")
             //@ts-ignore
-            const file = req.files[4].buffer
+            const uploaderName = req.files[4].buffer.toString().replaceAll('"', "")
             //@ts-ignore
-            const fileName = req.files[4].originalname
-            storeFile(userId, expId, date, caption, file, fileName );
+            const file = req.files[5].buffer
+            //@ts-ignore
+            const fileName = req.files[5].originalname
+            storeFile(userId, expId, date, caption, uploaderName, file, fileName );
             res.status(200).send("success");
 
             })
-            .catch((error:any) => console.log(error));
+            .catch((error:any) => console.log("api/upload", error));
           }
             
 

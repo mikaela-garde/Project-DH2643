@@ -5,7 +5,7 @@ import {Link} from "react-router-dom";
 import BoardSVG from "../../Images/board.svg";
 import FriendsSVG from "../../Images/friends.svg";
 import darkModeIcon from "../../Images/moon.svg";
-import { Heading1 } from '../../StyledComponents';
+import { Heading1, PrimaryBtn } from '../../StyledComponents';
 import SVG from "react-inlinesvg";
 import Switch from "react-switch";
 import { fadeInRight } from 'react-animations';
@@ -16,12 +16,6 @@ const HeaderView= ({ProfilePic, darkMode, handleModeChange, onLogout, backButton
         <Menu>
             <IconsContainer>
                 <IconContainer>
-                    <Icon src ={BoardSVG}></Icon>
-                </IconContainer>
-                <IconContainer>
-                    <Icon src ={FriendsSVG}></Icon>
-                </IconContainer>
-                <IconContainer>
                     <Icon src ={ProfilePic}></Icon>
                 </IconContainer>
                 <IconContainer>
@@ -29,7 +23,7 @@ const HeaderView= ({ProfilePic, darkMode, handleModeChange, onLogout, backButton
                     <Switch checked={darkMode} onChange={handleModeChange} uncheckedIcon={false} checkedIcon={false} offColor="#635F8B" onColor="#1F1E61" activeBoxShadow="null"/>
                 </IconContainer>
                 <IconContainer>
-                <button onClick={() => onLogout()}>Logout</button>
+                    <Button onClick={() => onLogout()}>Logout</Button>
                 </IconContainer>
             </IconsContainer>
         </Menu>
@@ -105,6 +99,25 @@ const IconContainer = styled.div`
     :hover{
         opacity: 1;
         transition: opacity 200ms ;
+    }
+`;
+
+const Button = styled.button`
+    font-family: ${props => props.theme.fonts.raleway}; 
+    font-size: ${props => props.theme.fontSizes.xsmall};
+    border-radius: 150px;
+    background-color: transparent;
+    border: solid;
+    padding: 3px 10px;
+    width: fit-content;
+    height: fit-content;
+    color: ${props => props.theme.colors.contrast};
+    transition: background-color linear 100ms;
+    transition: color linear 100ms;
+
+    &:hover {
+        background-color: ${props => props.theme.colors.contrast};
+        color: ${props => props.theme.colors.primary};
     }
 `;
 /*        <NavContainer>

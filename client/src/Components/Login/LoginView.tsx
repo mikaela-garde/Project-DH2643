@@ -64,7 +64,7 @@ const InputLabelLogin = styled.label`
 `;
 
 const LoginButton = styled.button`
-    ${PrimaryBtn}
+    ${PrimaryBtn};
     animation: 1.5s ${Animation};
 `;
 const NavLinkSignup = styled(Link)`

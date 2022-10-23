@@ -4,6 +4,7 @@ import profileicon from "../../Images/NewEmptyProfileImg.svg";
 import { Heading1, Heading2, Heading3, BodyText, Subtitle, PrimaryBtn, InputField, InputFieldWrapper, InputLabel} from '../../StyledComponents';
 import { FileUploader } from "react-drag-drop-files";
 import { Gallery } from "react-grid-gallery";
+import SVG from "react-inlinesvg";
 
 
 const ExpBoardGridView = ({images}) =>
@@ -17,9 +18,7 @@ const ExpBoardGridView = ({images}) =>
       </ProfileContainer>
       <Caption>{image.caption}</Caption>
     </InfoContainer>
-  }))} enableImageSelection={false} rowHeight={230} margin={1} ></Gallery>
-
-
+  }))} enableImageSelection={false} rowHeight={230} margin={1}></Gallery>
 ;
 
 
@@ -40,7 +39,7 @@ const ProfileImg = styled.img`
 
 const ProfileContainer = styled.div`
   display: flex;
-  margin: 5px;
+  margin: 15px;
   align-items: center;
   gap: 5px;
 `;
@@ -49,7 +48,9 @@ const Caption = styled.p`
   ${BodyText};
   color: white;
   font-size: 75%;
-  margin-left: 5px;
+  margin: 0px 15px;
+  overflow-wrap: break-word;
+  overflow:auto;
 `;
 
 const InfoContainer = styled.div`
@@ -59,8 +60,7 @@ const InfoContainer = styled.div`
   position: absolute;
   bottom: 0;
   width: 100%;
-
-  max-height: 50px;
+  height: 100%;
   overflow: auto;
-  
 `;
+

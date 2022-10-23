@@ -41,7 +41,7 @@ const darkTheme = {
   }
 }
 
-export {lightTheme, darkTheme}
+export {lightTheme, darkTheme};
  
 /*const Theme = ({ children }) => (
   <ThemeProvider theme={boolTheme ? lightTheme : darkTheme}>{children}</ThemeProvider>

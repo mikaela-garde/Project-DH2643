@@ -127,6 +127,7 @@ const InputField = css`
     background-color: ${props => props.theme.colors.contrast};
     border-radius: 50px;
     padding: 12px 20px;
+    width: 250px;
     color: ${props => props.theme.colors.primary};
 `;
 

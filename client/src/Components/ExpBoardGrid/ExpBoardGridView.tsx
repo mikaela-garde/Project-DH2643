@@ -18,8 +18,6 @@ const ExpBoardGridView = ({images}) =>
       <Caption>{image.caption}</Caption>
     </InfoContainer>
   }))} enableImageSelection={false} rowHeight={230} margin={1} ></Gallery>
-
-
 ;
 
 

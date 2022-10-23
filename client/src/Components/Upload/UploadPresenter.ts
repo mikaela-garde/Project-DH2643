@@ -31,7 +31,7 @@ function TemplatePresenter ({showAdd}) {
   const uploadImage = (file) => {
     console.log(file)
     const img = new Image();
-    file.onload = () => {console.log(this.width + 'x' + this.height)}
+    //file.onload = () => {console.log(this.width + 'x' + this.height)}
 
     let formData = new FormData();
 

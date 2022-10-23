@@ -68,8 +68,7 @@ router.route("/api/upload").post( multer.any(), (req: express.Request, res: expr
             const file = req.files[5].buffer
             //@ts-ignore
             const fileName = req.files[5].originalname
-            storeFile(userId, expId, date, caption, uploaderName, file, fileName );
-            res.status(200).send("success");
+            storeFile(userId, expId, date, caption, uploaderName, file, fileName, res );
 
             })
             .catch((error:any) => console.log("api/upload", error));
@@ -132,5 +131,3 @@ app.post("/api/listeners/experience", checkAuth, (req: express.Request, res: exp
     listenToExperience(req.body.exp_id, (val:any) => {io.sockets.emit("experience", val)});
     res.status(200).send("Listening to exp");
 });
-
-

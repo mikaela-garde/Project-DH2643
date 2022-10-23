@@ -74,9 +74,8 @@ const ContentContainer = styled.div<Props>`
     background: ${props => props.theme.colors.background};
     height: 100vh;
     width: 100vw;
-    overflow: hidden; /* animationen skapar en scrollbar om inte denna finns*/
     z-index: 1;
-    overflow: hidden; /* hiding scrollbar*/
+    overflow: auto; /* hiding scrollbar*/
     filter: ${props => props.brightness ? "brightness(50%)": "brightness(100%)"}; /* blur when upload component is mounted */
     filter: ${props => props.blur ? "blur(1.5em);" : "blur(0);"};
 `;
@@ -107,7 +106,8 @@ const PageTitle = styled.h1`
 `;
 
 const GridPresenterContainerXPBoard= styled.div`
-    ${GridPresenterContainer}
+    ${GridPresenterContainer};
+    height: 500px;
  
 `;
 
@@ -118,8 +118,9 @@ const ButtonContainer = styled.div`
     display: flex;
     justify-content: center;
     position: fixed;    
-    bottom: 0px;
-    left: 50%;
+    bottom: 0;
+    left: 42%;
+    width: 250px;
     
     
 `;
@@ -150,7 +151,7 @@ const BackgroundBlobContainerRight = styled.div`
     position: fixed;
     top: 0px;
     right: 0px;
-    z-index: 1;
+    z-index: -1;
 
     @media (max-width: 768px) {
         top: -100px;

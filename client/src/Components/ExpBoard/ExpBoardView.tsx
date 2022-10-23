@@ -7,18 +7,19 @@ import BackgroundBlobLeftSVG from "../../Images/BackgroundBlobDashboardLeft.svg"
 import BackgroundBlobRightSVG from "../../Images/BackgroundBlobDashboardRight.svg";
 import SVG from "react-inlinesvg";
 import BackButtonArrow from "../../Images/back-button-arrow.svg";
-import { fadeInUp, fadeInDown } from 'react-animations';
+import { fadeInUp, fadeInDown, fadeIn} from 'react-animations';
 import { Gallery } from "react-grid-gallery";
 import profileicon from "../../Images/NewEmptyProfileImg.svg";
+import NoDataGridView from '../NoDataGrid/NoDataGridView';
 
-
+const fadeInAnimation = keyframes`${fadeIn}`;
 const fadeInUpAnimation = keyframes`${fadeInUp}`;
 const fadeInDownAnimation = keyframes`${fadeInDown}`;
 
-const ExpBoardView= ({name, startTime, endTime, showAddContent, isShown, blur, brightness, images}) =>
+const ExpBoardView= ({name, startTime, endTime, showAddContent, isShown, blur, brightness, images, isLoading, setIsLoading}) =>
     <ContentWrapper>
         
-        {isShown && <UploadPresenter showAdd={showAddContent}></UploadPresenter>}
+        {isShown && <UploadPresenter setIsLoading={setIsLoading} showAdd={showAddContent}></UploadPresenter>}
         
         <ContentContainer blur={blur} brightness={brightness}>
             <NavContainerXPBoard>
@@ -32,19 +33,18 @@ const ExpBoardView= ({name, startTime, endTime, showAddContent, isShown, blur, b
             </NavContainerXPBoard>
             <Heading33>{startTime} - {endTime}</Heading33>
 
-            
-            <GridPresenterContainerXPBoard>
-                <Gallery images={images.slice(0).reverse().map((image) => ({...image,
-                    customOverlay: 
-                    <InfoContainer>
-                    <ProfileContainer>
-                    <ProfileImg src={profileicon} ></ProfileImg>
-                    <Username>{image.name}</Username>
-                    </ProfileContainer>
-                    <Caption>{image.caption}</Caption>
-                    </InfoContainer>
-                    }))} enableImageSelection={false} rowHeight={230} margin={1} ></Gallery>
-            </GridPresenterContainerXPBoard>
+            {isLoading ? <NoDataGridView/>: <GridPresenterContainerXPBoard>
+            <Gallery images={images.slice(0).reverse().map((image) => ({...image,
+                customOverlay: 
+                <InfoContainer>
+                <ProfileContainer>
+                <ProfileImg src={profileicon} ></ProfileImg>
+                <Username>{image.name}</Username>
+                </ProfileContainer>
+                <Caption>{image.caption}</Caption>
+                </InfoContainer>
+                }))} enableImageSelection={false} rowHeight={230} margin={1} ></Gallery>
+            </GridPresenterContainerXPBoard>}
 
             <ButtonContainer>
                 <AddContentBtn onClick={() => showAddContent()}>Add content</AddContentBtn>
@@ -96,12 +96,12 @@ const NavLinkXPBoard = styled(Link)`
     
 const BackButtonXP = styled(SVG)`
     ${BackButton}
-    animation: 1s ${fadeInDownAnimation};
+    animation: 1s ${fadeInAnimation};
 `;
 
 const PageTitle = styled.h1`
     ${Heading1}
-    animation: 1s ${fadeInDownAnimation};
+    animation: 1s ${fadeInAnimation};
 
 `;
 
@@ -114,14 +114,14 @@ const GridPresenterContainerXPBoard= styled.div`
 const ButtonContainer = styled.div`
     ${PrimaryBtnContainer}
     ${BtnPosBottomCenter}
-    animation: 2s ${fadeInUpAnimation};
+    animation: 2s ${fadeInAnimation};
     display: flex;
     justify-content: center;
     position: fixed;    
     bottom: 0;
     left: 42%;
     width: 250px;
-    
+
     
 `;
 

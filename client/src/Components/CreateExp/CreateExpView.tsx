@@ -1,6 +1,7 @@
 import React from 'react';
 import styled, {keyframes} from "styled-components";
 import ProfileHolderImg from "../../Images/profile-holder-signup.svg";
+import EmptyProfleImg from "../../Images/NewEmptyProfileImg.svg";
 import BackgroundBlobLeftSVG from "../../Images/BackgroundBlobLoginLeft.svg";
 import BackgroundBlobRightSVG from "../../Images/BackgroundBlobLoginRight.svg";
 import {Link} from "react-router-dom";
@@ -9,13 +10,13 @@ import 'react-datepicker/dist/react-datepicker.css';
 import HeaderPresenter from '../Header/HeaderPresenter';
 import BackButtonArrow from "../../Images/back-button-arrow.svg";
 import SVG from "react-inlinesvg";
-import {PrimaryBtnContainer, NavContainer, PrimaryBtn, InputField, ContentContainerLogin, InputLabel, InputFieldWrapper, ContentContainerAll, Heading1, BackButton } from '../../StyledComponents';
+import {PrimaryBtnContainer, NavContainer, PrimaryBtn, InputField, ContentContainerLogin, InputLabel, InputFieldWrapper, ContentContainerAll, Heading1, BodyText, BackButton } from '../../StyledComponents';
 import { fadeInUp, fadeInDown } from 'react-animations';
 
 const fadeInUpAnimation = keyframes`${fadeInUp}`;
 const fadeInDownAnimation = keyframes`${fadeInDown}`;
 
-const CreateExpView = ({setName, startDate, setStartDate, endDate, setEndDate, invite, setInvite, onInvite, participants, onCreate}) =>
+const CreateExpView = ({setName, startDate, setStartDate, endDate, setEndDate, invite, setInvite, onInvite, participants, onCreate, errorMsg}) =>
         <Container>
             <NavContainerXP>
                     <NavLink to="/">
@@ -29,7 +30,7 @@ const CreateExpView = ({setName, startDate, setStartDate, endDate, setEndDate, i
                     <Column>
                         <InputFieldExpWrapper>
                             <InputLabelExp left="">Experience name</InputLabelExp>
-                            <InputFieldExp paddingRight="150px" onChange={e => setName(e.target.value)}></InputFieldExp>
+                            <InputFieldExp paddingRight="150px" onChange={e => setName(e.target.value)} width="400px"></InputFieldExp>
                         </InputFieldExpWrapper>
 
                         <FromToWrapper>
@@ -51,14 +52,16 @@ const CreateExpView = ({setName, startDate, setStartDate, endDate, setEndDate, i
                             <InputLabelExp left="">Invite Friends</InputLabelExp>
                             <InputFieldExp paddingRight="150px" onChange={e => setInvite(e.target.value)} value={invite}></InputFieldExp>
                             <EnterInviteButton onClick={() => onInvite()}>Invite</EnterInviteButton>
+                            
                         </InputFieldExpWrapper>
+
                         <ParticipantsContainer>
                             {participants.map(participant => {
                                 return <ParticipantCard key={participant.id}>
-                                    <img src={participant.profile_img} />
-                                    <p>{participant.first_name} {participant.last_name}</p>
+                                    <ParticipantImg src={EmptyProfleImg} />
+                                    <ParticipantName>{participant.first_name} {participant.last_name}</ParticipantName>
                                 </ParticipantCard>
-                            })}
+                            })}<ErrorMessage>{errorMsg}</ErrorMessage>
                         </ParticipantsContainer>
                     </Column>
                 </ContentWrapper>
@@ -109,7 +112,7 @@ const ContentContainer = styled.div`
 
 const ContentWrapper = styled.div`
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
 `;
 
 const Column = styled.div`
@@ -122,6 +125,7 @@ const Column = styled.div`
 
 const InputFieldExpWrapper = styled.div`
     ${InputFieldWrapper};
+    margin:50px;
 `;
 
 const InputLabelExp = styled.label<propsLabel>`
@@ -138,6 +142,7 @@ const InputFieldExp = styled.input<propsField>`
 const FromToWrapper = styled.div`
     display: flex;
     flex-direction: row;
+    justify-content: center;
     margin: 0;
     >*  {
         margin: 12px;
@@ -159,6 +164,11 @@ const EnterInviteButton = styled.button`
     width: 150px;
 `;
 
+const ErrorMessage = styled.p`
+    ${BodyText};
+
+`;
+
 const ParticipantsContainer = styled.div`
     display: flex;
     flex-direction: row;
@@ -166,7 +176,21 @@ const ParticipantsContainer = styled.div`
 `;
 
 const ParticipantCard = styled.div`
-    margin: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+`;
+
+const ParticipantImg = styled.img`
+    width: 50px;
+    height: 50px;
+`;
+
+const ParticipantName = styled.p`
+    ${BodyText};
+    margin-top: 10px;
 `;
 
 const ButtonContainer = styled.div`

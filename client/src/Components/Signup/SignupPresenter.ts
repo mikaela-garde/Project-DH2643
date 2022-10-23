@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import SignupView from "./SignupView";
 import {UserModel} from "../../app";
 import useModelProp from "../../useModelProp";
-import EmptyProfileImage from "../../Images/EmptyProfileImg.svg"
+import NewEmptyProfileImg from "../../Images/NewEmptyProfileImg.svg"
 
 function SignUpPresenter (props) {
     const loginErrorMessage = useModelProp(UserModel, "signErrorMsg");
@@ -22,14 +22,12 @@ function SignUpPresenter (props) {
         const reader = new FileReader();
         reader.onload = () => {
             let image = reader.result;
-            console.log(image)
             if (typeof image == "string"){
                 return setPreviewImage(image);
+                }
             }
-            
-            }
-            reader.readAsDataURL(file); 
-        }
+        reader.readAsDataURL(file); 
+    }
 
 
     useEffect(() => {
@@ -44,7 +42,7 @@ function SignUpPresenter (props) {
         setPassword: (input) => setPassword(input),
         onSignUp: () => {
             if (UserModel.regExSignUp(firstName, lastName)) {
-                UserModel.createNewUserFB(firstName, lastName, email, password == "" ? " ": password, image == "" ? EmptyProfileImage: image)
+                UserModel.createNewUserFB(firstName, lastName, email, password == "" ? " ": password, image == "" ? NewEmptyProfileImg: image)
             }
         }, 
         fileTypes: fileTypes,

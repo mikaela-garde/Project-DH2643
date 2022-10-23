@@ -1,6 +1,6 @@
 import React from 'react';
 import styled, {keyframes} from "styled-components";
-import ProfileHolderImg from "../../Images/emptyProfileImgBlue.svg";
+import ProfileHolderImg from "../../Images/NewEmptyProfileImg.svg";
 import AddButton from "../../Images/addButton.svg"
 import BackgroundBlobLeftSVG from "../../Images/BackgroundBlobLoginLeft.svg";
 import BackgroundBlobRightSVG from "../../Images/BackgroundBlobLoginRight.svg";

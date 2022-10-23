@@ -10,7 +10,6 @@ const router = express.Router();
 
 router.route("/signup").post(createAccountFirebase, (req: express.Request, res: express.Response) => {
     
-    console.log("posting user");
     const user: User = {
         id: res.locals.user.uid,
         email: req.body.email,
@@ -64,11 +63,9 @@ router.route("/toggle-dark").post(checkAuth, (req: express.Request, res: express
 });
 
 router.route("/experience").post(checkAuth, (req: express.Request, res: express.Response) => {
-    console.log("exp_id inne i routen exp", req.body.exp_id);
     push(ref(db, 'users/' + res.locals.user.user_id + '/experiences/'), [req.body.exp_id]).then(() => {
-        console.log("inne i ref");
         res.status(200).send({ user: res.locals.user, success: true})
-    }).catch((err) => console.log("DET HÄR ÄR ERR", err));
+    }).catch((err) => res.status(200).send({ error: err, success: false}))
      // need to also add catch unless this works
 });
 

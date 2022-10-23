@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import useModelProp from '../../useModelProp';
 import { experienceModel } from '../../app';
 import NoDataGridView from '../NoDataGrid/NoDataGridView';
+import {UserModel} from '../../app';
 
 
 function ExpBoardPresenter () {
@@ -11,8 +12,8 @@ function ExpBoardPresenter () {
     const startTime = useModelProp(experienceModel, "start_time");
     const endTime = useModelProp(experienceModel, "end_time");
     const images = useModelProp(experienceModel, "posts_formatted");
+    const [isLoading, setIsLoading] = useState(false);
 
-    const navigate = useNavigate();
     const [isShown, setIsShown] = useState(false);
     const [blur, setBlur] = useState(false);
     const [brightness, setBrightness] = useState(false);
@@ -23,8 +24,8 @@ function ExpBoardPresenter () {
             experienceModel.clear();
         };
     }, []);
-  
-    return React.createElement(images ? ExpBoardView : NoDataGridView, {
+    
+    return React.createElement(!name ? NoDataGridView: ExpBoardView, {
         name: name,
         startTime: startTime,
         endTime: endTime,
@@ -32,11 +33,13 @@ function ExpBoardPresenter () {
             setIsShown((current => !current));
             setBlur(current => !current),
             setBrightness(current => !current)
-        },   
+        },    
         isShown: isShown,
         blur: blur,
         brightness: brightness,
-        images: images
+        images: images,
+        isLoading: isLoading,
+        setIsLoading: () => setIsLoading(current => !current)
     })
 }
 

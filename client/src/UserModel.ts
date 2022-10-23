@@ -13,7 +13,7 @@ class UserModel {
         platform: Social_Media,     
         url: string}[];
     description: string | null;
-    profile_img: Image;
+    profile_img: "";
     friends: number[]; //Ska man lägga in hela användaren här eller vara ett id
     friend_requests: Friend_request[];
     experiences: string[];
@@ -34,7 +34,7 @@ class UserModel {
         this.last_name;
         this.social_media;
         this.description;
-        this.profile_img;
+        this.profile_img = "";
         this.friends; //Ska man lägga in hela användaren här eller vara ett id
         this.friend_requests;
         this.experiences = [];
@@ -83,7 +83,7 @@ class UserModel {
             if (data.success) {
                 localStorage.setItem("refreshToken", data.userAuth.stsTokenManager.refreshToken);
                 this.accessToken = data.userAuth.stsTokenManager.accessToken;
-                this.listenToUserData(data.userAuth.uid);
+                this.listenToUserData(data.userAuth.stsTokenManager.refreshToken);
                 this.setIsLoggedIn(true);
             }
             else {
@@ -100,10 +100,10 @@ class UserModel {
                 this.setIsLoggedIn(true);
             } else {
                 this.signInErrorMsg = data.error;
+                this.setIsLoggedIn(false);
                 this.notifyObservers();
             }
         }).catch(error => {
-            console.log(error);
             this.setIsLoggedIn(false);
         });
     }
@@ -118,16 +118,12 @@ class UserModel {
             this.social_media = data.social_media;
             this.description = data.description;
             this.profile_img = data.profile_img;
-            this.friends = data.friends; //Ska man lägga in hela användaren här eller vara ett id
+            this.friends = data.friends;
             this.friend_requests = data.friend_requests;
             if(data.experiences) {
                 this.experiences = Object.values(data.experiences); 
-                this.getExpExtended().then(value => {this.summarys = value;
-                    this.notifyObservers();});
-
             } else {
                 this.experiences = [];
-                this.summarys = [];
             }
             this.notifications = data.notifications;
             this.dark_mode = data.dark_mode;
@@ -159,7 +155,6 @@ class UserModel {
     }
 
     addExperience(exp_id: string) {
-        console.log("exp id i add", exp_id);
         updateExperiencesUserAPI(localStorage.getItem("refreshToken"), exp_id);
     }
 
@@ -194,25 +189,5 @@ class UserModel {
             return true;
         }
     };
-
-    getExpExtended(){
-        const calls = this.experiences.map(exp => {
-
-            return getExpAPI(localStorage.getItem("refreshToken"), exp, true).then((res) => {
-                const ref = res.data.data;
-                return {
-                    id: ref.id,
-                    name: ref.name,
-                    img: ref.img,
-                    creator: ref.creator,
-                    time_span: experienceModel.formatDateDashboard(ref.start_time, ref.end_time),
-                    participants: ref.participants,
-                    template: ref.template
-
-                };
-            });
-        });
-        return Promise.all(calls).then((value) => {return value})
-    }
 }
 export default UserModel;

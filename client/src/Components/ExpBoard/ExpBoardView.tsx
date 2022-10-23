@@ -34,16 +34,16 @@ const ExpBoardView= ({name, startTime, endTime, showAddContent, isShown, blur, b
 
             
             <GridPresenterContainerXPBoard>
-            <Gallery images={images.slice(0).reverse().map((image) => ({...image,
-                customOverlay: 
-                <InfoContainer>
-                <ProfileContainer>
-                <ProfileImg src={profileicon} ></ProfileImg>
-                <Username>{image.name}</Username>
-                </ProfileContainer>
-                <Caption>{image.caption}</Caption>
-                </InfoContainer>
-                }))} enableImageSelection={false} rowHeight={230} margin={1} ></Gallery>
+                <Gallery images={images.slice(0).reverse().map((image) => ({...image,
+                    customOverlay: 
+                    <InfoContainer>
+                    <ProfileContainer>
+                    <ProfileImg src={profileicon} ></ProfileImg>
+                    <Username>{image.name}</Username>
+                    </ProfileContainer>
+                    <Caption>{image.caption}</Caption>
+                    </InfoContainer>
+                    }))} enableImageSelection={false} rowHeight={230} margin={1} ></Gallery>
             </GridPresenterContainerXPBoard>
 
             <ButtonContainer>

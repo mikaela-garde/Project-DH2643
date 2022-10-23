@@ -27,7 +27,7 @@ class ExperienceModel {
         this.end_time = "";
         this.template = Experience_Template.Timeline;
         this.posts = {};
-        this.posts_formatted = [];
+        this.posts_formatted=[];
         this.creator = "";
         this.img = ""
     }

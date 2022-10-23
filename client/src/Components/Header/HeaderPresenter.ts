@@ -7,6 +7,7 @@ function HeaderPresenter () {
     const darkMode = useModelProp(UserModel, "dark_mode");
     const profilePic = "" //Getta profilepic from databas
     const [backButtonVis, setBackButtonVis] = useState(true);
+
     useEffect(() => {
         if (window.location.hash == "#/" || window.location.hash =="") {
             setBackButtonVis(false);

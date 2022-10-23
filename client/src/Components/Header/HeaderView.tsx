@@ -15,9 +15,7 @@ const HeaderView= ({ProfilePic, darkMode, handleModeChange, onLogout, backButton
     <HeaderContainer>    
         <Menu>
             <IconsContainer>
-                <IconContainer>
-                    <Icon src ={ProfilePic}></Icon>
-                </IconContainer>
+              
                 <IconContainer>
                     <Icon src={darkModeIcon}></Icon>
                     <Switch checked={darkMode} onChange={handleModeChange} uncheckedIcon={false} checkedIcon={false} offColor="#635F8B" onColor="#1F1E61" activeBoxShadow="null"/>

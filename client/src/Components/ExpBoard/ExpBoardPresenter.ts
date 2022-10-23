@@ -3,6 +3,7 @@ import ExpBoardView from "./ExpBoardView";
 import { useNavigate } from "react-router-dom";
 import useModelProp from '../../useModelProp';
 import { experienceModel } from '../../app';
+import NoDataGridView from '../NoDataGrid/NoDataGridView';
 
 
 function ExpBoardPresenter () {
@@ -10,7 +11,6 @@ function ExpBoardPresenter () {
     const startTime = useModelProp(experienceModel, "start_time");
     const endTime = useModelProp(experienceModel, "end_time");
     const images = useModelProp(experienceModel, "posts_formatted");
-   
 
     const navigate = useNavigate();
     const [isShown, setIsShown] = useState(false);
@@ -23,8 +23,8 @@ function ExpBoardPresenter () {
             experienceModel.clear();
         };
     }, []);
-    
-    return React.createElement(ExpBoardView, {
+  
+    return React.createElement(images ? ExpBoardView : NoDataGridView, {
         name: name,
         startTime: startTime,
         endTime: endTime,

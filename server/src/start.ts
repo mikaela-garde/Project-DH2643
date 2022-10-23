@@ -61,13 +61,14 @@ router.route("/api/upload").post( multer.any(), (req: express.Request, res: expr
             //@ts-ignore
             const date = req.files[2].buffer.toString().replaceAll('"', "")
             //@ts-ignore
-            const file = req.files[3].buffer
+            const caption = req.files[3].buffer.toString().replaceAll('"', "")
             //@ts-ignore
-            const fileName = req.files[3].originalname
-
-            
-            storeFile(file, fileName, userId, expId, date );
+            const file = req.files[4].buffer
+            //@ts-ignore
+            const fileName = req.files[4].originalname
+            storeFile(userId, expId, date, caption, file, fileName );
             res.status(200).send("success");
+
             })
             .catch((error:any) => console.log(error));
           }
@@ -120,12 +121,13 @@ io.on('connection', (socket:any) => {
 });
 
 app.post("/api/listeners/user", checkAuth, (req: express.Request, res: express.Response) => {
-    listenToUser(res.locals.user.user_id, (val:any) => {io.sockets.emit("user", val)});
+    listenToUser(res.locals.user.user_id, (val:any) => {io.sockets.emit("users", val)});
     res.status(200).send("Listening to user");
 });
 
 app.post("/api/listeners/experience", checkAuth, (req: express.Request, res: express.Response) => {
-    listenToExperience(req.body.id, (val:any) => {io.sockets.emit("experience", val)});
+    console.log("id i starst", req.body.exp_id);
+    listenToExperience(req.body.exp_id, (val:any) => {io.sockets.emit("experience", val)});
     res.status(200).send("Listening to exp");
 });
 

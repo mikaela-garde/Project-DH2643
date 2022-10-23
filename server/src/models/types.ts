@@ -40,12 +40,13 @@ export type User = {
 export type Experience = {
     id: string,
     name: string,
-    participants: User[],
+    participants: string[],
     start_time: string,
     end_time: string,
     template: Experience_Template,
     posts: Post[],
-    creator: string
+    creator: string,
+    img: string
 }
 
 export type Post = {

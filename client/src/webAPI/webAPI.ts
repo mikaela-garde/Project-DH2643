@@ -28,8 +28,6 @@ export const getUidFromTokenAPI = (token) => axios.post("https://localhost:8081/
 
 export const uploadAPI = (formData) => axios.post("https://localhost:8081/api/upload", formData);
 
-export const downloadAPI = () => axios.get("https://localhost:8081/api/upload" );
-
 
 export const toggleDarkModeAPI = (token, dark_mode) => axios.post("https://localhost:8081/api/users/toggle-dark", {
     token: token,
@@ -41,9 +39,8 @@ export const updateExperiencesUserAPI = (token, exp_id) => axios.post("https://l
     exp_id: exp_id
 });
 
-
 //EXPERIENCE
-export const createExperienceAPI = (token, name, start_time, end_time, participants) => axios.post("https://localhost:8081/api/experiences", {
+export const createExperienceAPI = (token, name, start_time, end_time, participants) => axios.post("https://localhost:8081/api/experiences/create", {
     token: token,
     name: name,
     start_time: start_time,
@@ -51,7 +48,13 @@ export const createExperienceAPI = (token, name, start_time, end_time, participa
     participants: participants
 });
 
-export const listenToExperienceAPI = (id, token) => axios.post("https://localhost:8081/api/listeners/experience", {
+export const listenToExperienceAPI = (token, exp_id) => axios.post("https://localhost:8081/api/listeners/experience", {
+    token: token,
+    exp_id: exp_id
+});
+
+export const getExpAPI = (token, id, withoutPosts) => axios.post("https://localhost:8081/api/experiences/fetch", {
     id: id,
+    withoutPosts: withoutPosts,
     token: token
 });

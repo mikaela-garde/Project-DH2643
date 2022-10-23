@@ -15,6 +15,7 @@ class ExperienceModel {
     posts_formatted: PostFormatted[];
     subscribers:Array<any> =[];
     creator: string;
+    img: ""
 
     constructor() {
         this.id = "";
@@ -26,6 +27,7 @@ class ExperienceModel {
         this.posts = [];
         this.posts_formatted = [];
         this.creator = "";
+        this.img = ""
     }
 
     addObserver(obs){
@@ -68,14 +70,16 @@ class ExperienceModel {
 
         return createExperienceAPI(localStorage.getItem("refreshToken"), name,start_time, end_time, [...participants.map(p => p.id)]).then((res) => {
             console.log("DENNA är creatad", res.data.exp_id);
-            UserModel.addExperience(res.data.exp_id);
+            //UserModel.addExperience(res.data.exp_id);
+
             this.listenToExperienceData(res.data.exp_id);
             return res;
         });
     }
 
     listenToExperienceData(id:string) {
-        listenToExperienceAPI(id, localStorage.getItem("refreshToken"));
+        console.log("id i client", id);
+        listenToExperienceAPI(localStorage.getItem("refreshToken"), id);
         socket.on("experience", (data) => {
             this.id = data.id;
             this.name = data.name;
@@ -85,12 +89,28 @@ class ExperienceModel {
             this.template = data.template;
             this.posts = data.posts;
             this.creator = data.creator;
+            this.img = data.img;
+            console.log("innan"  + this.posts.length)
             if (Object.keys(this.posts).length !== 0 ) {
                 this.formatPosts(this.posts);
             }
             this.notifyObservers();
             console.log("posts: ", this.posts)
             });
+    }
+
+    clear() {
+        this.id = "";
+        this.name = "";
+        this.participants = [];
+        this.start_time = "";
+        this.end_time = "";
+        this.template = Experience_Template.Timeline;
+        this.posts = [];
+        this.creator = "";
+        this.img = "";
+        this.notifyObservers();
+        console.log("log från clear", this.name);
     }
 
     formatPosts(posts: any[]) {
@@ -102,7 +122,11 @@ class ExperienceModel {
                 src: value.imgURL, 
                 width: 1000,
                 height: 1000,
-                caption: "After Rain (Jeshu John - designerspics.com)",})}
-        }}  
+                caption: value.caption
+            })}
+        }}
+       
+    
+
 
 export default ExperienceModel;

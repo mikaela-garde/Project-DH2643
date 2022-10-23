@@ -109,11 +109,9 @@ class UserModel {
     listenToUserData(token) {
         listenToUserAPI(token);
         socket.on("users", (data) => {
-            console.log("listening");
             this.id = data.id;
             this.email = data.email;
             this.first_name = data.first_name;
-            console.log(this.first_name + "detta är firstname");
             this.last_name = data.last_name;
             this.social_media = data.social_media;
             this.description = data.description;
@@ -195,11 +193,9 @@ class UserModel {
     };
 
     getExpExtended(){
-        console.log("EXPERIENCE", this.experiences);
         const calls = this.experiences.map(exp => {
 
             return getExpAPI(localStorage.getItem("refreshToken"), exp, true).then((res) => {
-                console.log("data i extended", res.data.data)
                 const ref = res.data.data;
                 return {
                     id: ref.id,

@@ -18,13 +18,13 @@ function ExpBoardPresenter () {
     const [brightness, setBrightness] = useState(false);
 
     //Reset experience model on unmount
-    console.log("heeej", name);
+    console.log("namnet på experience i presetner i board", name);
     useEffect(() => {
         return () => {
-            console.log("unmount");
-            //experienceModel.clear();
+            console.log("unmount", name);
+            experienceModel.clear();
         };
-    });
+    },[]);
     
     return React.createElement(ExpBoardView, {
         name: name,

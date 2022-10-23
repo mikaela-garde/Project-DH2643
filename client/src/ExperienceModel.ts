@@ -11,11 +11,11 @@ class ExperienceModel {
     start_time: string;
     end_time: string;
     template: Experience_Template;
-    posts: Array<any>;
+    posts: object;
     posts_formatted: PostFormatted[];
     subscribers:Array<any> =[];
     creator: string;
-    img: ""
+    img: string;
 
     constructor() {
         this.id = "";
@@ -24,7 +24,7 @@ class ExperienceModel {
         this.start_time = "";
         this.end_time = "";
         this.template = Experience_Template.Timeline;
-        this.posts = [];
+        this.posts = {};
         this.posts_formatted = [];
         this.creator = "";
         this.img = ""
@@ -78,23 +78,26 @@ class ExperienceModel {
     }
 
     listenToExperienceData(id:string) {
-        console.log("id i client", id);
+        console.log("Nu är listening experince anropad med id: ", id);
         listenToExperienceAPI(localStorage.getItem("refreshToken"), id);
         socket.on("experience", (data) => {
+            console.log("Nu får vi denna data i vår socket: ", data.id, data.name)
             this.id = data.id;
             this.name = data.name;
             this.participants = data.participants;
-            console.log("inne i listening");
             this.start_time = this.formatDate(data.start_time);
             this.end_time = this.formatDate(data.end_time);
             this.template = data.template;
             this.posts = data.posts;
+            console.log("inne i listening posts", data.posts);
             this.creator = data.creator;
+            console.log("inne i listening2");
             this.img = data.img;
-            console.log("innan"  + this.posts.length)
-            if (Object.keys(this.posts).length !== 0 ) {
+            if (this.posts != undefined) {
+                console.log("inne i listening4");
                 this.formatPosts(this.posts);
             }
+            console.log("Innan nottify");
             this.notifyObservers();
             console.log("posts: ", this.posts)
             });
@@ -107,14 +110,15 @@ class ExperienceModel {
         this.start_time = "";
         this.end_time = "";
         this.template = Experience_Template.Timeline;
-        this.posts = [];
+        this.posts = {};
+        this.posts_formatted = [];
         this.creator = "";
         this.img = "";
         this.notifyObservers();
         console.log("log från clear", this.name);
     }
 
-    formatPosts(posts: any[]) {
+    formatPosts(posts: object) {
         console.log(posts)
         this.posts_formatted = []; // TODO: don't reset Array, push next post to it but check if it's already in here
         for (let [key, value] of Object.entries(posts)) {

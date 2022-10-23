@@ -8,13 +8,12 @@ import { Heading3 } from '../../StyledComponents';
 import { Subtitle } from '../../StyledComponents';
 import { experienceModel } from '../../app';
 
-const GridView= ({summary}) =>
+const GridView= ({summary, onSelect}) =>
 
     <ExperienceContainer>
         <ExperienceGridContainer>
-        {console.log("exp i grid", summary)}
             {summary.map(exp => {
-                return <ExperienceButtonContainer key={exp.id} to="/exp-board" onClick={() =>  {console.log("hej")}}>
+                return <ExperienceButtonContainer key={exp.id} to="/exp-board" onClick={() => onSelect(exp.id)}>
                     <SingleExperienceContainer>
                         <ExperienceImgContainer src={exp.img == "" ? ExpePlaceholderImg : exp.img}></ExperienceImgContainer>
                         <Title3>{exp.name}</Title3>

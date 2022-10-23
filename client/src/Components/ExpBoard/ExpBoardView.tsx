@@ -24,10 +24,10 @@ const ExpBoardView= ({name, startTime, endTime, showAddContent, isShown, blur, b
         <ContentContainer blur={blur} brightness={brightness}>
             <NavContainerXPBoard>
                 
-                    <NavLinkXPBoard to="/">
-                    <BackButtonXP src={BackButtonArrow}></BackButtonXP>
+                    <NavLinkXPBoard to="/" >
+                    <BackButtonXP src={BackButtonArrow} ></BackButtonXP>
                     </NavLinkXPBoard>
-                    <PageTitle>My Experience</PageTitle> 
+                    <PageTitle>{name}</PageTitle> 
 
                 
             </NavContainerXPBoard>
@@ -42,7 +42,7 @@ const ExpBoardView= ({name, startTime, endTime, showAddContent, isShown, blur, b
                 <ProfileImg src={profileicon} ></ProfileImg>
                 <Username>{image.name}</Username>
                 </ProfileContainer>
-                <Caption>{image.uploaderName}</Caption>
+                <Caption>{image.caption}</Caption>
                 </InfoContainer>
                 }))} enableImageSelection={false} rowHeight={230} margin={1} ></Gallery>
             </GridPresenterContainerXPBoard>
